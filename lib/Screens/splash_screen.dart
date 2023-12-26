@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,10 +13,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, "Login");
-    });
-
+    checkLogin();
     super.initState();
   }
 
@@ -29,5 +27,27 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  void goTOLogin() {
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacementNamed(context, "Login");
+    });
+  }
+
+  void goToHome() {
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacementNamed(context, "HomePage");
+    });
+  }
+
+  void checkLogin() async {
+    final sharedpre = await SharedPreferences.getInstance();
+    final userLoin = sharedpre.getBool("KEY");
+    if (userLoin == null || userLoin == false) {
+      goTOLogin();
+    } else {
+      goToHome();
+    }
   }
 }

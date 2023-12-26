@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,7 +10,7 @@ class LoginScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: login_backgroundcolor,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -56,7 +58,9 @@ class LoginScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                onPressed: () {},
+                onPressed: () {
+                  loginbutton(context);
+                },
                 child: SizedBox(
                   width: screenWidth * 0.8,
                   height: screenHeight * 0.05,
@@ -92,5 +96,11 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  loginbutton(ctx) async {
+    final sharedpref = await SharedPreferences.getInstance();
+    await sharedpref.setBool("KEY", true);
+    Navigator.pushNamed(ctx, "HomePage");
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel/colors.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -8,7 +9,7 @@ class SignUpScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: login_backgroundcolor,
       body: SafeArea(
         child: Column(children: [
           const Padding(
@@ -17,8 +18,8 @@ class SignUpScreen extends StatelessWidget {
               "Sign Up",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 70,
-                  fontWeight: FontWeight.w300,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w400,
                   letterSpacing: 1),
             ),
           ),
