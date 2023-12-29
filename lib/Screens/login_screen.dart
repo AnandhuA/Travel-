@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,62 +31,81 @@ class LoginScreen extends StatelessWidget {
             color: Colors.white,
           ),
           child: SingleChildScrollView(
-            child: Column(children: [
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
-              const Text(
-                "Login",
-                style: TextStyle(
-                    fontSize: 70,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 2),
-              ),
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  label: Text("Email"),
-                  border: UnderlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  label: Text("Password"),
-                  border: UnderlineInputBorder(),
-                ),
-                obscureText: true,
-              ),
-              SizedBox(
-                height: screenHeight * 0.05,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                onPressed: () {
-                  loginbutton(context);
-                },
-                child: SizedBox(
-                  width: screenWidth * 0.8,
+            child: Form(
+              key: formKey,
+              child: Column(children: [
+                SizedBox(
                   height: screenHeight * 0.05,
-                  child: const Center(
-                    child: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                const Text(
+                  "Login",
+                  style: TextStyle(
+                      fontSize: 70,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 2),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.05,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter Email";
+                    } else {
+                      return null;
+                    }
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    label: Text("Email"),
+                    border: UnderlineInputBorder(),
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.05,
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter Password";
+                    } else {
+                      return null;
+                    }
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    label: Text("Password"),
+                    border: UnderlineInputBorder(),
+                  ),
+                  obscureText: true,
+                ),
+                SizedBox(
+                  height: screenHeight * 0.05,
+                ),
+                ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  onPressed: () {
+                    loginbutton(context);
+                  },
+                  child: SizedBox(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.05,
+                    child: const Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: screenHeight * 0.03,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   const Text(
                     "Don't have an Account?",
                     style: TextStyle(color: Colors.grey),
@@ -89,9 +117,9 @@ class LoginScreen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
-                ],
-              )
-            ]),
+                ])
+              ]),
+            ),
           ),
         ),
       ),
@@ -99,8 +127,10 @@ class LoginScreen extends StatelessWidget {
   }
 
   loginbutton(ctx) async {
-    final sharedpref = await SharedPreferences.getInstance();
-    await sharedpref.setBool("KEY", true);
-    Navigator.pushNamed(ctx, "HomePage");
+    if (formKey.currentState!.validate()) {
+      final sharedpref = await SharedPreferences.getInstance();
+      await sharedpref.setBool("KEY", true);
+      Navigator.pushNamed(ctx, "HomePage");
+    }
   }
 }
