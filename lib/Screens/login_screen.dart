@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/colors.dart';
@@ -11,6 +14,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool loading = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -94,12 +100,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                     width: screenWidth * 0.8,
                     height: screenHeight * 0.05,
-                    child: const Center(
-                      child: Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
+                    child: Center(
+                        child: loading
+                            ? const Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              )
+                            : const CircularProgressIndicator(
+                                color: Colors.white,
+                              )),
                   ),
                 ),
                 SizedBox(
@@ -128,9 +138,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
   loginbutton(ctx) async {
     if (formKey.currentState!.validate()) {
-      final sharedpref = await SharedPreferences.getInstance();
-      await sharedpref.setBool("KEY", true);
-      Navigator.pushNamed(ctx, "HomePage");
+      String email = emailController.text;
+      String password = passwordController.text;
+      setState(() {
+        loading = false;
+      });
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        final sharedpref = await SharedPreferences.getInstance();
+        await sharedpref.setBool("KEY", true);
+        Navigator.pushNamed(ctx, "HomePage");
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          loading = true;
+        });
+        if (e.code == "invalid-credential") {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Email and password incorrect"),
+            backgroundColor: Colors.red,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Somethig Worng"),
+            backgroundColor: Colors.red,
+          ));
+        }
+      }
     }
   }
 }

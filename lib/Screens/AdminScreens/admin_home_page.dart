@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
               decoration: InputDecoration(
@@ -48,19 +47,6 @@ class HomePage extends StatelessWidget {
                     return categories();
                   }),
             ),
-
-            // Container(
-            //   height: 200,
-            //   child: GridView.builder(
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //       ),
-            //       itemCount: 5,
-            //       itemBuilder: ((context, index) {
-            //         return categories();
-            //       })),
-            // )
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,13 +55,28 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 30),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "AddPlace");
+                  },
                   icon: const Icon(Icons.add),
                   label: const Text("Add new place"),
-                )
+                ),
               ],
             ),
-          
+            const SizedBox(
+              height: 15,
+            ),
+            Expanded(
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemCount: 15,
+                  itemBuilder: ((context, index) {
+                    return places();
+                  })),
+            )
           ],
         ),
       ),

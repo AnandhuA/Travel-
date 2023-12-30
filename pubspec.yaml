@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.2.2
   firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  dotted_border: ^2.1.0
+  image_picker: ^1.0.5
 
 dev_dependencies:
   flutter_test:

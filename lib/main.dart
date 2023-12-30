@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Screens/admin_home_page.dart';
+import 'package:travel/Screens/AdminScreens/add_place.dart';
+import 'package:travel/Screens/AdminScreens/admin_home_page.dart';
 import 'package:travel/Screens/login_screen.dart';
 import 'package:travel/Screens/signup_screen.dart';
 import 'package:travel/Screens/splash_screen.dart';
@@ -21,12 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
         "Login": (context) => const LoginScreen(),
         "Signup": (context) => const SignUpScreen(),
-        "HomePage": (context) => const HomePage()
+        "HomePage": (context) => const HomePage(),
+        "AddPlace": (context) => const AddPlace(),
       },
     );
   }
