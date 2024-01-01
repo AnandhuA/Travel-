@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/functions.dart';
 
+
+String? selectedValue;
 class CategoriesDropdown extends StatefulWidget {
   const CategoriesDropdown({super.key});
 
@@ -8,13 +11,13 @@ class CategoriesDropdown extends StatefulWidget {
 }
 
 class _CategoriesDropdownState extends State<CategoriesDropdown> {
-  String selectedValue = 'Option 1';
+
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
-        labelText: 'Select categories',
+        hintText: 'Select categories',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -29,10 +32,10 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
       onChanged: (String? newValue) {
         setState(() {
           selectedValue = newValue!;
+            
         });
       },
-      items: <String>['Option 1', 'Option 2', 'Option 3', 'Option 4']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: categoriesList.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -40,4 +43,8 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
       }).toList(),
     );
   }
+}
+
+String? dropdownValue() {
+  return selectedValue;
 }

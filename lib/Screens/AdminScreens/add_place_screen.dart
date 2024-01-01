@@ -24,6 +24,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
 
   late XFile? file;
   String image = "";
+  String? categorie;
   List<HotPlaceModel> list = [];
 
   @override
@@ -89,7 +90,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
               list.isEmpty ? const SizedBox() : const HotPlaceAdd(),
               InkWell(
                 onTap: () async {
-                  await bottomSheet(context);
+                  await addHotPlacebottomSheet(context);
                   setState(() {
                     list = hotplacesList;
                   });
@@ -104,8 +105,11 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                 height: 20,
               ),
               addButton(onpress: () {
-                print(list);
+                if (dropdownValue() != null) {
+                  categorie = dropdownValue()!;
+                }
                 addPlace(
+                    categorie: categorie!,
                     place: placeController.text,
                     district: districtController.text,
                     description: descriptionController.text,

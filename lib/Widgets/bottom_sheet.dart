@@ -4,7 +4,7 @@ import 'package:travel/Functions/functions.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 
-Future bottomSheet(ctx) {
+Future addHotPlacebottomSheet(ctx) {
   TextEditingController placeController = TextEditingController();
   late XFile? file;
   String image = "";
@@ -45,6 +45,39 @@ Future bottomSheet(ctx) {
                       Navigator.pop(context);
                     } else if (placeController.text.isEmpty) {
                     } else if (image.isEmpty) {}
+                  })
+                ],
+              ),
+            ),
+          ),
+        );
+      });
+}
+
+Future addCategoriesbottomSheet(ctx) {
+  TextEditingController categorieController = TextEditingController();
+
+  return showModalBottomSheet(
+      isScrollControlled: true,
+      context: ctx,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: SizedBox(
+            height: 700,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                children: [
+                  const Text("Add Categorie"),
+                  textField(
+                      label: "Categories", controller: categorieController),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  addButton(onpress: () {
+                    addCategories(categories: categorieController.text);
+                    Navigator.pop(context);
                   })
                 ],
               ),

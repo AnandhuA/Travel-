@@ -1,19 +1,28 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/functions.dart';
 
-Widget categories() {
+Widget categories({required int index}) {
+  String categorie = categoriesList[index];
   return Container(
     width: 125,
     margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
     decoration: BoxDecoration(
-      color: const Color.fromARGB(255, 167, 167, 167),
-      borderRadius: BorderRadius.circular(20),
+      color: const Color.fromARGB(255, 245, 234, 182),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    child: Center(
+      child: Text(
+        categorie,
+        style: const TextStyle(fontSize: 20),
+      ),
     ),
   );
 }
 
-Widget places({required String image,required String place,required String district }) {
+Widget places(
+    {required String image, required String place, required String district}) {
   return Column(
     children: [
       SizedBox(
@@ -24,7 +33,7 @@ Widget places({required String image,required String place,required String distr
             top: Radius.circular(20),
           ),
           child: Image.file(
-      File(image),
+            File(image),
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -32,12 +41,12 @@ Widget places({required String image,required String place,required String distr
       Container(
         height: 45,
         decoration: const BoxDecoration(
-          color: Colors.grey,
+          color: Color.fromARGB(255, 245, 234, 182),
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(20),
           ),
         ),
-        child:  Row(
+        child: Row(
           children: [
             const SizedBox(
               width: 10,

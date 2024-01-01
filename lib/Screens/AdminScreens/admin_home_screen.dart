@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/functions.dart';
 import 'package:travel/Models/model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
+import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/drawer_wedget.dart';
 import 'package:travel/Widgets/home_page_wedgets.dart';
 
@@ -35,7 +36,9 @@ class AdminHomeScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 30),
                 ),
                 TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      addCategoriesbottomSheet(context);
+                    },
                     icon: const Icon(Icons.add),
                     label: const Text("Add categories"))
               ],
@@ -45,9 +48,9 @@ class AdminHomeScreen extends StatelessWidget {
               height: 50,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: categoriesList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return categories();
+                    return categories(index: index);
                   }),
             ),
             Row(

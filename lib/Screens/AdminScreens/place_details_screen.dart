@@ -62,6 +62,7 @@ class PlaceDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
+        Text(place.categories),
         const SizedBox(
           height: 30,
         ),

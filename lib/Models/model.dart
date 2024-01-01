@@ -3,7 +3,7 @@ class PlaceModel {
   final String image;
   final String district;
   final String description;
-  // final String categories;
+final String categories;
   List hotplace = [];
 
   PlaceModel({
@@ -12,7 +12,7 @@ class PlaceModel {
     required this.image,
     required this.district,
     required this.description,
-    // required this.categories,
+  required this.categories,
   });
 }
 
