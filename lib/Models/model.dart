@@ -2,15 +2,18 @@ class PlaceModel {
   final String place;
   final String image;
   final String district;
-  final String discription;
-  final String categories;
+  final String description;
+  // final String categories;
+  List hotplace = [];
 
-  PlaceModel(
-      {required this.place,
-      required this.image,
-      required this.district,
-      required this.discription,
-      required this.categories});
+  PlaceModel({
+    required this.hotplace,
+    required this.place,
+    required this.image,
+    required this.district,
+    required this.description,
+    // required this.categories,
+  });
 }
 
 class HotPlaceModel {

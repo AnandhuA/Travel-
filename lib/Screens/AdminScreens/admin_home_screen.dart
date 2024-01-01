@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/functions.dart';
+import 'package:travel/Models/model.dart';
+import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/drawer_wedget.dart';
 import 'package:travel/Widgets/home_page_wedgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class AdminHomeScreen extends StatelessWidget {
+  const AdminHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +75,24 @@ class HomePage extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                   ),
-                  itemCount: 15,
+                  itemCount: placesList.length,
                   itemBuilder: ((context, index) {
-                    return places();
+                    PlaceModel place = placesList[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) =>
+                                PlaceDetailsScreen(index: index)),
+                          ),
+                        );
+                      },
+                      child: places(
+                          image: place.image,
+                          place: place.place,
+                          district: place.district),
+                    );
                   })),
             )
           ],

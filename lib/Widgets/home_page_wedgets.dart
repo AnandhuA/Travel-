@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 Widget categories() {
@@ -11,7 +13,7 @@ Widget categories() {
   );
 }
 
-Widget places() {
+Widget places({required String image,required String place,required String district }) {
   return Column(
     children: [
       SizedBox(
@@ -21,8 +23,8 @@ Widget places() {
           borderRadius: const BorderRadius.vertical(
             top: Radius.circular(20),
           ),
-          child: Image.asset(
-            "Assets/Images/Hampi.webp",
+          child: Image.file(
+      File(image),
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -35,16 +37,16 @@ Widget places() {
             bottom: Radius.circular(20),
           ),
         ),
-        child: const Row(
+        child:  Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
-            Icon(Icons.location_on_outlined),
+            const Icon(Icons.location_on_outlined),
             Text(
-              "data",
+              place,
             ),
-            Text("data nnn")
+            Text(district)
           ],
         ),
       )

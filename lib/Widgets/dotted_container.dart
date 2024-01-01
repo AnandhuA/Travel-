@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-Widget DottedContainer(
+Widget dottedContainer(
     {required String text,
     required double height,
     required double width,
