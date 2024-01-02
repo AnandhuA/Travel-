@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:travel/Functions/functions.dart';
+import 'package:travel/Models/model.dart';
 import 'package:travel/Screens/AdminScreens/add_place_screen.dart';
 import 'package:travel/Screens/AdminScreens/admin_home_screen.dart';
 import 'package:travel/Screens/login_screen.dart';
@@ -13,6 +16,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(PlaceModelAdapter().typeId)) {
+    Hive.registerAdapter(PlaceModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
+    Hive.registerAdapter(CategoriesModelAdapter());
+  }
+  await refresh();
   runApp(const MyApp());
 }
 
@@ -29,8 +40,8 @@ class MyApp extends StatelessWidget {
         "Login": (context) => const LoginScreen(),
         "Signup": (context) => const SignUpScreen(),
         "HomePage": (context) => const AdminHomeScreen(),
-        "AddPlace": (context) => AddPlaceScreen(),
-        // "PlaceDetails":(context) => const PlaceDetailsScreen()
+        "AddPlace": (context) => const AddPlaceScreen(),
+       
       },
     );
   }

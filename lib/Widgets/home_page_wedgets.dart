@@ -3,19 +3,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/functions.dart';
 
-Widget categories({required int index}) {
-  String categorie = categoriesList[index];
+Widget categories({required int index, required BuildContext context}) {
+  final categorie = categorieList.value[index];
   return Container(
-    width: 125,
     margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
     decoration: BoxDecoration(
       color: const Color.fromARGB(255, 245, 234, 182),
       borderRadius: BorderRadius.circular(30),
     ),
-    child: Center(
-      child: Text(
-        categorie,
-        style: const TextStyle(fontSize: 20),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Center(
+        child: Text(
+          categorie.categorie,
+          style: const TextStyle(fontSize: 20),
+        ),
       ),
     ),
   );

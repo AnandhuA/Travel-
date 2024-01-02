@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +13,7 @@ import 'package:travel/Widgets/hot_places.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 
 class AddPlaceScreen extends StatefulWidget {
-  AddPlaceScreen({super.key});
+  const AddPlaceScreen({super.key});
 
   @override
   State<AddPlaceScreen> createState() => _AddPlaceState();
@@ -104,19 +106,22 @@ class _AddPlaceState extends State<AddPlaceScreen> {
               const SizedBox(
                 height: 20,
               ),
-              addButton(onpress: () {
+              addButton(onpress: () async {
                 if (dropdownValue() != null) {
                   categorie = dropdownValue()!;
                 }
-                addPlace(
-                    categorie: categorie!,
-                    place: placeController.text,
-                    district: districtController.text,
-                    description: descriptionController.text,
-                    image: image,
-                    list: list);
-
-                Navigator.pushReplacementNamed(context, "HomePage");
+                PlaceModel place = PlaceModel(
+                  id: DateTime.now().microsecondsSinceEpoch.toString(),
+                  hotplace: list,
+                  place: placeController.text,
+                  image: image,
+                  district: districtController.text,
+                  description: descriptionController.text,
+                  categories: categorie!,
+                );
+                await addPlace(place: place);
+              
+                Navigator.pop(context);
               })
             ],
           ),

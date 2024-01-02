@@ -40,10 +40,17 @@ dependencies:
   firebase_auth: ^4.15.3
   dotted_border: ^2.1.0
   image_picker: ^1.0.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  popover: ^0.2.9
+
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^1.1.1
+  build_runner: ^2.1.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

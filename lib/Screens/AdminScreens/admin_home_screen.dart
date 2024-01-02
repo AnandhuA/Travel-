@@ -11,6 +11,7 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    refresh();
     return Scaffold(
       appBar: AppBar(),
       drawer: drawer(context),
@@ -37,6 +38,8 @@ class AdminHomeScreen extends StatelessWidget {
                 ),
                 TextButton.icon(
                     onPressed: () {
+                      getPlaces();
+
                       addCategoriesbottomSheet(context);
                     },
                     icon: const Icon(Icons.add),
@@ -46,12 +49,16 @@ class AdminHomeScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 15),
               height: 50,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categoriesList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return categories(index: index);
-                  }),
+              child: ValueListenableBuilder(
+                  valueListenable: categorieList,
+                  builder: ((context, List<CategoriesModel> value, child) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: value.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return categories(index: index, context: context);
+                        });
+                  })),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,30 +80,37 @@ class AdminHomeScreen extends StatelessWidget {
               height: 15,
             ),
             Expanded(
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemCount: placesList.length,
-                  itemBuilder: ((context, index) {
-                    PlaceModel place = placesList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) =>
-                                PlaceDetailsScreen(index: index)),
-                          ),
+              child: ValueListenableBuilder(
+                valueListenable: placeList,
+                builder: (context, value, child) {
+                  refresh();
+                  return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                      ),
+                      itemCount: placeList.value.length,
+                      itemBuilder: ((context, index) {
+                        PlaceModel place = placeList.value[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) =>
+                                    PlaceDetailsScreen(index: index)),
+                              ),
+                            );
+                          },
+                          child: places(
+                              image: place.image,
+                              place: place.place,
+                              district: place.district),
                         );
-                      },
-                      child: places(
-                          image: place.image,
-                          place: place.place,
-                          district: place.district),
-                    );
-                  })),
+                      }));
+                },
+              ),
             )
           ],
         ),

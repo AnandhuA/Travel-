@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:travel/Functions/functions.dart';
+import 'package:travel/Models/model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 
@@ -76,7 +77,10 @@ Future addCategoriesbottomSheet(ctx) {
                     height: 30,
                   ),
                   addButton(onpress: () {
-                    addCategories(categories: categorieController.text);
+                    CategoriesModel categorie = CategoriesModel(
+                        id: DateTime.now().microsecondsSinceEpoch.toString(),
+                        categorie: categorieController.text);
+                    addCategories(categories: categorie);
                     Navigator.pop(context);
                   })
                 ],

@@ -14,7 +14,7 @@ class HotPlaceAdd extends StatefulWidget {
 class _HotPlaceAddState extends State<HotPlaceAdd> {
   @override
   Widget build(BuildContext context) {
-    return hotplacesList.isEmpty?SizedBox():
+    return hotplacesList.isEmpty?const SizedBox():
     SizedBox(
             height: 100,
             child: ListView.separated(
