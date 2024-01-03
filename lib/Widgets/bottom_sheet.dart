@@ -42,10 +42,13 @@ Future addHotPlacebottomSheet(ctx) {
                   ),
                   addButton(onpress: () {
                     if (placeController.text.isNotEmpty && image.isNotEmpty) {
-                      addHotPlace(place: placeController.text, image: image);
+                      HotPlaceModel hotplace = HotPlaceModel(
+                          id: DateTime.now().microsecondsSinceEpoch.toString(),
+                          place: placeController.text,
+                          image: image);
+                      addHotPlace(hotplace: hotplace);
                       Navigator.pop(context);
-                    } else if (placeController.text.isEmpty) {
-                    } else if (image.isEmpty) {}
+                    } 
                   })
                 ],
               ),

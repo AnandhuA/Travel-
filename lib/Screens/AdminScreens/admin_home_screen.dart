@@ -104,7 +104,7 @@ class AdminHomeScreen extends StatelessWidget {
                             );
                           },
                           child: places(
-                              image: place.image,
+                              image: place.image[0],
                               place: place.place,
                               district: place.district),
                         );

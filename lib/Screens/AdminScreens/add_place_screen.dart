@@ -24,8 +24,9 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   TextEditingController districtController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  late XFile? file;
-  String image = "";
+  late List<XFile> file;
+  List<String> image = [];
+
   String? categorie;
   List<HotPlaceModel> list = [];
 
@@ -50,34 +51,74 @@ class _AddPlaceState extends State<AddPlaceScreen> {
               const SizedBox(
                 height: 20,
               ),
-              InkWell(
-                onTap: () async {
-                  file = (await ImagePicker()
-                      .pickImage(source: ImageSource.gallery));
-                  if (file != null) {
-                    setState(() {
-                      image = file!.path;
-                    });
-                  }
-                },
-                child: image.isEmpty
-                    ? dottedContainer(
-                        text: "Add Image",
-                        height: 200,
-                        width: double.infinity,
-                        icon: Icons.camera_alt_outlined)
-                    : SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.file(
-                            File(image),
-                            fit: BoxFit.fitWidth,
+              image.isEmpty
+                  ? InkWell(
+                      onTap: () async {
+                        file = await ImagePicker().pickMultiImage();
+                        await Future.forEach(file, (element) {
+                          image.add(element.path);
+                        });
+                        setState(() {
+                          image = image;
+                        });
+                      },
+                      child: dottedContainer(
+                          text: "Add Image",
+                          height: 200,
+                          width: double.infinity,
+                          icon: Icons.camera_alt_outlined),
+                    )
+                  : SizedBox(
+                      height: 290,
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              image.clear();
+                              file = await ImagePicker().pickMultiImage();
+                              await Future.forEach(
+                                  file, (element) => image.add(element.path));
+                              setState(() {
+                                image = image;
+                              });
+                            },
+                            child: SizedBox(
+                              height: 220,
+                              width: double.infinity,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.file(
+                                  File(image[0]),
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: image.length,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  width: 80,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Image.file(
+                                      File(image[index]),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       ),
-              ),
+                    ),
               textField(
                   label: "Description",
                   line: 4,
@@ -110,9 +151,12 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                 if (dropdownValue() != null) {
                   categorie = dropdownValue()!;
                 }
+               
+                List<HotPlaceModel> hot = hotplacesList;
+               
                 PlaceModel place = PlaceModel(
                   id: DateTime.now().microsecondsSinceEpoch.toString(),
-                  hotplace: list,
+                  hotplace: hot,
                   place: placeController.text,
                   image: image,
                   district: districtController.text,
@@ -120,7 +164,8 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                   categories: categorie!,
                 );
                 await addPlace(place: place);
-              
+                // await addHotPlaceDb(hotplace: hotplacesList);
+
                 Navigator.pop(context);
               })
             ],

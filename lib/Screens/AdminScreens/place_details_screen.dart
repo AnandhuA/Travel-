@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/functions.dart';
+import 'package:travel/Widgets/details_page_image.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   final int index;
@@ -9,43 +8,21 @@ class PlaceDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final place = placeList.value[index];
+    // getHotPlace();
+
+    // int photo = 0;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: 400,
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(30),
-                    ),
-                    child: Image.file(
-                      File(place.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: SafeArea(
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.arrow_back_ios_new),
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
+            DetailsPageImage(place: place),
+            SizedBox(
+              height: screenHeight * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -72,9 +49,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                 style: const TextStyle(fontSize: 15),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: screenHeight * 0.01),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
@@ -82,37 +57,61 @@ class PlaceDetailsScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: screenHeight * 0.01,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Text(place.description),
             ),
+            SizedBox(
+              height: screenHeight * 0.1,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
+                    width: screenWidth * 0.4,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.red),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
                       ),
                       onPressed: () {
-                        delectPlace(place.id);
+                        deletePlace(place.id);
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        "Delect",
+                        "Delete",
                         style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w300,
                             color: Colors.red),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: screenWidth * 0.4,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Edit",
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
                       ),
                     ),
                   ),

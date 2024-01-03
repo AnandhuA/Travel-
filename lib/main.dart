@@ -23,6 +23,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
     Hive.registerAdapter(CategoriesModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(HotPlaceModelAdapter().typeId)) {
+    Hive.registerAdapter(HotPlaceModelAdapter());
+  }
   await refresh();
   runApp(const MyApp());
 }
@@ -41,7 +44,6 @@ class MyApp extends StatelessWidget {
         "Signup": (context) => const SignUpScreen(),
         "HomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
-       
       },
     );
   }
