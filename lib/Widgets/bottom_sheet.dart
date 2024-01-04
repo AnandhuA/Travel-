@@ -5,6 +5,8 @@ import 'package:travel/Models/model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 
+List<Map<String, String>> hotplacesList = [];
+
 Future addHotPlacebottomSheet(ctx) {
   TextEditingController placeController = TextEditingController();
   late XFile? file;
@@ -42,13 +44,14 @@ Future addHotPlacebottomSheet(ctx) {
                   ),
                   addButton(onpress: () {
                     if (placeController.text.isNotEmpty && image.isNotEmpty) {
-                      HotPlaceModel hotplace = HotPlaceModel(
-                          id: DateTime.now().microsecondsSinceEpoch.toString(),
-                          place: placeController.text,
-                          image: image);
-                      addHotPlace(hotplace: hotplace);
+                      hotplacesListMap = {
+                        "Image": image,
+                        "Place": placeController.text
+                      };
+                      hotplacesList.add(hotplacesListMap);
+
                       Navigator.pop(context);
-                    } 
+                    }
                   })
                 ],
               ),

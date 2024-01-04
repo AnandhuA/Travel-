@@ -16,7 +16,7 @@ class PlaceModel {
   @HiveField(5)
   final String categories;
   @HiveField(6)
-  final List<HotPlaceModel> hotplace;
+  final List<Map> hotplace;
 
   PlaceModel({
     required this.id,
@@ -29,8 +29,6 @@ class PlaceModel {
   });
 }
 
-Map<String, String> lis = {};
-
 @HiveType(typeId: 2)
 class CategoriesModel {
   @HiveField(0)
@@ -39,16 +37,4 @@ class CategoriesModel {
   final String categorie;
 
   CategoriesModel({required this.id, required this.categorie});
-}
-
-@HiveType(typeId: 3)
-class HotPlaceModel {
-  @HiveField(0)
-  final String id;
-  @HiveField(1)
-  final String place;
-  @HiveField(2)
-  final String image;
-
-  HotPlaceModel({required this.id, required this.place, required this.image});
 }

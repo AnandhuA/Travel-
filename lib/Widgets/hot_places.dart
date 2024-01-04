@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Widgets/bottom_sheet.dart';
 
 class HotPlaceAdd extends StatefulWidget {
   const HotPlaceAdd({super.key});
@@ -14,13 +13,14 @@ class HotPlaceAdd extends StatefulWidget {
 class _HotPlaceAddState extends State<HotPlaceAdd> {
   @override
   Widget build(BuildContext context) {
-    return hotplacesList.isEmpty?const SizedBox():
-    SizedBox(
+    return hotplacesList.isEmpty
+        ? const SizedBox()
+        : SizedBox(
             height: 100,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                HotPlaceModel hotplace = hotplacesList[index];
+                Map hotplace = hotplacesList[index];
                 return Column(
                   children: [
                     Stack(
@@ -33,7 +33,7 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                               top: Radius.circular(10),
                             ),
                             child: Image.file(
-                              File(hotplace.image),
+                              File(hotplace["Image"]),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -69,7 +69,7 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
-                        child: Text(hotplace.place),
+                        child: Text(hotplace["Place"]),
                       ),
                     )
                   ],
@@ -81,7 +81,6 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                 );
               },
               itemCount: hotplacesList.length,
-            ),
-          );
+            ));
   }
 }

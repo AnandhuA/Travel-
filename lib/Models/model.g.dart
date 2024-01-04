@@ -18,7 +18,9 @@ class PlaceModelAdapter extends TypeAdapter<PlaceModel> {
     };
     return PlaceModel(
       id: fields[0] as String,
-      hotplace: (fields[6] as List).cast<HotPlaceModel>(),
+      hotplace: (fields[6] as List)
+          .map((dynamic e) => (e as Map).cast<dynamic, dynamic>())
+          .toList(),
       place: fields[1] as String,
       image: (fields[2] as List).cast<String>(),
       district: fields[3] as String,
@@ -91,46 +93,6 @@ class CategoriesModelAdapter extends TypeAdapter<CategoriesModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is CategoriesModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class HotPlaceModelAdapter extends TypeAdapter<HotPlaceModel> {
-  @override
-  final int typeId = 3;
-
-  @override
-  HotPlaceModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return HotPlaceModel(
-      id: fields[0] as String,
-      place: fields[1] as String,
-      image: fields[2] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, HotPlaceModel obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.place)
-      ..writeByte(2)
-      ..write(obj.image);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is HotPlaceModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -5,7 +5,8 @@ import 'package:travel/Models/model.dart';
 
 class DetailsPageImage extends StatefulWidget {
   final PlaceModel place;
-  const DetailsPageImage({super.key, required this.place});
+  final BuildContext ctx;
+  const DetailsPageImage({super.key, required this.place, required this.ctx});
 
   @override
   State<DetailsPageImage> createState() => _DetailsPageImageState();
@@ -37,7 +38,9 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
               left: 0,
               child: SafeArea(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(widget.ctx);
+                  },
                   icon: const Icon(Icons.arrow_back_ios_new),
                   color: Colors.black,
                 ),
@@ -46,7 +49,7 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
           ],
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

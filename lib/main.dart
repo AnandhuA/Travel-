@@ -23,9 +23,7 @@ void main() async {
   if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
     Hive.registerAdapter(CategoriesModelAdapter());
   }
-  if (!Hive.isAdapterRegistered(HotPlaceModelAdapter().typeId)) {
-    Hive.registerAdapter(HotPlaceModelAdapter());
-  }
+ 
   await refresh();
   runApp(const MyApp());
 }

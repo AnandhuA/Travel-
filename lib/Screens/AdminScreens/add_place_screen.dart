@@ -28,7 +28,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   List<String> image = [];
 
   String? categorie;
-  List<HotPlaceModel> list = [];
+  List list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -71,35 +71,34 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                   : SizedBox(
                       height: 290,
                       width: double.infinity,
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              image.clear();
-                              file = await ImagePicker().pickMultiImage();
-                              await Future.forEach(
-                                  file, (element) => image.add(element.path));
-                              setState(() {
-                                image = image;
-                              });
-                            },
-                            child: SizedBox(
-                              height: 220,
-                              width: double.infinity,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.file(
-                                  File(image[0]),
-                                  fit: BoxFit.fitWidth,
-                                ),
+                      child: Column(children: [
+                        InkWell(
+                          onTap: () async {
+                            image.clear();
+                            file = await ImagePicker().pickMultiImage();
+                            await Future.forEach(
+                                file, (element) => image.add(element.path));
+                            setState(() {
+                              image = image;
+                            });
+                          },
+                          child: SizedBox(
+                            height: 220,
+                            width: double.infinity,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.file(
+                                File(image[0]),
+                                fit: BoxFit.fitWidth,
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Expanded(
-                            child: ListView.builder(
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: image.length,
                               itemBuilder: (context, index) {
@@ -113,11 +112,9 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                                     ),
                                   ),
                                 );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
+                              }),
+                        )
+                      ]),
                     ),
               textField(
                   label: "Description",
@@ -148,25 +145,38 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                 height: 20,
               ),
               addButton(onpress: () async {
-                if (dropdownValue() != null) {
-                  categorie = dropdownValue()!;
+                if (districtController.text.isEmpty ||
+                    placeController.text.isEmpty ||
+                    descriptionController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Fill all details"),
+                    backgroundColor: Colors.red,
+                  ));
+                } else if (image.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Select image"),
+                    backgroundColor: Colors.red,
+                  ));
+                } else if (dropdownValue() == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Select categorey"),
+                    backgroundColor: Colors.red,
+                  ));
+                } else {
+                  categorie = dropdownValue();
+                  PlaceModel place = PlaceModel(
+                    id: DateTime.now().microsecondsSinceEpoch.toString(),
+                    hotplace: hotplacesList,
+                    place: placeController.text,
+                    image: image,
+                    district: districtController.text,
+                    description: descriptionController.text,
+                    categories: categorie!,
+                  );
+                  await addPlace(place: place);
+                  hotplacesList.clear();
+                  Navigator.pop(context);
                 }
-               
-                List<HotPlaceModel> hot = hotplacesList;
-               
-                PlaceModel place = PlaceModel(
-                  id: DateTime.now().microsecondsSinceEpoch.toString(),
-                  hotplace: hot,
-                  place: placeController.text,
-                  image: image,
-                  district: districtController.text,
-                  description: descriptionController.text,
-                  categories: categorie!,
-                );
-                await addPlace(place: place);
-                // await addHotPlaceDb(hotplace: hotplacesList);
-
-                Navigator.pop(context);
               })
             ],
           ),
