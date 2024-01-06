@@ -4,6 +4,7 @@ import 'package:travel/Functions/functions.dart';
 import 'package:travel/Models/model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
+import 'package:travel/colors.dart';
 
 List<Map<String, String>> hotplacesList = [];
 
@@ -17,7 +18,8 @@ Future addHotPlacebottomSheet(ctx) {
       context: ctx,
       builder: (BuildContext context) {
         return SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
+            decoration: const BoxDecoration(gradient: backgroundGradient2),
             height: 700,
             width: double.infinity,
             child: Padding(
@@ -69,7 +71,8 @@ Future addCategoriesbottomSheet(ctx) {
       context: ctx,
       builder: (BuildContext context) {
         return SingleChildScrollView(
-          child: SizedBox(
+          child: Container(
+            decoration: const BoxDecoration(gradient: backgroundGradient2),
             height: 700,
             width: double.infinity,
             child: Padding(
@@ -83,11 +86,13 @@ Future addCategoriesbottomSheet(ctx) {
                     height: 30,
                   ),
                   addButton(onpress: () {
-                    CategoriesModel categorie = CategoriesModel(
-                        id: DateTime.now().microsecondsSinceEpoch.toString(),
-                        categorie: categorieController.text);
-                    addCategories(categories: categorie);
-                    Navigator.pop(context);
+                    if (categorieController.text.isNotEmpty) {
+                      CategoriesModel categorie = CategoriesModel(
+                          id: DateTime.now().microsecondsSinceEpoch.toString(),
+                          categorie: categorieController.text);
+                      addCategories(categories: categorie);
+                      Navigator.pop(context);
+                    }
                   })
                 ],
               ),

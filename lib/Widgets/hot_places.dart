@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
+import 'package:travel/colors.dart';
 
 class HotPlaceAdd extends StatefulWidget {
   const HotPlaceAdd({super.key});
@@ -61,7 +62,7 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                     Container(
                       width: 100,
                       decoration: BoxDecoration(
-                        color: Colors.amber[100],
+                        color: lightColor,
                         borderRadius: const BorderRadius.vertical(
                           bottom: Radius.circular(10),
                         ),
@@ -69,7 +70,11 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
-                        child: Text(hotplace["Place"]),
+                        child: Text(
+                          hotplace["Place"],
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
                     )
                   ],

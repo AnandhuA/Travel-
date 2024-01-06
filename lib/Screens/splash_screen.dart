@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,10 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset(
-          "Assets/Images/logo.png",
-          width: 100,
+      body: Expanded(
+        child: Container(
+          decoration: BoxDecoration(gradient: backgroundGradient),
+          child: Center(
+            child: Image.asset(
+              "Assets/Images/logo.png",
+              width: 100,
+            ),
+          ),
         ),
       ),
     );

@@ -25,151 +25,168 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: login_backgroundcolor,
+      backgroundColor: loginBackgroundColor,
       body: SafeArea(
-        child: Column(children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 30),
-            child: Text(
-              "Sign Up",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 50,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 1),
+        child: Stack(children: [
+          Positioned(
+            left: 0,
+            top: 30,
+            child: Image.asset(
+              "Assets/Images/6.png",
+              width: 200,
             ),
           ),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 50),
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(150)),
-                color: Colors.white,
-              ),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: screenHeight * 0.1,
+          Positioned(
+            right: 0,
+            top: 18,
+            child: Image.asset(
+              "Assets/Images/1.png",
+              width: 240,
+            ),
+          ),
+          Container(
+            height: double.infinity,
+            margin: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
+                color: backgroundColor,
+                gradient: backgroundGradientLogin),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
+                    const Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          color: textColor1,
+                          fontSize: 50,
+                          fontWeight: FontWeight.w400,
+                          letterSpacing: 1),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter name";
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: usernameController,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        label: Text("Name"),
+                        border: UnderlineInputBorder(),
                       ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter name";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: usernameController,
-                        keyboardType: TextInputType.name,
-                        decoration: const InputDecoration(
-                          label: Text("Name"),
-                          border: UnderlineInputBorder(),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter Email";
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        label: Text("Email"),
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter phone number";
+                        } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
+                          return "Invalid phone number";
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        label: Text("Phone"),
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Enter Password";
+                        } else {
+                          return null;
+                        }
+                      },
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        label: Text("Password"),
+                        border: UnderlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.04,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: buttonColor),
+                      onPressed: () {
+                        signUp();
+                      },
+                      child: SizedBox(
+                        width: screenWidth * 0.8,
+                        height: screenHeight * 0.05,
+                        child: Center(
+                          child: loading
+                              ? const Text(
+                                  "Sign up",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                )
+                              : const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
                         ),
                       ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter Email";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                          label: Text("Email"),
-                          border: UnderlineInputBorder(),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already have an Account ",
+                          style: TextStyle(color: Colors.grey),
                         ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter phone number";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: phoneController,
-                        keyboardType: TextInputType.phone,
-                        decoration: const InputDecoration(
-                          label: Text("Phone"),
-                          border: UnderlineInputBorder(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Enter Password";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          label: Text("Password"),
-                          border: UnderlineInputBorder(),
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.04,
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black),
-                        onPressed: () {
-                          signUp();
-                        },
-                        child: SizedBox(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.05,
-                          child: Center(
-                              child: loading
-                                  ? const Text(
-                                      "Sign up",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    )
-                                  : const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )),
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Already have an Account",
-                            style: TextStyle(color: Colors.grey),
+                        InkWell(
+                          onTap: () => Navigator.pushNamed(context, "Login"),
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(fontWeight: FontWeight.w500),
                           ),
-                          InkWell(
-                            onTap: () => Navigator.pushNamed(context, "Login"),
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),

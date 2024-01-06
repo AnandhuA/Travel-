@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:travel/Models/model.dart';
+import 'package:travel/colors.dart';
 
 class DetailsPageImage extends StatefulWidget {
   final PlaceModel place;
@@ -73,7 +74,7 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                           ? Container(
                               decoration: BoxDecoration(
                                 border:
-                                    Border.all(color: Colors.blue, width: 3),
+                                    Border.all(color: borderColor, width: 3),
                               ),
                               child: Image.file(
                                 File(widget.place.image[index]),

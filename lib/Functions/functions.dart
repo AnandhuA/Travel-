@@ -19,6 +19,12 @@ addCategories({required CategoriesModel categories}) async {
   refresh();
 }
 
+deleteCategorie({required CategoriesModel categories}) async {
+  final categorieBox = await Hive.openBox<CategoriesModel>(categoryDbName);
+  await categorieBox.delete(categories.id);
+  refresh();
+}
+
 Future<List<CategoriesModel>> getCategories() async {
   final categorieBox = await Hive.openBox<CategoriesModel>(categoryDbName);
   return categorieBox.values.toList();

@@ -23,7 +23,7 @@ void main() async {
   if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
     Hive.registerAdapter(CategoriesModelAdapter());
   }
- 
+
   await refresh();
   runApp(const MyApp());
 }
@@ -34,7 +34,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        
+      ),
+      color: Colors.white,
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
