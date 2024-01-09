@@ -61,9 +61,9 @@ class _HotPlaceAddState extends State<HotPlaceAdd> {
                     ),
                     Container(
                       width: 100,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: lightColor,
-                        borderRadius: const BorderRadius.vertical(
+                        borderRadius: BorderRadius.vertical(
                           bottom: Radius.circular(10),
                         ),
                       ),

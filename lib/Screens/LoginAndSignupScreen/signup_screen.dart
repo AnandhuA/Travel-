@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/animation.dart';
 import 'package:travel/colors.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -206,6 +207,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        animationSignup(context: context);
       } on FirebaseAuthException catch (e) {
         setState(() {
           loading = true;

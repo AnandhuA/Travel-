@@ -161,27 +161,32 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
-      try {
-        await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
-        final sharedpref = await SharedPreferences.getInstance();
-        await sharedpref.setBool("KEY", true);
+      if (email == "admin" && password == "admin") {
         Navigator.pushNamedAndRemoveUntil(
-            context, "HomePage", (route) => false);
-      } on FirebaseAuthException catch (e) {
-        setState(() {
-          loading = true;
-        });
-        if (e.code == "invalid-credential") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Email and password incorrect"),
-            backgroundColor: Colors.red,
-          ));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Somethig Worng"),
-            backgroundColor: Colors.red,
-          ));
+            context, "AdminHomePage", (route) => false);
+      } else {
+        try {
+          await _auth.signInWithEmailAndPassword(
+              email: email, password: password);
+          final sharedpref = await SharedPreferences.getInstance();
+          await sharedpref.setBool("KEY", true);
+          Navigator.pushNamedAndRemoveUntil(
+              context, "IntroPage", (route) => false);
+        } on FirebaseAuthException catch (e) {
+          setState(() {
+            loading = true;
+          });
+          if (e.code == "invalid-credential") {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Email and password incorrect"),
+              backgroundColor: Colors.red,
+            ));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Somethig Worng"),
+              backgroundColor: Colors.red,
+            ));
+          }
         }
       }
     }

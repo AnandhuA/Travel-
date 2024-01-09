@@ -14,7 +14,6 @@ class CategoriesDropdown extends StatefulWidget {
 class _CategoriesDropdownState extends State<CategoriesDropdown> {
   @override
   Widget build(BuildContext context) {
-    print(categorieList.value.map((value) => value.categorie).toList());
 
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(

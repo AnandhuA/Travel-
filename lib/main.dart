@@ -5,9 +5,11 @@ import 'package:travel/Functions/functions.dart';
 import 'package:travel/Models/model.dart';
 import 'package:travel/Screens/AdminScreens/add_place_screen.dart';
 import 'package:travel/Screens/AdminScreens/admin_home_screen.dart';
-import 'package:travel/Screens/login_screen.dart';
-import 'package:travel/Screens/signup_screen.dart';
-import 'package:travel/Screens/splash_screen.dart';
+import 'package:travel/Screens/IntroScreens/intro_pages.dart';
+import 'package:travel/Screens/StartScreens/splash_screen.dart';
+import 'package:travel/Screens/UserScreens/user_home_screen.dart';
+import 'package:travel/Screens/LoginAndSignupScreen/login_screen.dart';
+import 'package:travel/Screens/LoginAndSignupScreen/signup_screen.dart';
 import 'package:travel/firebase_options.dart';
 
 void main() async {
@@ -34,17 +36,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        
-      ),
       color: Colors.white,
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
         "Login": (context) => const LoginScreen(),
         "Signup": (context) => const SignUpScreen(),
-        "HomePage": (context) => const AdminHomeScreen(),
+        "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
+        "HomePage": (context) => const UserHomeScreen(),
+        "IntroPage":(context) => IntroScreen()
+        //  "Animation": (context) =>  AnimationScreen(),
       },
     );
   }
