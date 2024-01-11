@@ -41,10 +41,12 @@ class _IntroScreenState extends State<IntroScreen> {
               onTap: () {
                 _controller.jumpToPage(2);
               },
-              child: const Text(
-                "Skip",
-                style: TextStyle(fontSize: 20),
-              ),
+              child: lastPage
+                  ? const SizedBox()
+                  : const Text(
+                      "Skip",
+                      style: TextStyle(fontSize: 20),
+                    ),
             ),
           ),
           Container(

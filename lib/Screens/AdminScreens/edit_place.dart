@@ -68,6 +68,7 @@ class _EditPlaceState extends State<EditPlaceScreen> {
                   height: 20,
                 ),
                 addButton(
+                  color: buttonColor,
                     add: "Update",
                     onpress: () async {
                       if (districtController.text.isEmpty ||

@@ -46,6 +46,8 @@ dependencies:
   smooth_page_indicator: 1.1.0
   lottie: 2.7.0
   google_nav_bar: ^5.0.6
+  table_calendar: ^3.0.9
+  numberpicker: ^2.1.2
 
   
 

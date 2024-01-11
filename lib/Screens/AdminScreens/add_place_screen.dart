@@ -154,7 +154,9 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                addButton(onpress: () async {
+                addButton(
+                  color: buttonColor,
+                  onpress: () async {
                   if (districtController.text.isEmpty ||
                       placeController.text.isEmpty ||
                       descriptionController.text.isEmpty) {

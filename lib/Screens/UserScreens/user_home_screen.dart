@@ -26,7 +26,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Image.asset(
+            "Assets/Images/00.png",
+            width: 170,
+          ),
+          const SizedBox(
+            width: 30,
+          )
+        ],
+      ),
       drawer: drawer(context),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -86,7 +96,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               ),
             ]),
       ),
-      body: Center(child: screen[selectedindex]),
+      body: screen[selectedindex],
     );
   }
 }

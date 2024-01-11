@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/colors.dart';
+import 'package:travel/main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -47,13 +48,31 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  void goToAdminHome() {
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacementNamed(context, "AdminHomePage");
+    });
+  }
+
   void checkLogin() async {
-    final sharedpre = await SharedPreferences.getInstance();
-    final userLoin = sharedpre.getBool("KEY");
-    if (userLoin == null || userLoin == false) {
+    // final sharedpre = await SharedPreferences.getInstance();
+    // final userLoin = sharedpre.getBool("KEY");
+    final firebaseAuth = FirebaseAuth.instance;
+
+    if (firebaseAuth.currentUser == null) {
       goTOLogin();
+    } else if (firebaseAuth.currentUser!.email == "anandhu1407@gmail.com") {
+      admin = true;
+
+      goToAdminHome();
     } else {
+      admin = false;
       goToHome();
     }
+    // if (userLoin == null || userLoin == false) {
+    //   goTOLogin();
+    // } else {
+    //   goToHome();
+    // }
   }
 }

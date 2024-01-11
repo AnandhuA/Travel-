@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class IntroScreen3 extends StatelessWidget {
   const IntroScreen3({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Find Your Destination",
+              const SizedBox(
+                height: 200,
+              ),
+              Lottie.asset(
+                "Assets/Animations/explore.json",
+                height: 150,
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              const Text(
+                "Explore Destinations",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
-                "Life is an adventure.Let's make it an",
+              const Text(
+                "Discover the places for your trip in the",
                 style: TextStyle(color: Colors.grey),
               ),
-              Text(
-                "unforgetable one",
+              const Text(
+                "World and feed great.",
                 style: TextStyle(color: Colors.grey),
               ),
             ],

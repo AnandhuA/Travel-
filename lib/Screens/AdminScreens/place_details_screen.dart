@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/functions.dart';
 import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
 import 'package:travel/colors.dart';
+import 'package:travel/main.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   final int index;
@@ -80,7 +80,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                       ),
               ),
               SizedBox(
-                height: screenHeight * 0.01,
+                height: screenHeight * 0.03,
               ),
               GridView.builder(
                   shrinkWrap: true,
@@ -92,7 +92,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                   itemCount: place.hotplace.length,
                   itemBuilder: (context, index) {
                     Map hotplace = place.hotplace[index];
-
+                    print("---$admin");
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(children: [
@@ -136,87 +136,89 @@ class PlaceDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xfff2d9f7),
-                          ),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (ctx) {
-                                  return AlertDialog(
-                                    title: const Text("Delete"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(ctx);
-                                        },
-                                        child: const Text("NO"),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          deletePlace(place.id);
-                                          Navigator.pop(ctx);
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("Yes"),
-                                      )
-                                    ],
-                                  );
-                                });
-                          },
-                          child: const Text(
-                            "Delete",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.red),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          color: buttonColor,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: buttonColor,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) => EditPlaceScreen(
-                                        placeModel: place,
-                                      )),
-                                ));
-                          },
-                          child: const Text(
-                            "Edit",
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ]),
-              ),
+              admin
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              width: screenWidth * 0.4,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: const Color(0xfff2d9f7),
+                                ),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        return AlertDialog(
+                                          title: const Text("Delete"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(ctx);
+                                              },
+                                              child: const Text("NO"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                deletePlace(place.id);
+                                                Navigator.pop(ctx);
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Yes"),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                },
+                                child: const Text(
+                                  "Delete",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.red),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: screenWidth * 0.4,
+                              decoration: BoxDecoration(
+                                color: buttonColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: buttonColor,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: ((context) => EditPlaceScreen(
+                                              placeModel: place,
+                                            )),
+                                      ));
+                                },
+                                child: const Text(
+                                  "Edit",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ]),
+                    )
+                  : const SizedBox(),
               SizedBox(
-                height: screenHeight * 0.02,
+                height: screenHeight * 0.01,
               ),
             ]),
           ),

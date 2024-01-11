@@ -12,6 +12,7 @@ import 'package:travel/Screens/LoginAndSignupScreen/login_screen.dart';
 import 'package:travel/Screens/LoginAndSignupScreen/signup_screen.dart';
 import 'package:travel/firebase_options.dart';
 
+late bool admin;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
         "HomePage": (context) => const UserHomeScreen(),
-        "IntroPage":(context) => IntroScreen()
+        "IntroPage": (context) => IntroScreen()
         //  "Animation": (context) =>  AnimationScreen(),
       },
     );

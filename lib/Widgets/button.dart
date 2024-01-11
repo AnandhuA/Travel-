@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:travel/colors.dart';
 
-Widget addButton({required onpress, String add = "Add"}) {
+Widget addButton({required onpress, String add = "Add", required Color color}) {
   return SizedBox(
     width: double.infinity,
     child: ElevatedButton(
       onPressed: onpress,
-      style: ElevatedButton.styleFrom(backgroundColor: buttonColor),
+      style: ElevatedButton.styleFrom(backgroundColor: color),
       child: Text(
         add,
         style: const TextStyle(

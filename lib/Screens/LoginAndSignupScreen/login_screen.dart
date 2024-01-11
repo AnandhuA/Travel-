@@ -2,8 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/colors.dart';
+import 'package:travel/main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -161,32 +161,37 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
-      if (email == "admin" && password == "admin") {
-        Navigator.pushNamedAndRemoveUntil(
-            context, "AdminHomePage", (route) => false);
-      } else {
-        try {
-          await _auth.signInWithEmailAndPassword(
-              email: email, password: password);
-          final sharedpref = await SharedPreferences.getInstance();
-          await sharedpref.setBool("KEY", true);
-          Navigator.pushNamedAndRemoveUntil(
-              context, "IntroPage", (route) => false);
-        } on FirebaseAuthException catch (e) {
-          setState(() {
-            loading = true;
-          });
-          if (e.code == "invalid-credential") {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Email and password incorrect"),
-              backgroundColor: Colors.red,
-            ));
+
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        // final sharedpref = await SharedPreferences.getInstance();
+        // await sharedpref.setBool("KEY", true);
+        if (_auth.currentUser != null) {
+          if (_auth.currentUser!.email == "anandhu1407@gmail.com") {
+            admin = true;
+            Navigator.pushNamedAndRemoveUntil(
+                context, "AdminHomePage", (route) => false);
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Somethig Worng"),
-              backgroundColor: Colors.red,
-            ));
+            admin = false;
+            Navigator.pushNamedAndRemoveUntil(
+                context, "IntroPage", (route) => false);
           }
+        }
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          loading = true;
+        });
+        if (e.code == "invalid-credential") {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Email and password incorrect"),
+            backgroundColor: Colors.red,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Somethig Worng"),
+            backgroundColor: Colors.red,
+          ));
         }
       }
     }

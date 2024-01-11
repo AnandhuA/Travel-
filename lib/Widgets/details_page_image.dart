@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:travel/Models/model.dart';
 import 'package:travel/colors.dart';
+import 'package:travel/main.dart';
 
 class DetailsPageImage extends StatefulWidget {
   final PlaceModel place;
@@ -34,9 +35,38 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                 ),
               ),
             ),
+            admin
+                ? const SizedBox()
+                : Positioned(
+                    right: 30,
+                    child: SafeArea(
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(100, 255, 255, 255),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.share),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(100, 255, 255, 255),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.favorite_border),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
             Positioned(
-              top: 0,
-              left: 0,
+              left: 10,
               child: SafeArea(
                 child: IconButton(
                   onPressed: () {

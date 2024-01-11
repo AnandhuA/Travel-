@@ -44,7 +44,9 @@ Future addHotPlacebottomSheet(ctx) {
                   const SizedBox(
                     height: 30,
                   ),
-                  addButton(onpress: () {
+                  addButton(
+                    color: buttonColor,
+                    onpress: () {
                     if (placeController.text.isNotEmpty && image.isNotEmpty) {
                       hotplacesListMap = {
                         "Image": image,
@@ -85,7 +87,9 @@ Future addCategoriesbottomSheet(ctx) {
                   const SizedBox(
                     height: 30,
                   ),
-                  addButton(onpress: () {
+                  addButton(
+                    color: buttonColor,
+                    onpress: () {
                     if (categorieController.text.isNotEmpty) {
                       CategoriesModel categorie = CategoriesModel(
                           id: DateTime.now().microsecondsSinceEpoch.toString(),
