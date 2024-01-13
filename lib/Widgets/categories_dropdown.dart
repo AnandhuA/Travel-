@@ -3,6 +3,7 @@ import 'package:travel/Functions/functions.dart';
 import 'package:travel/Models/model.dart';
 
 String? value;
+CategoriesModel? categorie;
 
 class CategoriesDropdown extends StatefulWidget {
   const CategoriesDropdown({super.key});
@@ -14,7 +15,6 @@ class CategoriesDropdown extends StatefulWidget {
 class _CategoriesDropdownState extends State<CategoriesDropdown> {
   @override
   Widget build(BuildContext context) {
-
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         hintText: 'Select categories',
@@ -36,15 +36,20 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
       },
       items: categorieList.value
           .map<DropdownMenuItem<String>>((CategoriesModel value) {
-            return DropdownMenuItem<String>(
-              value: value.categorie,
-              child: Text(value.categorie),
-            );
-          })
-         
-          .toList(),
+        return DropdownMenuItem<String>(
+          value: value.categorie,
+          child: Text(value.categorie),
+          onTap: () {
+            categorie = value;
+          },
+        );
+      }).toList(),
     );
   }
+}
+
+CategoriesModel? dropdownCategorie() {
+  return categorie;
 }
 
 String? dropdownValue() {

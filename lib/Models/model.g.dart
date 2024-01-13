@@ -25,7 +25,7 @@ class PlaceModelAdapter extends TypeAdapter<PlaceModel> {
       image: (fields[2] as List).cast<String>(),
       district: fields[3] as String,
       description: fields[4] as String,
-      categories: fields[5] as String,
+      categories: fields[5] as CategoriesModel,
     );
   }
 

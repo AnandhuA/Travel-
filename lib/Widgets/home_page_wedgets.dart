@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/functions.dart';
+import 'package:travel/Models/model.dart';
+import 'package:travel/Widgets/button.dart';
+import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/colors.dart';
 
 Widget categories({required int index, required BuildContext context}) {
@@ -22,6 +25,62 @@ Widget categories({required int index, required BuildContext context}) {
           ),
           PopupMenuButton(itemBuilder: (context) {
             return [
+              PopupMenuItem(
+                onTap: () {
+                  TextEditingController categorieController =
+                      TextEditingController();
+                  categorieController.text = categorie.categorie;
+                  showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SingleChildScrollView(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                gradient: backgroundGradient2),
+                            height: 700,
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: Column(
+                                children: [
+                                  const Text("Add Categorie"),
+                                  textField(
+                                      label: "Categories",
+                                      controller: categorieController),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  addButton(
+                                      add: "Update",
+                                      color: buttonColor,
+                                      onpress: () {
+                                        if (categorieController
+                                            .text.isNotEmpty) {
+                                          CategoriesModel categoriemodel =
+                                              CategoriesModel(
+                                                  id: categorie.id,
+                                                  categorie:
+                                                      categorieController.text);
+                                          editCategories(
+                                              categories: categoriemodel);
+                                          Navigator.pop(context);
+                                        }
+                                      })
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      });
+                },
+                child: const SizedBox(
+                  height: 20,
+                  width: 50,
+                  child: Text("Edit"),
+                ),
+              ),
               PopupMenuItem(
                 onTap: () {
                   showDialog(

@@ -45,7 +45,7 @@ class PlaceDetailsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
-                  place.categories,
+                  place.categories.categorie,
                   style: const TextStyle(fontSize: 17),
                 ),
               ),

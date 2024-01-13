@@ -14,7 +14,7 @@ class PlaceModel {
   @HiveField(4)
   final String description;
   @HiveField(5)
-  final String categories;
+  final CategoriesModel categories;
   @HiveField(6)
   final List<Map> hotplace;
 
@@ -27,7 +27,28 @@ class PlaceModel {
     required this.description,
     required this.categories,
   });
+    PlaceModel updateModel({
+    String? id,
+    List<Map>? hotplace,
+    String? place,
+    List<String>? image,
+    String? district,
+    String? description,
+    CategoriesModel? categories,
+  }) {
+    return PlaceModel(
+      id: id ?? this.id,
+      hotplace: hotplace ?? this.hotplace,
+      place: place ?? this.place,
+      image: image ?? this.image,
+      district: district ?? this.district,
+      description: description ?? this.description,
+      categories: categories ?? this.categories,
+    );
+  }
+
 }
+
 
 @HiveType(typeId: 2)
 class CategoriesModel {

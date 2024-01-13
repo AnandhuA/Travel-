@@ -16,13 +16,26 @@ const hotPlaceDbName = "hotPlace-database";
 addCategories({required CategoriesModel categories}) async {
   final categorieBox = await Hive.openBox<CategoriesModel>(categoryDbName);
   await categorieBox.put(categories.id, categories);
-  refresh();
+  await refresh();
+}
+
+editCategories({required CategoriesModel categories}) async {
+  final categorieBox = await Hive.openBox<CategoriesModel>(categoryDbName);
+  await categorieBox.put(categories.id, categories);
+  final places = await getPlaces();
+  for (final place in places) {
+    if (place.categories.id == categories.id) {
+      final updatedPlace = place.updateModel(categories: categories);
+      await updatePlace(place: updatedPlace);
+    }
+  }
+  await refresh();
 }
 
 deleteCategorie({required CategoriesModel categories}) async {
   final categorieBox = await Hive.openBox<CategoriesModel>(categoryDbName);
   await categorieBox.delete(categories.id);
-  refresh();
+  await refresh();
 }
 
 Future<List<CategoriesModel>> getCategories() async {
@@ -40,7 +53,7 @@ addPlace({
 }) async {
   final placeModelBox = await Hive.openBox<PlaceModel>(placeDbName);
   await placeModelBox.put(place.id, place);
-  refresh();
+  await refresh();
 }
 
 updatePlace({required PlaceModel place}) async {
@@ -52,7 +65,7 @@ updatePlace({required PlaceModel place}) async {
 deletePlace(String placeId) async {
   final placeBox = await Hive.openBox<PlaceModel>(placeDbName);
   await placeBox.delete(placeId);
-  refresh();
+  await refresh();
 }
 
 refresh() async {
@@ -60,13 +73,19 @@ refresh() async {
   final categorie = await getCategories();
   placeList.value.clear();
   categorieList.value.clear();
-  await Future.forEach(places, (PlaceModel placeModel) {
-    placeList.value.add(placeModel);
-  });
-  await Future.forEach(categorie, (CategoriesModel categoriesModel) {
-    categorieList.value.add(categoriesModel);
-  });
+
+  placeList.value = List.from(places);
+  categorieList.value = List.from(categorie);
 
   categorieList.notifyListeners();
   placeList.notifyListeners();
+//   await Future.forEach(places, (PlaceModel placeModel) {
+//     placeList.value.add(placeModel);
+//   });
+//   await Future.forEach(categorie, (CategoriesModel categoriesModel) {
+//     categorieList.value.add(categoriesModel);
+//   });
+
+//   categorieList.notifyListeners();
+//   placeList.notifyListeners();
 }

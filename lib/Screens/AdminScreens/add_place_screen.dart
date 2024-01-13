@@ -26,7 +26,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   TextEditingController descriptionController = TextEditingController();
   late List<XFile> file;
   List<String> image = [];
-  String? categorie;
+CategoriesModel? categorie;
   List list = [];
 
   @override
@@ -175,8 +175,15 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                           content: Text("Select categorey"),
                           backgroundColor: Colors.red,
                         ));
+                      } else if (dropdownCategorie() == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Select categorey"),
+                          backgroundColor: Colors.red,
+                        ));
                       } else {
-                        categorie = dropdownValue();
+                        categorie = dropdownCategorie();
+                        
                         PlaceModel place = PlaceModel(
                           id: DateTime.now().microsecondsSinceEpoch.toString(),
                           hotplace: hotplacesList,
