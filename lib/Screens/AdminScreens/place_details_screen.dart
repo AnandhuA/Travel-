@@ -92,7 +92,6 @@ class PlaceDetailsScreen extends StatelessWidget {
                   itemCount: place.hotplace.length,
                   itemBuilder: (context, index) {
                     Map hotplace = place.hotplace[index];
-                    print("---$admin");
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(children: [
@@ -202,6 +201,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: ((context) => EditPlaceScreen(
                                               placeModel: place,
+                                              index: index,
                                             )),
                                       ));
                                 },

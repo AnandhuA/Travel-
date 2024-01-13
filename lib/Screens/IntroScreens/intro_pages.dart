@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_final_fields, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:travel/Screens/IntroScreens/intro_screen1.dart';
@@ -7,14 +5,14 @@ import 'package:travel/Screens/IntroScreens/intro_screen2.dart';
 import 'package:travel/Screens/IntroScreens/intro_screens3.dart';
 
 class IntroScreen extends StatefulWidget {
-  IntroScreen({super.key});
+  const IntroScreen({super.key});
 
   @override
   State<IntroScreen> createState() => _IntroScreenState();
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  PageController _controller = PageController();
+  PageController controller = PageController();
   bool lastPage = false;
 
   @override
@@ -23,23 +21,19 @@ class _IntroScreenState extends State<IntroScreen> {
       body: Stack(
         children: [
           PageView(
-            controller: _controller,
+            controller: controller,
             onPageChanged: (value) {
               setState(() {
                 lastPage = (value == 2);
               });
             },
-            children: [
-              const IntroScreen1(),
-              const IntroScreen2(),
-              const IntroScreen3()
-            ],
+            children: const [IntroScreen1(), IntroScreen2(), IntroScreen3()],
           ),
           Container(
             alignment: const Alignment(0.7, -0.7),
             child: InkWell(
               onTap: () {
-                _controller.jumpToPage(2);
+                Navigator.pushReplacementNamed(context, "HomePage");
               },
               child: lastPage
                   ? const SizedBox()
@@ -50,7 +44,7 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
           ),
           Container(
-            alignment: const Alignment(-0.5, 0.44),
+            alignment: const Alignment(0, 0.44),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -62,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       dotHeight: 4,
                       activeDotColor: Colors.orange,
                     ),
-                    controller: _controller,
+                    controller: controller,
                     count: 3),
                 lastPage
                     ? InkWell(
@@ -75,7 +69,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         ))
                     : InkWell(
                         onTap: () {
-                          _controller.nextPage(
+                          controller.nextPage(
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.decelerate);
                         },

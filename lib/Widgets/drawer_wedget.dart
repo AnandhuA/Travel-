@@ -14,11 +14,11 @@ Widget drawer(context) {
             size: 70,
           ),
         ),
-        const Center(
-            child: Text(
-          "Admin",
-          style: TextStyle(fontSize: 40),
-        )),
+        Center(
+          child: Text(
+            FirebaseAuth.instance.currentUser!.email.toString(),
+          ),
+        ),
         const SizedBox(
           height: 50,
         ),

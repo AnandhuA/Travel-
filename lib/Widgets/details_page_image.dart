@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Models/model.dart';
+import 'package:travel/Widgets/image_view.dart';
 import 'package:travel/colors.dart';
 import 'package:travel/main.dart';
 
@@ -22,18 +24,40 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
       children: [
         Stack(
           children: [
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(30),
-                ),
-                child: Image.file(
-                  File(widget.place.image[photo]),
-                  fit: BoxFit.cover,
-                ),
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 400,
+                viewportFraction: 1.0,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    photo = index;
+                  });
+                },
               ),
+              items: widget.place.image.map((imagePath) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImageView(
+                          image: widget.place.image,
+                          initialIndex: photo,
+                        ),
+                      ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(30),
+                    ),
+                    child: Image.file(
+                      File(widget.place.image[photo]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
             admin
                 ? const SizedBox()

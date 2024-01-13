@@ -72,7 +72,7 @@ Widget places(
         ),
         child: Image.file(
           File(image),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ),
     ),

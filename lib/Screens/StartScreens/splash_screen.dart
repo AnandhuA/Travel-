@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/colors.dart';
@@ -22,41 +21,36 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: Container(
-          decoration: const BoxDecoration(gradient: backgroundGradient),
-          child: Center(
+      body: Container(
+        decoration: const BoxDecoration(gradient: backgroundGradient),
+        child: Center(
             child: Image.asset(
-              "Assets/Images/logo.png",
-              width: 100,
-            ),
-          ),
-        ),
+          "Assets/Images/logo.png",
+          width: 150,
+        )),
       ),
     );
   }
 
   void goTOLogin() {
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, "Login");
     });
   }
 
   void goToHome() {
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, "HomePage");
     });
   }
 
   void goToAdminHome() {
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, "AdminHomePage");
     });
   }
 
   void checkLogin() async {
-    // final sharedpre = await SharedPreferences.getInstance();
-    // final userLoin = sharedpre.getBool("KEY");
     final firebaseAuth = FirebaseAuth.instance;
 
     if (firebaseAuth.currentUser == null) {
@@ -69,10 +63,5 @@ class _SplashScreenState extends State<SplashScreen> {
       admin = false;
       goToHome();
     }
-    // if (userLoin == null || userLoin == false) {
-    //   goTOLogin();
-    // } else {
-    //   goToHome();
-    // }
   }
 }

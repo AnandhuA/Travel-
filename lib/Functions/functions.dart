@@ -46,6 +46,7 @@ addPlace({
 updatePlace({required PlaceModel place}) async {
   final placeModelBox = await Hive.openBox<PlaceModel>(placeDbName);
   await placeModelBox.put(place.id, place);
+  await refresh();
 }
 
 deletePlace(String placeId) async {

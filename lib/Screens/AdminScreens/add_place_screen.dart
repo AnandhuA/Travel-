@@ -24,10 +24,8 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   TextEditingController placeController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-
   late List<XFile> file;
   List<String> image = [];
-
   String? categorie;
   List list = [];
 
@@ -155,41 +153,47 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                   height: 20,
                 ),
                 addButton(
-                  color: buttonColor,
-                  onpress: () async {
-                  if (districtController.text.isEmpty ||
-                      placeController.text.isEmpty ||
-                      descriptionController.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Fill all details"),
-                      backgroundColor: Colors.red,
-                    ));
-                  } else if (image.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Select image"),
-                      backgroundColor: Colors.red,
-                    ));
-                  } else if (dropdownValue() == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Select categorey"),
-                      backgroundColor: Colors.red,
-                    ));
-                  } else {
-                    categorie = dropdownValue();
-                    PlaceModel place = PlaceModel(
-                      id: DateTime.now().microsecondsSinceEpoch.toString(),
-                      hotplace: hotplacesList,
-                      place: placeController.text,
-                      image: image,
-                      district: districtController.text,
-                      description: descriptionController.text,
-                      categories: categorie!,
-                    );
-                    await addPlace(place: place);
-                    hotplacesList.clear();
-                    Navigator.pop(context);
-                  }
-                })
+                    color: buttonColor,
+                    onpress: () async {
+                      if (districtController.text.isEmpty ||
+                          placeController.text.isEmpty ||
+                          descriptionController.text.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Fill all details"),
+                          backgroundColor: Colors.red,
+                        ));
+                      } else if (image.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Select image"),
+                          backgroundColor: Colors.red,
+                        ));
+                      } else if (dropdownValue() == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Select categorey"),
+                          backgroundColor: Colors.red,
+                        ));
+                      } else {
+                        categorie = dropdownValue();
+                        PlaceModel place = PlaceModel(
+                          id: DateTime.now().microsecondsSinceEpoch.toString(),
+                          hotplace: hotplacesList,
+                          place: placeController.text,
+                          image: image,
+                          district: districtController.text,
+                          description: descriptionController.text,
+                          categories: categorie!,
+                        );
+                        await addPlace(place: place);
+                        hotplacesList.clear();
+                        Navigator.pop(context);
+                      }
+                    }),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),

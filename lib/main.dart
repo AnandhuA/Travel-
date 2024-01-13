@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
         "HomePage": (context) => const UserHomeScreen(),
-        "IntroPage": (context) => IntroScreen()
+        "IntroPage": (context) => const IntroScreen()
         //  "Animation": (context) =>  AnimationScreen(),
       },
     );

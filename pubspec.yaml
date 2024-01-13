@@ -48,6 +48,8 @@ dependencies:
   google_nav_bar: ^5.0.6
   table_calendar: ^3.0.9
   numberpicker: ^2.1.2
+  carousel_slider: ^4.2.1
+  photo_view: ^0.14.0
 
   
 
