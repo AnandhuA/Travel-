@@ -3,8 +3,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/categories_dropdown.dart';
@@ -140,7 +140,7 @@ CategoriesModel? categorie;
                   onTap: () async {
                     await addHotPlacebottomSheet(context);
                     setState(() {
-                      list = hotplacesList;
+                      list = hotplacesList.value;
                     });
                   },
                   child: dottedContainer(
@@ -186,7 +186,7 @@ CategoriesModel? categorie;
                         
                         PlaceModel place = PlaceModel(
                           id: DateTime.now().microsecondsSinceEpoch.toString(),
-                          hotplace: hotplacesList,
+                          hotplace: hotplacesList.value,
                           place: placeController.text,
                           image: image,
                           district: districtController.text,
@@ -194,7 +194,7 @@ CategoriesModel? categorie;
                           categories: categorie!,
                         );
                         await addPlace(place: place);
-                        hotplacesList.clear();
+                        hotplacesList.value.clear();
                         Navigator.pop(context);
                       }
                     }),

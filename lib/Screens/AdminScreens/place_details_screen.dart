@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/functions.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
 import 'package:travel/colors.dart';
@@ -8,13 +9,15 @@ import 'package:travel/main.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   final int index;
-  const PlaceDetailsScreen({super.key, required this.index});
+  final bool fav;
+  const PlaceDetailsScreen({super.key, required this.index, this.fav = false});
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final place = placeList.value[index];
+    final place =
+        fav ? favoriteList.value[index].favoritePlace : placeList.value[index];
 
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -33,12 +36,16 @@ class PlaceDetailsScreen extends StatelessWidget {
                   Text(
                     place.place,
                     style: const TextStyle(
-                        fontSize: 35, fontWeight: FontWeight.bold),
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     ", ${place.district}",
                     style: const TextStyle(
-                        fontSize: 33, fontWeight: FontWeight.w400),
+                      fontSize: 33,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ]),
               ),
@@ -56,7 +63,10 @@ class PlaceDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
                   "Description",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(
@@ -76,7 +86,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                     : const Text(
                         "Hot Places",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
               ),
               SizedBox(
@@ -179,9 +191,10 @@ class PlaceDetailsScreen extends StatelessWidget {
                                 child: const Text(
                                   "Delete",
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.red),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ),
@@ -208,9 +221,10 @@ class PlaceDetailsScreen extends StatelessWidget {
                                 child: const Text(
                                   "Edit",
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.white),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),

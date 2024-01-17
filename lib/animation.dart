@@ -18,3 +18,19 @@ void animationSignup({required context}) {
     Navigator.pushReplacementNamed(context, "Login");
   });
 }
+
+void animationAdded({required context}) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return Container(
+        child: Lottie.asset(
+          "Assets/Animations/tick2.json",
+        ),
+      );
+    },
+  );
+  Timer(const Duration(seconds: 2), () {
+    Navigator.pop(context);
+  });
+}

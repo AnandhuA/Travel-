@@ -1,17 +1,40 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class TimePickerWidegt extends StatefulWidget {
-  const TimePickerWidegt({super.key});
+  String? time;
+  bool? onGoing;
+  TimePickerWidegt({super.key, this.time, this.onGoing});
 
   @override
   State<TimePickerWidegt> createState() => _TimePickerWidegtState();
 }
 
+int hour = 0;
+int min = 0;
+String timeformat = "AM";
+
 class _TimePickerWidegtState extends State<TimePickerWidegt> {
-  int hour = 0;
-  int min = 0;
-  String timeformat = "AM";
+  @override
+  void initState() {
+    super.initState();
+    if (widget.time != null) {
+      String? time = widget.time;
+
+      List<String> parts = time!.split(":");
+
+      int hours = int.parse(parts[0]);
+      int minutes = int.parse(parts[1].split(" ")[0]);
+      String amPm = parts[1].split(" ")[1];
+
+      hour = hours;
+      min = minutes;
+      timeformat = amPm;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,6 +58,8 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NumberPicker(
+                haptics: true,
+                infiniteLoop: true,
                 textStyle: const TextStyle(color: Colors.black45),
                 selectedTextStyle:
                     TextStyle(color: Colors.blue.shade300, fontSize: 30),
@@ -57,13 +82,16 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
                 },
               ),
               NumberPicker(
+                haptics: true,
+                infiniteLoop: true,
                 textStyle: const TextStyle(color: Colors.black45),
                 selectedTextStyle:
                     TextStyle(color: Colors.blue.shade300, fontSize: 30),
                 decoration: const BoxDecoration(
                   border: Border(
-                      top: BorderSide(color: Colors.black45),
-                      bottom: BorderSide(color: Colors.black45)),
+                    top: BorderSide(color: Colors.black45),
+                    bottom: BorderSide(color: Colors.black45),
+                  ),
                 ),
                 minValue: 0,
                 maxValue: 59,
@@ -127,5 +155,13 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
         ),
       ],
     );
+  }
+}
+
+String getSelectedTime() {
+  if (hour != 0) {
+    return "${hour.toString().padLeft(2, '0')}:${min.toString().padLeft(2, '0')} $timeformat";
+  } else {
+    return "";
   }
 }

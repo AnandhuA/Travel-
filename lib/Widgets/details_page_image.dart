@@ -1,8 +1,9 @@
 import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/Models/admin_model.dart';
+import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/image_view.dart';
 import 'package:travel/colors.dart';
 import 'package:travel/main.dart';
@@ -17,6 +18,17 @@ class DetailsPageImage extends StatefulWidget {
 }
 
 class _DetailsPageImageState extends State<DetailsPageImage> {
+  bool favorite = false;
+  @override
+  void initState() {
+    super.initState();
+    for (final fav in favoriteList.value) {
+      if (fav.id == widget.place.id) {
+        favorite = true;
+      }
+    }
+  }
+
   int photo = 0;
   @override
   Widget build(BuildContext context) {
@@ -66,14 +78,14 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                     child: SafeArea(
                       child: Row(
                         children: [
-                          CircleAvatar(
-                            backgroundColor:
-                                const Color.fromARGB(100, 255, 255, 255),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.share),
-                            ),
-                          ),
+                          // CircleAvatar(
+                          //   backgroundColor:
+                          //       const Color.fromARGB(100, 255, 255, 255),
+                          //   child: IconButton(
+                          //     onPressed: () {},
+                          //     icon: const Icon(Icons.share),
+                          //   ),
+                          // ),
                           const SizedBox(
                             width: 20,
                           ),
@@ -81,8 +93,28 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                             backgroundColor:
                                 const Color.fromARGB(100, 255, 255, 255),
                             child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_border),
+                              onPressed: () {
+                                favorite
+                                    ? setState(() {
+                                        favorite = false;
+                                      })
+                                    : setState(() {
+                                        favorite = true;
+                                      });
+                                FavoriteModel fav = FavoriteModel(
+                                  id: widget.place.id,
+                                  favoritePlace: widget.place,
+                                );
+                                favorite
+                                    ? addFavorite(favoritePlace: fav)
+                                    : removeFavorite(favoritePlace: fav);
+                              },
+                              icon: favorite
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : const Icon(Icons.favorite_border),
                             ),
                           ),
                         ],

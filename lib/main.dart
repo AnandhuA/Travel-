@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/Models/admin_model.dart';
+import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/AdminScreens/add_place_screen.dart';
 import 'package:travel/Screens/AdminScreens/admin_home_screen.dart';
 import 'package:travel/Screens/IntroScreens/intro_pages.dart';
@@ -26,8 +28,14 @@ void main() async {
   if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
     Hive.registerAdapter(CategoriesModelAdapter());
   }
-
+  if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
+    Hive.registerAdapter(FavoriteModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(TripModelAdapter().typeId)) {
+    Hive.registerAdapter(TripModelAdapter());
+  }
   await refresh();
+  await userRefresh();
   runApp(const MyApp());
 }
 

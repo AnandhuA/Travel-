@@ -24,10 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         decoration: const BoxDecoration(gradient: backgroundGradient),
         child: Center(
-            child: Image.asset(
-          "Assets/Images/logo.png",
-          width: 150,
-        )),
+          child: Image.asset(
+            "Assets/Images/logo.png",
+            width: 150,
+          ),
+        ),
       ),
     );
   }

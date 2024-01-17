@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/drawer_wedget.dart';

@@ -1,12 +1,14 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/colors.dart';
 
-List<Map<String, String>> hotplacesList = [];
+ValueNotifier<List<Map<String, String>>> hotplacesList = ValueNotifier([]);
 
 Future addHotPlacebottomSheet(ctx) {
   TextEditingController placeController = TextEditingController();
@@ -32,31 +34,33 @@ Future addHotPlacebottomSheet(ctx) {
                     height: 30,
                   ),
                   TextButton.icon(
-                      onPressed: () async {
-                        file = (await ImagePicker()
-                            .pickImage(source: ImageSource.gallery));
-                        if (file != null) {
-                          image = file!.path;
-                        }
-                      },
-                      icon: const Icon(Icons.photo_library_outlined),
-                      label: const Text("Select image")),
+                    onPressed: () async {
+                      file = (await ImagePicker()
+                          .pickImage(source: ImageSource.gallery));
+                      if (file != null) {
+                        image = file!.path;
+                      }
+                    },
+                    icon: const Icon(Icons.photo_library_outlined),
+                    label: const Text("Select image"),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
                   addButton(
-                    color: buttonColor,
-                    onpress: () {
-                    if (placeController.text.isNotEmpty && image.isNotEmpty) {
-                      hotplacesListMap = {
-                        "Image": image,
-                        "Place": placeController.text
-                      };
-                      hotplacesList.add(hotplacesListMap);
-
-                      Navigator.pop(context);
-                    }
-                  })
+                      color: buttonColor,
+                      onpress: () {
+                        if (placeController.text.isNotEmpty &&
+                            image.isNotEmpty) {
+                          hotplacesListMap = {
+                            "Image": image,
+                            "Place": placeController.text
+                          };
+                          hotplacesList.value.add(hotplacesListMap);
+                          hotplacesList.notifyListeners();
+                          Navigator.pop(context);
+                        }
+                      })
                 ],
               ),
             ),
@@ -88,16 +92,18 @@ Future addCategoriesbottomSheet(ctx) {
                     height: 30,
                   ),
                   addButton(
-                    color: buttonColor,
-                    onpress: () {
-                    if (categorieController.text.isNotEmpty) {
-                      CategoriesModel categorie = CategoriesModel(
-                          id: DateTime.now().microsecondsSinceEpoch.toString(),
-                          categorie: categorieController.text);
-                      addCategories(categories: categorie);
-                      Navigator.pop(context);
-                    }
-                  })
+                      color: buttonColor,
+                      onpress: () {
+                        if (categorieController.text.isNotEmpty) {
+                          CategoriesModel categorie = CategoriesModel(
+                              id: DateTime.now()
+                                  .microsecondsSinceEpoch
+                                  .toString(),
+                              categorie: categorieController.text);
+                          addCategories(categories: categorie);
+                          Navigator.pop(context);
+                        }
+                      })
                 ],
               ),
             ),

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travel/Functions/functions.dart';
-import 'package:travel/Models/model.dart';
+import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/button.dart';
@@ -42,7 +42,7 @@ class _EditPlaceState extends State<EditPlaceScreen> {
   Widget build(BuildContext context) {
     image = widget.placeModel.image;
 
-    hotplacesList = list;
+    hotplacesList.value = list;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Place Details"),
@@ -164,7 +164,7 @@ class _EditPlaceState extends State<EditPlaceScreen> {
                   onTap: () async {
                     await addHotPlacebottomSheet(context);
                     setState(() {
-                      list = hotplacesList;
+                      list = hotplacesList.value;
                     });
                   },
                   child: dottedContainer(

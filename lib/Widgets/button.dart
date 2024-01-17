@@ -9,16 +9,17 @@ Widget addButton({required onpress, String add = "Add", required Color color}) {
       child: Text(
         add,
         style: const TextStyle(
-            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),
+          color: Colors.white,
+          fontSize: 25,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     ),
   );
 }
 
 Widget textButton(
-    {required String title,
-    required Function fun,
-    required Color color}) {
+    {required String title, required Function fun, required Color color}) {
   return InkWell(
     onTap: () => fun(),
     child: Container(
@@ -27,7 +28,10 @@ Widget textButton(
         border: Border.all(color: color),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Text(title,style: TextStyle(color: color),),
+      child: Text(
+        title,
+        style: TextStyle(color: color),
+      ),
     ),
   );
 }

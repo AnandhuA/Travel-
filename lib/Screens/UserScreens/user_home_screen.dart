@@ -16,10 +16,11 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   int selectedindex = 0;
-  List screen = [
+  final PageController _pageController = PageController();
+  List<Widget> screen = [
     const ExploreScreen(),
     const MyTripsScreen(),
-    const AddTripScreen(),
+    AddTripScreen(),
     const FavoriteScreen(),
     const AccountScreen()
   ];
@@ -48,13 +49,27 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             onTabChange: (value) {
               setState(() {
                 selectedindex = value;
+                _pageController.animateToPage(
+                  value,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear,
+                );
               });
+              // setState(() {
+              //   selectedindex = value;
+              //   _pageController.animateToPage(
+              //     value,
+              //     duration: const Duration(milliseconds: 300),
+              //     curve: Curves.easeInOut,
+              //   );
+              // });
             },
             padding: const EdgeInsets.all(10),
             gap: 10,
             selectedIndex: selectedindex,
             tabs: [
               GButton(
+                haptic: true,
                 iconColor: Colors.black,
                 icon: Icons.home_outlined,
                 text: "Home",
@@ -63,6 +78,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 textColor: Colors.purple,
               ),
               GButton(
+                haptic: true,
                 iconColor: Colors.black,
                 icon: Icons.category_outlined,
                 text: "My Trips",
@@ -71,6 +87,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 textColor: Colors.green,
               ),
               GButton(
+                haptic: true,
                 iconColor: Colors.black,
                 icon: Icons.add_circle_outline,
                 text: "Add Trips",
@@ -79,6 +96,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 textColor: Colors.blue,
               ),
               GButton(
+                haptic: true,
                 iconColor: Colors.black,
                 icon: Icons.favorite_border,
                 text: "Favorite",
@@ -87,6 +105,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 textColor: Colors.pink,
               ),
               GButton(
+                haptic: true,
                 iconColor: Colors.black,
                 icon: Icons.person_outline,
                 text: "Account",
@@ -96,7 +115,16 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               ),
             ]),
       ),
-      body: screen[selectedindex],
+      // body: screen[selectedindex],
+      body: PageView(
+        controller: _pageController,
+        children: screen,
+        onPageChanged: (index) {
+          setState(() {
+            selectedindex = index;
+          });
+        },
+      ),
     );
   }
 }

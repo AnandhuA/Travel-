@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-part 'model.g.dart';
+part 'admin_model.g.dart';
 
 @HiveType(typeId: 1)
 class PlaceModel {
