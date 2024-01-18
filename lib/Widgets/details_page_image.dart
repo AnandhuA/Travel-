@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/admin_model.dart';
@@ -102,9 +103,10 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                                         favorite = true;
                                       });
                                 FavoriteModel fav = FavoriteModel(
-                                  id: widget.place.id,
-                                  favoritePlace: widget.place,
-                                );
+                                    id: widget.place.id,
+                                    favoritePlace: widget.place,
+                                    uid: FirebaseAuth.instance.currentUser!.uid
+                                        .toString());
                                 favorite
                                     ? addFavorite(favoritePlace: fav)
                                     : removeFavorite(favoritePlace: fav);

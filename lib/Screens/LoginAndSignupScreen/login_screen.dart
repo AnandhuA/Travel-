@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/colors.dart';
 import 'package:travel/main.dart';
 
@@ -167,6 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
             email: email, password: password);
         // final sharedpref = await SharedPreferences.getInstance();
         // await sharedpref.setBool("KEY", true);
+        getUser();
+        userRefresh();
         if (_auth.currentUser != null) {
           if (_auth.currentUser!.email == "anandhu1407@gmail.com") {
             admin = true;

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travel/Functions/user_functions.dart';
 
 Widget drawer(context) {
   return Drawer(
@@ -15,9 +15,7 @@ Widget drawer(context) {
           ),
         ),
         Center(
-          child: Text(
-            FirebaseAuth.instance.currentUser!.email.toString(),
-          ),
+          child: Text(loginuser.name),
         ),
         const SizedBox(
           height: 50,
@@ -51,8 +49,8 @@ Widget drawer(context) {
 }
 
 logout(context) async {
-  final sharedpref = await SharedPreferences.getInstance();
+  // final sharedpref = await SharedPreferences.getInstance();
   FirebaseAuth.instance.signOut();
-  await sharedpref.clear();
+  // await sharedpref.clear();
   Navigator.pushNamedAndRemoveUntil(context, "Login", (route) => false);
 }

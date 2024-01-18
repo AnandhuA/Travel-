@@ -106,42 +106,71 @@ class PlaceDetailsScreen extends StatelessWidget {
                     Map hotplace = place.hotplace[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(children: [
-                        SizedBox(
-                          height: 60,
-                          width: double.infinity,
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(10),
-                            ),
-                            child: Image.file(
-                              File(hotplace["Image"]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: lightColor,
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(10),
-                            ),
-                          ),
-                          height: 30,
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Center(
-                              child: Text(
-                                hotplace["Place"],
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: const TextStyle(fontSize: 14),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onVerticalDragDown: (_) {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      width: double.infinity,
+                                      color: Colors.purple.shade100,
+                                      child: Center(
+                                        child: Text(hotplace["Place"]),
+                                      ),
+                                    ),
+                                    Image.file(File(hotplace["Image"])),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: Column(children: [
+                          SizedBox(
+                            height: 60,
+                            width: double.infinity,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(10),
+                              ),
+                              child: Image.file(
+                                File(hotplace["Image"]),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        )
-                      ]),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: lightColor,
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(10),
+                              ),
+                            ),
+                            height: 30,
+                            width: double.infinity,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Center(
+                                child: Text(
+                                  hotplace["Place"],
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          )
+                        ]),
+                      ),
                     );
                   }),
               SizedBox(

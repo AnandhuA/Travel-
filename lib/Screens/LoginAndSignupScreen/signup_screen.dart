@@ -2,6 +2,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/Models/user_model.dart';
 import 'package:travel/animation.dart';
 import 'package:travel/colors.dart';
 
@@ -207,6 +209,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        final user = UserDetailsModel(
+            id: FirebaseAuth.instance.currentUser!.uid.toString(),
+            name: usernameController.text,
+            email: emailController.text,
+            phone: phoneController.text);
+        addUser(user);
+        getUser();
+
         animationSignup(context: context);
       } on FirebaseAuthException catch (e) {
         setState(() {

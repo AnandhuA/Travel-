@@ -6,11 +6,13 @@ Widget textField(
     InputBorder boder = const UnderlineInputBorder(),
     int? line,
     String? text,
-    Widget? icon}) {
+    Widget? icon,
+    TextInputType? keyboard}) {
   if (controller != null && text != null) {
     controller.text = text;
   }
   return TextField(
+    keyboardType: keyboard,
     controller: controller,
     maxLines: line,
     decoration:

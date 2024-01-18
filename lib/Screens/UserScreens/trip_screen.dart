@@ -14,44 +14,40 @@ class _MyTripsScreenState extends State<MyTripsScreen> {
   bool button = true;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 15,
-      ),
-      child: Column(
-        children: [
-          // SizedBox(
-          //   height: 20,
-          // ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                textButton(
-                  title: "Upcoming",
-                  color: button ? Colors.black : Colors.grey,
-                  fun: () {
-                    setState(() {
-                      button = true;
-                    });
-                  },
-                ),
-                textButton(
-                  title: "Completed",
-                  color: button ? Colors.grey : Colors.black,
-                  fun: () {
-                    setState(() {
-                      button = false;
-                    });
-                  },
-                )
-              ],
-            ),
+    return Column(
+      children: [
+        // SizedBox(
+        //   height: 20,
+        // ),
+        Container(
+          color: Colors.white,
+          padding: const EdgeInsets.only(bottom: 20, top: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              textButton(
+                title: "Upcoming",
+                color: button ? Colors.black : Colors.grey,
+                fun: () {
+                  setState(() {
+                    button = true;
+                  });
+                },
+              ),
+              textButton(
+                title: "Completed",
+                color: button ? Colors.grey : Colors.black,
+                fun: () {
+                  setState(() {
+                    button = false;
+                  });
+                },
+              )
+            ],
           ),
-          button ? const UpcomingTrip() : const ComplectedTrip(),
-        ],
-      ),
+        ),
+        button ? const UpcomingTrip() : const ComplectedTrip(),
+      ],
     );
   }
 }

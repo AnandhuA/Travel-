@@ -75,6 +75,7 @@ class EditTripScreen extends StatelessWidget {
                             time: time,
                             rangeStart: rangeStart,
                             rangeEnd: rangeEnd,
+                            uid: editTrip.uid
                           );
                           await addTrip(trip: trip);
                           Navigator.pop(context);

@@ -22,7 +22,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     const MyTripsScreen(),
     AddTripScreen(),
     const FavoriteScreen(),
-    const AccountScreen()
+     AccountScreen()
   ];
   @override
   Widget build(BuildContext context) {

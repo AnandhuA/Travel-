@@ -34,8 +34,12 @@ void main() async {
   if (!Hive.isAdapterRegistered(TripModelAdapter().typeId)) {
     Hive.registerAdapter(TripModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(UserDetailsModelAdapter().typeId)) {
+    Hive.registerAdapter(UserDetailsModelAdapter());
+  }
   await refresh();
   await userRefresh();
+ 
   runApp(const MyApp());
 }
 
