@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:travel/colors.dart';
 
 class ImageView extends StatelessWidget {
   final List<String> image;
@@ -30,7 +31,7 @@ class ImageView extends StatelessWidget {
           );
         },
         backgroundDecoration: const BoxDecoration(
-          color: Colors.black,
+          color: black,
         ),
         pageController: PageController(initialPage: initialIndex),
       ),

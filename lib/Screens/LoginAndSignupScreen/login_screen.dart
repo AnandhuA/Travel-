@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/colors.dart';
 import 'package:travel/main.dart';
+import 'package:travel/style.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
-                color: backgroundColor,
+                color: white,
                 gradient: backgroundGradientLogin),
             child: Form(
               key: formKey,
@@ -60,13 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: screenHeight * 0.05,
                   ),
-                  const Text(
+                   Text(
                     "Login",
-                    style: TextStyle(
-                        color: textColor1,
-                        fontSize: 70,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 2),
+                    style: loginstyle1,
                   ),
                   SizedBox(
                     height: screenHeight * 0.05,
@@ -120,13 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * 0.05,
                       child: Center(
                           child: loading
-                              ? const Text(
+                              ?  Text(
                                   "Login",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                  style: textstyle1,
                                 )
                               : const CircularProgressIndicator(
-                                  color: Colors.white,
+                                  color: white,
                                 )),
                     ),
                   ),
@@ -136,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     const Text(
                       "Don't have an Account?",
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: grey),
                     ),
                     InkWell(
                       onTap: () => Navigator.pushNamed(context, "Signup"),
@@ -188,12 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (e.code == "invalid-credential") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Email and password incorrect"),
-            backgroundColor: Colors.red,
+            backgroundColor: red,
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Somethig Worng"),
-            backgroundColor: Colors.red,
+            backgroundColor: red,
           ));
         }
       }

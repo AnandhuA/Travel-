@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/admin_functions.dart';
 import 'package:travel/Models/admin_model.dart';
+import 'package:travel/colors.dart';
 
 String? value;
 CategoriesModel? categorie;
@@ -25,7 +26,7 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
             const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       ),
       style: const TextStyle(
-        color: Colors.black,
+        color: black,
         fontSize: 18,
       ),
       value: value,

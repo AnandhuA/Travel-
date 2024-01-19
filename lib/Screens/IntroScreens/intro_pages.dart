@@ -3,6 +3,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:travel/Screens/IntroScreens/intro_screen1.dart';
 import 'package:travel/Screens/IntroScreens/intro_screen2.dart';
 import 'package:travel/Screens/IntroScreens/intro_screens3.dart';
+import 'package:travel/colors.dart';
+import 'package:travel/style.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -37,9 +39,9 @@ class _IntroScreenState extends State<IntroScreen> {
               },
               child: lastPage
                   ? const SizedBox()
-                  : const Text(
+                  :  Text(
                       "Skip",
-                      style: TextStyle(fontSize: 20),
+                      style: introtextstyle1 ,
                     ),
             ),
           ),
@@ -54,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       radius: 1,
                       strokeWidth: 1,
                       dotHeight: 4,
-                      activeDotColor: Colors.orange,
+                      activeDotColor: orange,
                     ),
                     controller: controller,
                     count: 3),
@@ -63,9 +65,9 @@ class _IntroScreenState extends State<IntroScreen> {
                         onTap: () {
                           Navigator.pushReplacementNamed(context, "HomePage");
                         },
-                        child: const Text(
+                        child:  Text(
                           "Done",
-                          style: TextStyle(fontSize: 20),
+                          style: introtextstyle1,
                         ))
                     : InkWell(
                         onTap: () {
@@ -73,9 +75,9 @@ class _IntroScreenState extends State<IntroScreen> {
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.decelerate);
                         },
-                        child: const Text(
+                        child:  Text(
                           "Next",
-                          style: TextStyle(fontSize: 20),
+                          style: introtextstyle1,
                         ))
               ],
             ),

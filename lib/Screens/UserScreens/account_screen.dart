@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
+import 'package:travel/colors.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -17,44 +18,56 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(
-            height: 30,
+          SizedBox(
+            height: screenHeight * 0.03,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
                 CircleAvatar(
+                  backgroundColor: orange50,
                   radius: 100,
                   child: Text(
                     loginuser.name[0],
-                    style: const TextStyle(fontSize: 100),
+                    style: const TextStyle(
+                      fontSize: 100,
+                      color: orange,
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  width: 30,
-                ),
+                SizedBox(width: screenWidth * 0.08),
                 Column(
                   children: [
                     Text(
                       loginuser.name,
                       style: const TextStyle(fontSize: 40),
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Edit Profile"),
-                    )
+                    // SizedBox(
+                    //   width: screenWidth * 0.3,
+                    //   child: TextButton(
+                    //     style: TextButton.styleFrom(
+                    //       backgroundColor: Colors.orange.shade50,
+                    //       foregroundColor: Colors.orange,
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(10),
+                    //       ),
+                    //     ),
+                    //     onPressed: () {},
+                    //     child: const Text("Edit Profile"),
+                    //   ),
+                    // )
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          SizedBox(height: screenHeight * 0.03),
           ListTile(
             leading: const Icon(Icons.email),
             title: Text(loginuser.email),
@@ -89,7 +102,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text("Enter Email"),
-                                backgroundColor: Colors.red,
+                                backgroundColor: red,
                               ));
                             }
                           },
@@ -103,8 +116,8 @@ class _AccountScreenState extends State<AccountScreen> {
               icon: const Icon(Icons.edit),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: screenHeight * 0.02,
           ),
           ListTile(
             leading: const Icon(Icons.phone_android),
@@ -140,7 +153,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text("Enter Phone Number"),
-                                backgroundColor: Colors.red,
+                                backgroundColor: red,
                               ));
                             }
                           },
@@ -154,8 +167,8 @@ class _AccountScreenState extends State<AccountScreen> {
               icon: const Icon(Icons.edit),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: screenHeight * 0.02,
           ),
           ListTile(
             leading: const Icon(Icons.info),
@@ -165,8 +178,8 @@ class _AccountScreenState extends State<AccountScreen> {
               icon: const Icon(Icons.arrow_forward_ios),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: screenHeight * 0.02,
           ),
           ListTile(
             leading: const Icon(Icons.settings),

@@ -7,7 +7,7 @@ class CalenderView extends StatefulWidget {
   DateTime? rangestart;
   DateTime? rangeend;
   bool? onGoing;
-  CalenderView({super.key, this.rangestart, this.rangeend,this.onGoing});
+  CalenderView({super.key, this.rangestart, this.rangeend, this.onGoing});
 
   @override
   State<CalenderView> createState() => _CalenderViewState();
@@ -26,11 +26,9 @@ class _CalenderViewState extends State<CalenderView> {
       rangeEnd = widget.rangeend;
     }
   }
-  
-
   @override
   Widget build(BuildContext context) {
-    if(widget.onGoing != null && widget.onGoing == true ){
+    if (widget.onGoing != null && widget.onGoing == true) {
       rangeStart = widget.rangestart;
       rangeEnd = widget.rangeend;
     }
@@ -48,7 +46,7 @@ class _CalenderViewState extends State<CalenderView> {
         });
       },
       firstDay: DateTime.now(),
-      // firstDay: DateTime.utc(214),
+      // firstDay: DateTime.utc(2014),
 
       lastDay: DateTime.utc(2030),
       onDaySelected: (selectedDay, focusedDay) {},
@@ -57,6 +55,8 @@ class _CalenderViewState extends State<CalenderView> {
           const HeaderStyle(formatButtonVisible: false, titleCentered: true),
     );
   }
+
+  void resetSelectedDay() {}
 }
 
 DateTime? getTableCalendarRangeStart() {

@@ -96,10 +96,11 @@ Future addCategoriesbottomSheet(ctx) {
                       onpress: () {
                         if (categorieController.text.isNotEmpty) {
                           CategoriesModel categorie = CategoriesModel(
-                              id: DateTime.now()
-                                  .microsecondsSinceEpoch
-                                  .toString(),
-                              categorie: categorieController.text);
+                            id: DateTime.now()
+                                .microsecondsSinceEpoch
+                                .toString(),
+                            categorie: categorieController.text,
+                          );
                           addCategories(categories: categorie);
                           Navigator.pop(context);
                         }

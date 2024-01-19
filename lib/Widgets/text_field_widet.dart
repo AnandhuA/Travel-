@@ -15,7 +15,10 @@ Widget textField(
     keyboardType: keyboard,
     controller: controller,
     maxLines: line,
-    decoration:
-        InputDecoration(border: boder, label: Text(label), suffixIcon: icon),
+    decoration: InputDecoration(
+      border: boder,
+      label: Text(label),
+      suffixIcon: icon,
+    ),
   );
 }

@@ -37,12 +37,15 @@ Widget categories({required int index, required BuildContext context}) {
                         return SingleChildScrollView(
                           child: Container(
                             decoration: const BoxDecoration(
-                                gradient: backgroundGradient2),
+                              gradient: backgroundGradient2,
+                            ),
                             height: 700,
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
+                                horizontal: 20,
+                                vertical: 20,
+                              ),
                               child: Column(
                                 children: [
                                   const Text("Add Categorie"),
@@ -60,9 +63,9 @@ Widget categories({required int index, required BuildContext context}) {
                                             .text.isNotEmpty) {
                                           CategoriesModel categoriemodel =
                                               CategoriesModel(
-                                                  id: categorie.id,
-                                                  categorie:
-                                                      categorieController.text);
+                                            id: categorie.id,
+                                            categorie: categorieController.text,
+                                          );
                                           editCategories(
                                               categories: categoriemodel);
                                           Navigator.pop(context);
@@ -120,10 +123,15 @@ Widget categories({required int index, required BuildContext context}) {
 }
 
 Widget places(
-    {required String image, required String place, required String district}) {
+    {required String image,
+    required String place,
+    required String district,
+    required BuildContext context}) {
+  final double screenHeight = MediaQuery.of(context).size.height;
+  final double screenWidth = MediaQuery.of(context).size.width;
   return Column(children: [
     SizedBox(
-      height: 120,
+      height: screenHeight * 0.125,
       width: double.infinity,
       child: ClipRRect(
         borderRadius: const BorderRadius.vertical(
@@ -136,7 +144,7 @@ Widget places(
       ),
     ),
     Container(
-      height: 45,
+      height: screenHeight * 0.05,
       decoration: const BoxDecoration(
         color: lightColor,
         borderRadius: BorderRadius.vertical(
@@ -144,14 +152,15 @@ Widget places(
         ),
       ),
       child: Row(children: [
-        const SizedBox(
-          width: 10,
+        SizedBox(
+          width: screenWidth * 0.03,
         ),
         const Icon(Icons.location_on_outlined),
         Text(
-          "$place, ",
+          "$place, $district",
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
-        Text(district)
       ]),
     )
   ]);

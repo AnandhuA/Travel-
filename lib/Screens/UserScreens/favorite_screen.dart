@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
+import 'package:travel/colors.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: screenHeight * 0.01),
       child: ValueListenableBuilder(
         valueListenable: favoriteList,
         builder: (context, value, child) {
@@ -20,12 +23,14 @@ class FavoriteScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     FavoriteModel favPlace = favoriteList.value[index];
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      margin: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.02),
+                      padding: EdgeInsets.symmetric(
+                          vertical: screenHeight * 0.005),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Color.fromARGB(138, 255, 155, 147),
+                            color: redboderside,
                           ),
                         ),
                         borderRadius: BorderRadius.vertical(
@@ -45,7 +50,7 @@ class FavoriteScreen extends StatelessWidget {
                           );
                         },
                         leading: SizedBox(
-                          width: 110,
+                          width: 120,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.file(
@@ -62,11 +67,11 @@ class FavoriteScreen extends StatelessWidget {
                           },
                           icon: CircleAvatar(
                             radius: 13,
-                            backgroundColor: Colors.red.shade100,
+                            backgroundColor: red100,
                             child: const Icon(
                               Icons.favorite,
                               size: 17,
-                              color: Colors.red,
+                              color: red,
                             ),
                           ),
                         ),
@@ -74,8 +79,8 @@ class FavoriteScreen extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 30,
+                    return SizedBox(
+                      height: screenHeight * 0.02,
                     );
                   },
                   itemCount: favoriteList.value.length,

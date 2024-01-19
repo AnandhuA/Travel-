@@ -92,7 +92,7 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                           ),
                           CircleAvatar(
                             backgroundColor:
-                                const Color.fromARGB(100, 255, 255, 255),
+                                transperantcolor,
                             child: IconButton(
                               onPressed: () {
                                 favorite
@@ -114,7 +114,7 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                               icon: favorite
                                   ? const Icon(
                                       Icons.favorite,
-                                      color: Colors.red,
+                                      color: red,
                                     )
                                   : const Icon(Icons.favorite_border),
                             ),
@@ -131,7 +131,7 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                     Navigator.pop(widget.ctx);
                   },
                   icon: const Icon(Icons.arrow_back_ios_new),
-                  color: Colors.black,
+                  color: black,
                 ),
               ),
             ),

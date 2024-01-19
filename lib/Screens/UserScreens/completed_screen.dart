@@ -4,12 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/UserScreens/trip_details_page.dart';
+import 'package:travel/colors.dart';
 
 class ComplectedTrip extends StatelessWidget {
   const ComplectedTrip({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Expanded(
       child: ValueListenableBuilder(
         valueListenable: tripListCompleted,
@@ -37,7 +40,7 @@ class ComplectedTrip extends StatelessWidget {
                           //   label: "Edit",
                           // ),
                           SlidableAction(
-                            backgroundColor: Colors.red.shade50,
+                            backgroundColor: red50,
                             autoClose: true,
                             onPressed: (context) {
                               ScaffoldMessenger.of(context)
@@ -48,7 +51,7 @@ class ComplectedTrip extends StatelessWidget {
                               ));
                               deleteTrip(trip: trip);
                             },
-                            foregroundColor: Colors.red,
+                            foregroundColor: red,
                             icon: Icons.delete,
                             label: "Delect",
                           ),
@@ -63,13 +66,13 @@ class ComplectedTrip extends StatelessWidget {
                                     TripDetailsScreen(index: index),
                               ));
                         },
-                        tileColor: Colors.cyan.shade50,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
+                        tileColor: cyan50,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.05,
+                          vertical: screenHeight * 0.01,
                         ),
                         leading: CircleAvatar(
-                          backgroundColor: Colors.cyan.shade100,
+                          backgroundColor: cyan100,
                           radius: 30,
                           child: const Icon(
                             Icons.check,
@@ -98,8 +101,8 @@ class ComplectedTrip extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 2,
+                    return SizedBox(
+                      height: screenHeight * 0.02,
                     );
                   },
                   itemCount: tripListCompleted.value.length,

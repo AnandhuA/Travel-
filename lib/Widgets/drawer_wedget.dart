@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/colors.dart';
 
 Widget drawer(context) {
   return Drawer(
@@ -33,11 +34,11 @@ Widget drawer(context) {
         ListTile(
           leading: const Icon(
             Icons.logout,
-            color: Colors.red,
+            color: red,
           ),
           title: const Text(
             'Logout',
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(color: red),
           ),
           onTap: () {
             logout(context);

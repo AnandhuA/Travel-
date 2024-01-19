@@ -6,6 +6,7 @@ import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/animation.dart';
 import 'package:travel/colors.dart';
+import 'package:travel/style.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -53,7 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
-                color: backgroundColor,
+                color: white,
                 gradient: backgroundGradientLogin),
             child: SingleChildScrollView(
               child: Form(
@@ -63,13 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(
                       height: screenHeight * 0.04,
                     ),
-                    const Text(
+                     Text(
                       "Sign Up",
-                      style: TextStyle(
-                          color: textColor1,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 1),
+                      style: signupstyle1,
                     ),
                     SizedBox(
                       height: screenHeight * 0.04,
@@ -159,13 +156,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: screenHeight * 0.05,
                         child: Center(
                           child: loading
-                              ? const Text(
+                              ?  Text(
                                   "Sign up",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
+                                  style: textstyle1
                                 )
                               : const CircularProgressIndicator(
-                                  color: Colors.white,
+                                  color: white,
                                 ),
                         ),
                       ),
@@ -178,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         const Text(
                           "Already have an Account ",
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: grey),
                         ),
                         InkWell(
                           onTap: () => Navigator.pushNamed(context, "Login"),
@@ -226,17 +222,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (e.code == "weak-password") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Password should be at least 6 character"),
-            backgroundColor: Colors.red,
+            backgroundColor: red,
           ));
         } else if (e.code == "email-already-in-use") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Email already in use"),
-            backgroundColor: Colors.red,
+            backgroundColor: red,
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("something wrong"),
-            backgroundColor: Colors.red,
+            backgroundColor: red,
           ));
         }
       }

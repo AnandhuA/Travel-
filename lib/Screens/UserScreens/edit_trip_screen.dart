@@ -7,6 +7,7 @@ import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/table_calendar.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Widgets/time_picker.dart';
+import 'package:travel/colors.dart';
 
 class EditTripScreen extends StatelessWidget {
   TripModel editTrip;
@@ -17,6 +18,8 @@ class EditTripScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     descriptionCntroller.text = editTrip.description;
     destinationCntroller.text = editTrip.destination;
     return Scaffold(
@@ -32,11 +35,11 @@ class EditTripScreen extends StatelessWidget {
               rangeend: editTrip.rangeEnd,
               onGoing: onGoing,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: screenHeight * 0.02,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Column(
                 children: [
                   textField(
@@ -48,17 +51,17 @@ class EditTripScreen extends StatelessWidget {
                       label: "Description",
                       line: 3,
                       icon: const Icon(Icons.description_outlined)),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: screenHeight * 0.03,
                   ),
                   TimePickerWidegt(
                     time: editTrip.time,
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: screenHeight * 0.03,
                   ),
                   addButton(
-                      color: Colors.blue.shade400,
+                      color: blue400,
                       onpress: () async {
                         final rangeStart = getTableCalendarRangeStart();
                         final rangeEnd = getTableCalendarRangeEnd();
@@ -69,14 +72,13 @@ class EditTripScreen extends StatelessWidget {
                             destinationCntroller.text.isNotEmpty &&
                             time.isNotEmpty) {
                           TripModel trip = TripModel(
-                            id: editTrip.id,
-                            destination: destinationCntroller.text,
-                            description: descriptionCntroller.text,
-                            time: time,
-                            rangeStart: rangeStart,
-                            rangeEnd: rangeEnd,
-                            uid: editTrip.uid
-                          );
+                              id: editTrip.id,
+                              destination: destinationCntroller.text,
+                              description: descriptionCntroller.text,
+                              time: time,
+                              rangeStart: rangeStart,
+                              rangeEnd: rangeEnd,
+                              uid: editTrip.uid);
                           await addTrip(trip: trip);
                           Navigator.pop(context);
                           descriptionCntroller.clear();
@@ -85,7 +87,7 @@ class EditTripScreen extends StatelessWidget {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
                             content: Text("Select all feilds"),
-                            backgroundColor: Colors.red,
+                            backgroundColor: red,
                           ));
                         }
                       })

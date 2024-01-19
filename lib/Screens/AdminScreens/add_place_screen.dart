@@ -26,7 +26,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   TextEditingController descriptionController = TextEditingController();
   late List<XFile> file;
   List<String> image = [];
-CategoriesModel? categorie;
+  CategoriesModel? categorie;
   List list = [];
 
   @override
@@ -40,7 +40,7 @@ CategoriesModel? categorie;
             width: 200,
           )
         ],
-        backgroundColor: const Color(0xfffdf6f6),
+        backgroundColor: white,
       ),
       body: Container(
         height: double.infinity,
@@ -161,29 +161,29 @@ CategoriesModel? categorie;
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Fill all details"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: red,
                         ));
                       } else if (image.isEmpty) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Select image"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: red,
                         ));
                       } else if (dropdownValue() == null) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Select categorey"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: red,
                         ));
                       } else if (dropdownCategorie() == null) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Select categorey"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: red,
                         ));
                       } else {
                         categorie = dropdownCategorie();
-                        
+
                         PlaceModel place = PlaceModel(
                           id: DateTime.now().microsecondsSinceEpoch.toString(),
                           hotplace: hotplacesList.value,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:travel/colors.dart';
+import 'package:travel/style.dart';
 
 class IntroScreen1 extends StatelessWidget {
   const IntroScreen1({super.key});
@@ -20,20 +22,20 @@ class IntroScreen1 extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          const Text(
+           Text(
             "Find Your Destination",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: introtextstyle2,
           ),
           const SizedBox(
             height: 20,
           ),
           const Text(
             "Life is an adventure.Let's make it an",
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: grey),
           ),
           const Text(
             "unforgetable one",
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: grey),
           ),
         ]),
       ),

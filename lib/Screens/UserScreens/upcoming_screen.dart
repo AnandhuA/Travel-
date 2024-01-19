@@ -5,12 +5,15 @@ import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/UserScreens/edit_trip_screen.dart';
 import 'package:travel/Screens/UserScreens/trip_details_page.dart';
+import 'package:travel/colors.dart';
 
 class UpcomingTrip extends StatelessWidget {
   const UpcomingTrip({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Expanded(
       child: ValueListenableBuilder(
         valueListenable: tripList,
@@ -50,7 +53,7 @@ class UpcomingTrip extends StatelessWidget {
                             //   label: "Delect",
                             // ),
                             SlidableAction(
-                              backgroundColor: Colors.blue.shade100,
+                              backgroundColor: blue100,
                               autoClose: true,
                               onPressed: (contex) {
                                 Navigator.push(
@@ -62,7 +65,7 @@ class UpcomingTrip extends StatelessWidget {
                                       ),
                                     ));
                               },
-                              foregroundColor: Colors.blue,
+                              foregroundColor: blue,
                               icon: Icons.edit_note_sharp,
                               label: "Edit",
                             )
@@ -80,18 +83,18 @@ class UpcomingTrip extends StatelessWidget {
                           //   label: "Edit",
                           // ),
                           SlidableAction(
-                            backgroundColor: Colors.red.shade50,
+                            backgroundColor:red50,
                             autoClose: true,
                             onPressed: (context) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 duration: Duration(seconds: 1),
                                 content: Text("Delete successfully"),
-                                backgroundColor: Colors.black,
+                                backgroundColor: black,
                               ));
                               deleteTrip(trip: trip);
                             },
-                            foregroundColor: Colors.red,
+                            foregroundColor: red,
                             icon: Icons.delete,
                             label: "Delect",
                           ),
@@ -107,16 +110,16 @@ class UpcomingTrip extends StatelessWidget {
                               ));
                         },
                         tileColor: tripNow
-                            ? Colors.orange.shade50
-                            : Colors.green.shade50,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 15,
+                            ? orange50
+                            : green50,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.04,
+                          vertical: screenHeight * 0.017,
                         ),
                         leading: CircleAvatar(
                           backgroundColor: tripNow
-                              ? Colors.orange.shade100
-                              : Colors.green.shade100,
+                              ? orange100
+                              : green100,
                           radius: 30,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +132,7 @@ class UpcomingTrip extends StatelessWidget {
                               Text(
                                 week,
                                 style: TextStyle(
-                                  color: Colors.grey.shade800,
+                                  color: grey800
                                 ),
                               )
                             ],
@@ -157,8 +160,8 @@ class UpcomingTrip extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 2,
+                    return SizedBox(
+                      height: screenHeight * 0.005,
                     );
                   },
                   itemCount: tripList.value.length,

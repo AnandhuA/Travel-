@@ -6,6 +6,7 @@ import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
 import 'package:travel/colors.dart';
 import 'package:travel/main.dart';
+import 'package:travel/style.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   final int index;
@@ -30,27 +31,17 @@ class PlaceDetailsScreen extends StatelessWidget {
             decoration: const BoxDecoration(gradient: backgroundGradient2),
             child: ListView(children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                 child:
                     Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  Text(
-                    place.place,
-                    style: const TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    ", ${place.district}",
-                    style: const TextStyle(
-                      fontSize: 33,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                  Text(place.place, style: textStyle2),
+                  Text(", ${place.district}", style: textStyle3),
                 ]),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.03,
+                ),
                 child: Text(
                   place.categories.categorie,
                   style: const TextStyle(fontSize: 17),
@@ -59,9 +50,11 @@ class PlaceDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Text(
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.03,
+                ),
+                child: const Text(
                   "Description",
                   style: TextStyle(
                     fontSize: 30,
@@ -73,23 +66,21 @@ class PlaceDetailsScreen extends StatelessWidget {
                 height: screenHeight * 0.01,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.03,
+                ),
                 child: Text(place.description),
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.03,
+                ),
                 child: place.hotplace.isEmpty
                     ? const SizedBox()
-                    : const Text(
-                        "Hot Places",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    : Text("Hot Places", style: textStyle4),
               ),
               SizedBox(
                 height: screenHeight * 0.03,
@@ -105,7 +96,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     Map hotplace = place.hotplace[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.03,
+                      ),
                       child: InkWell(
                         onTap: () {
                           showDialog(
@@ -121,7 +114,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                                     Container(
                                       height: 50,
                                       width: double.infinity,
-                                      color: Colors.purple.shade100,
+                                      color: purple100,
                                       child: Center(
                                         child: Text(hotplace["Place"]),
                                       ),
@@ -157,8 +150,9 @@ class PlaceDetailsScreen extends StatelessWidget {
                             height: 30,
                             width: double.infinity,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.03,
+                              ),
                               child: Center(
                                 child: Text(
                                   hotplace["Place"],
@@ -178,19 +172,20 @@ class PlaceDetailsScreen extends StatelessWidget {
               ),
               admin
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
                               width: screenWidth * 0.4,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red),
+                                border: Border.all(color: red),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: TextButton(
                                 style: TextButton.styleFrom(
-                                  backgroundColor: const Color(0xfff2d9f7),
+                                  backgroundColor: buttonbg,
                                 ),
                                 onPressed: () {
                                   showDialog(
@@ -217,14 +212,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                                         );
                                       });
                                 },
-                                child: const Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.red,
-                                  ),
-                                ),
+                                child: Text("Delete", style: textStyle5),
                               ),
                             ),
                             Container(
@@ -247,14 +235,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                                             )),
                                       ));
                                 },
-                                child: const Text(
-                                  "Edit",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                                child: Text("Edit", style: textStyle6),
                               ),
                             ),
                           ]),

@@ -12,6 +12,8 @@ class AdminHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -19,16 +21,18 @@ class AdminHomeScreen extends StatelessWidget {
             "Assets/Images/00.png",
             width: 170,
           ),
-          const SizedBox(
-            width: 30,
+          SizedBox(
+            width: screenWidth * 0.08,
           )
         ],
-        backgroundColor: const Color(0xffffffff),
+        backgroundColor: white,
       ),
       drawer: drawer(context),
       body: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(gradient: backgroundGradient1),
+          decoration: const BoxDecoration(
+            gradient: backgroundGradient1,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(children: [
@@ -54,15 +58,25 @@ class AdminHomeScreen extends StatelessWidget {
               ]),
               Container(
                 margin: const EdgeInsets.only(top: 15),
-                height: 50,
+                height: screenHeight * 0.05,
                 child: ValueListenableBuilder(
                     valueListenable: categorieList,
-                    builder: ((context, List<CategoriesModel> value, child) {
+                    builder: ((
+                      context,
+                      List<CategoriesModel> value,
+                      child,
+                    ) {
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: value.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return categories(index: index, context: context);
+                          itemBuilder: (
+                            BuildContext context,
+                            int index,
+                          ) {
+                            return categories(
+                              index: index,
+                              context: context,
+                            );
                           });
                     })),
               ),
@@ -88,18 +102,17 @@ class AdminHomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
               Expanded(
                 child: ValueListenableBuilder(
                   valueListenable: placeList,
                   builder: (context, value, child) {
                     return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: screenWidth * 0.02,
                         ),
                         itemCount: placeList.value.length,
                         itemBuilder: ((context, index) {
@@ -116,6 +129,7 @@ class AdminHomeScreen extends StatelessWidget {
                               );
                             },
                             child: places(
+                                context: context,
                                 image: place.image[0],
                                 place: place.place,
                                 district: place.district),

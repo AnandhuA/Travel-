@@ -9,26 +9,29 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+    
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "   Explore",
+              "    Explore",
               style: TextStyle(fontSize: 35),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: screenHeight * 0.03,
             ),
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: placeList.value.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 10,
+                crossAxisSpacing: screenWidth * 0.02,
               ),
               itemBuilder: (context, index) {
                 PlaceModel place = placeList.value[index];
@@ -43,6 +46,7 @@ class ExploreScreen extends StatelessWidget {
                     );
                   },
                   child: places(
+                      context: context,
                       image: place.image[0],
                       place: place.place,
                       district: place.district),

@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/colors.dart';
 
 Widget dottedContainer(
     {required String text,
@@ -20,7 +21,7 @@ Widget dottedContainer(
             Icon(
               icon,
               size: 40,
-              color: Colors.grey[700],
+              color: grey700,
             ),
             Text(text)
           ],

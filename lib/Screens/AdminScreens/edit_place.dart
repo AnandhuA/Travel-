@@ -52,11 +52,11 @@ class _EditPlaceState extends State<EditPlaceScreen> {
             width: 200,
           )
         ],
-        backgroundColor: const Color(0xfffdf6f6),
+        backgroundColor: white,
       ),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(gradient: backgroundGradient2),
+        decoration: const BoxDecoration(gradient: backgroundGradient2,),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
@@ -189,7 +189,7 @@ class _EditPlaceState extends State<EditPlaceScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Fill all details"),
-                          backgroundColor: Colors.red,
+                          backgroundColor: red,
                         ),
                       );
                     } else {

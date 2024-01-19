@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel/colors.dart';
 
 Widget addButton({required onpress, String add = "Add", required Color color}) {
   return SizedBox(
@@ -9,7 +10,7 @@ Widget addButton({required onpress, String add = "Add", required Color color}) {
       child: Text(
         add,
         style: const TextStyle(
-          color: Colors.white,
+          color: white,
           fontSize: 25,
           fontWeight: FontWeight.w400,
         ),
