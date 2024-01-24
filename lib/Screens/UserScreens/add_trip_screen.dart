@@ -8,7 +8,6 @@ import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/table_calendar.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Widgets/time_picker.dart';
-import 'package:travel/animation.dart';
 import 'package:travel/colors.dart';
 
 class AddTripScreen extends StatelessWidget {
@@ -52,8 +51,10 @@ class AddTripScreen extends StatelessWidget {
                   height: screenHeight * 0.03,
                 ),
                 addButton(
+                    add: "Next",
                     color: blue400,
                     onpress: () async {
+                      Navigator.pushNamed(context, "AddCompanions");
                       final rangeStart = getTableCalendarRangeStart();
                       final rangeEnd = getTableCalendarRangeEnd();
                       final time = getSelectedTime();
@@ -74,7 +75,7 @@ class AddTripScreen extends StatelessWidget {
                             rangeEnd: rangeEnd,
                             uid: FirebaseAuth.instance.currentUser!.uid
                                 .toString());
-                        animationAdded(context: context);
+
                         await addTrip(trip: trip);
 
                         descriptionCntroller.clear();

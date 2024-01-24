@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
+import 'package:travel/Notifications/show_notification.dart';
 import 'package:travel/Screens/UserScreens/edit_trip_screen.dart';
 import 'package:travel/Screens/UserScreens/trip_details_page.dart';
 import 'package:travel/colors.dart';
@@ -36,22 +37,14 @@ class UpcomingTrip extends StatelessWidget {
                         trip.rangeEnd.isAfter(now)) {
                       tripNow = true;
                     }
+
                     return Slidable(
                       key: Key(trip.id),
                       startActionPane: ActionPane(
                           extentRatio: 0.2,
                           motion: const StretchMotion(),
                           children: [
-                            // SlidableAction(
-                            //   backgroundColor: Colors.red.shade50,
-                            //   autoClose: true,
-                            //   onPressed: (contex) {
-                            //     deleteTrip(trip: trip);
-                            //   },
-                            //   foregroundColor: Colors.red,
-                            //   icon: Icons.delete,
-                            //   label: "Delect",
-                            // ),
+                          
                             SlidableAction(
                               backgroundColor: blue100,
                               autoClose: true,
@@ -74,16 +67,9 @@ class UpcomingTrip extends StatelessWidget {
                         extentRatio: 0.2,
                         motion: const StretchMotion(),
                         children: [
-                          // SlidableAction(
-                          //   backgroundColor: Colors.blue.shade100,
-                          //   autoClose: true,
-                          //   onPressed: (contex) {},
-                          //   foregroundColor: Colors.blue,
-                          //   icon: Icons.edit_note_sharp,
-                          //   label: "Edit",
-                          // ),
+                  
                           SlidableAction(
-                            backgroundColor:red50,
+                            backgroundColor: red50,
                             autoClose: true,
                             onPressed: (context) {
                               ScaffoldMessenger.of(context)
@@ -102,6 +88,33 @@ class UpcomingTrip extends StatelessWidget {
                       ),
                       child: ListTile(
                         onTap: () {
+                          String time = trip.time;
+                          List<String> parts = time.split(":");
+                          int hours = int.parse(parts[0]);
+                          int minutes = int.parse(parts[1].split(" ")[0]);
+                          String amPm = parts[1].split(" ")[1];
+
+                          DateTime tripDateTime;
+
+                          if (hours != 0) {
+                            int adjustedHour =
+                                amPm == "AM" ? hours % 12 : (hours % 12) + 12;
+                            tripDateTime = DateTime(
+                              trip.rangeStart.year,
+                              trip.rangeStart.month,
+                              trip.rangeStart.day,
+                              adjustedHour,
+                              minutes,
+                            );
+                          } else {
+                            tripDateTime = DateTime.now();
+                          }
+                          showNotification(
+                            date: tripDateTime,
+                            title: trip.destination,
+                            body: trip.description,
+                          );
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -109,17 +122,13 @@ class UpcomingTrip extends StatelessWidget {
                                     TripDetailsScreen(index: index),
                               ));
                         },
-                        tileColor: tripNow
-                            ? orange50
-                            : green50,
+                        tileColor: tripNow ? orange50 : green50,
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.04,
                           vertical: screenHeight * 0.017,
                         ),
                         leading: CircleAvatar(
-                          backgroundColor: tripNow
-                              ? orange100
-                              : green100,
+                          backgroundColor: tripNow ? orange100 : green100,
                           radius: 30,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -131,9 +140,7 @@ class UpcomingTrip extends StatelessWidget {
                               ),
                               Text(
                                 week,
-                                style: TextStyle(
-                                  color: grey800
-                                ),
+                                style: TextStyle(color: grey800),
                               )
                             ],
                           ),
@@ -172,5 +179,15 @@ class UpcomingTrip extends StatelessWidget {
         },
       ),
     );
+  }
+
+  DateTime parseTimeString(String timeString) {
+    try {
+      // Convert the timeString to a DateTime object
+      return DateTime.parse("1970-01-01 $timeString");
+    } catch (e) {
+      
+      return DateTime.now();
+    }
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
-import 'package:travel/Screens/UserScreens/trip_details_page.dart';
+import 'package:travel/Screens/UserScreens/completed_trip_details.dart';
 import 'package:travel/colors.dart';
 
 class ComplectedTrip extends StatelessWidget {
@@ -63,7 +63,7 @@ class ComplectedTrip extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    TripDetailsScreen(index: index),
+                                    CompletedTripDetails(index: index),
                               ));
                         },
                         tileColor: cyan50,

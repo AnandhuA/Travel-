@@ -46,7 +46,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   children: [
                     Text(
                       loginuser.name,
-                      style: const TextStyle(fontSize: 40),
+                      style: const TextStyle(fontSize: 30),
                     ),
                     // SizedBox(
                     //   width: screenWidth * 0.3,
