@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -27,12 +27,12 @@ class _AccountScreenState extends State<AccountScreen> {
             height: screenHeight * 0.03,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
             child: Row(
               children: [
                 CircleAvatar(
                   backgroundColor: orange50,
-                  radius: 100,
+                  radius: screenWidth * 0.24,
                   child: Text(
                     loginuser.name[0],
                     style: const TextStyle(
@@ -46,7 +46,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   children: [
                     Text(
                       loginuser.name,
-                      style: const TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: screenWidth * 0.1),
                     ),
                     // SizedBox(
                     //   width: screenWidth * 0.3,

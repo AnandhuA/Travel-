@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
-Widget animatedContainerWidget(
-    {required selectedTab, required index, required BuildContext context,required day ,required date,}) {
+Widget animatedContainerWidget({
+  required selectedTab,
+  required index,
+  required BuildContext context,
+  required day,
+  required date,
+}) {
   final size = MediaQuery.of(context).size;
   return AnimatedContainer(
     duration: const Duration(milliseconds: 400),
@@ -20,16 +25,17 @@ Widget animatedContainerWidget(
             children: [
               Text(
                 day,
-                style: const TextStyle(
+                style: TextStyle(
                   color: white,
+                  fontSize: size.height * 0.015,
                 ),
               ),
               Text(
                 DateFormat('dd MMM').format(date),
-                style: const TextStyle(
+                style: TextStyle(
                   color: white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: size.height * 0.02,
                 ),
               )
             ],

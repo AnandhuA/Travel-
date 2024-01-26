@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class HotPlaceAdd extends StatelessWidget {
   const HotPlaceAdd({super.key});

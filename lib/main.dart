@@ -10,11 +10,12 @@ import 'package:travel/Screens/AdminScreens/add_place_screen.dart';
 import 'package:travel/Screens/AdminScreens/admin_home_screen.dart';
 import 'package:travel/Screens/IntroScreens/intro_pages.dart';
 import 'package:travel/Screens/StartScreens/splash_screen.dart';
-import 'package:travel/Screens/UserScreens/add_travel_companions.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_travel_companions.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_trip_plan.dart';
 import 'package:travel/Screens/UserScreens/user_home_screen.dart';
 import 'package:travel/Screens/LoginAndSignupScreen/login_screen.dart';
 import 'package:travel/Screens/LoginAndSignupScreen/signup_screen.dart';
-import 'package:travel/firebase_options.dart';
+import 'package:travel/FireBase/firebase_options.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 
 late bool admin;
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
         "AddPlace": (context) => const AddPlaceScreen(),
         "HomePage": (context) => const UserHomeScreen(),
         "IntroPage": (context) => const IntroScreen(),
-        "AddCompanions":(context) => AddCompanionsScreen()
+        "AddCompanions":(context) => const AddCompanionsScreen(),
+          "AddTripPlan":(context) => const AddTripPlan()
         //  "Animation": (context) =>  AnimationScreen(),
       },
     );

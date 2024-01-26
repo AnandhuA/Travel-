@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:travel/Screens/UserScreens/account_screen.dart';
-import 'package:travel/Screens/UserScreens/add_trip_screen.dart';
-import 'package:travel/Screens/UserScreens/explore_screen.dart';
-import 'package:travel/Screens/UserScreens/favorite_screen.dart';
-import 'package:travel/Screens/UserScreens/trip_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/account_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_trip_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/explore_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/favorite_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/trip_screen.dart';
 import 'package:travel/Widgets/drawer_wedget.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});

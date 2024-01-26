@@ -4,9 +4,9 @@ import 'package:travel/Functions/admin_functions.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
-import 'package:travel/style.dart';
+import 'package:travel/Styles/text_style.dart';
 
 class PlaceDetailsScreen extends StatelessWidget {
   final int index;

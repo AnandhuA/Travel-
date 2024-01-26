@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class TimePickerWidegt extends StatefulWidget {
   String? time;

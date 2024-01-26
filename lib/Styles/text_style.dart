@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 //signup screen and login screen
 

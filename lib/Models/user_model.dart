@@ -31,15 +31,28 @@ class TripModel {
   final DateTime rangeEnd;
   @HiveField(6)
   final String uid;
+  @HiveField(7)
+  final String travelType;
+  @HiveField(8)
+  final int numberOfPeople;
+  @HiveField(9)
+  final int budget;
+  @HiveField(10)
+  final Map<String, List<String>> activitys;
 
-  TripModel(
-      {required this.id,
-      required this.destination,
-      required this.description,
-      required this.time,
-      required this.rangeStart,
-      required this.rangeEnd,
-      required this.uid});
+  TripModel({
+    required this.id,
+    required this.destination,
+    required this.description,
+    required this.time,
+    required this.rangeStart,
+    required this.rangeEnd,
+    required this.uid,
+    required this.travelType,
+    required this.numberOfPeople,
+    required this.budget,
+    required this.activitys,
+  });
 }
 
 @HiveType(typeId: 5)

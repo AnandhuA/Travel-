@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/admin_functions.dart';
 import 'package:travel/Models/admin_model.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 String? value;
 CategoriesModel? categorie;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
 
 class SplashScreen extends StatefulWidget {

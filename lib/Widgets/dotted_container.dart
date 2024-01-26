@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 Widget dottedContainer(
     {required String text,

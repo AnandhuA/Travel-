@@ -6,7 +6,7 @@ import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/image_view.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
 
 class DetailsPageImage extends StatefulWidget {

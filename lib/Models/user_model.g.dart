@@ -64,13 +64,18 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
       rangeStart: fields[4] as DateTime,
       rangeEnd: fields[5] as DateTime,
       uid: fields[6] as String,
+      travelType: fields[7] as String,
+      numberOfPeople: fields[8] as int,
+      budget: fields[9] as int,
+      activitys: (fields[10] as Map).map((dynamic k, dynamic v) =>
+          MapEntry(k as String, (v as List).cast<String>())),
     );
   }
 
   @override
   void write(BinaryWriter writer, TripModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -84,7 +89,15 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
       ..writeByte(5)
       ..write(obj.rangeEnd)
       ..writeByte(6)
-      ..write(obj.uid);
+      ..write(obj.uid)
+      ..writeByte(7)
+      ..write(obj.travelType)
+      ..writeByte(8)
+      ..write(obj.numberOfPeople)
+      ..writeByte(9)
+      ..write(obj.budget)
+      ..writeByte(10)
+      ..write(obj.activitys);
   }
 
   @override

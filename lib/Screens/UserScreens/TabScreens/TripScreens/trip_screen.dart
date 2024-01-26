@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Screens/UserScreens/completed_screen.dart';
-import 'package:travel/Screens/UserScreens/upcoming_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/completed_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/upcoming_screen.dart';
 import 'package:travel/Widgets/button.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class MyTripsScreen extends StatefulWidget {
   const MyTripsScreen({super.key});

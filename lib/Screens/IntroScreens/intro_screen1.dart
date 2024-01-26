@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:travel/colors.dart';
-import 'package:travel/style.dart';
+import 'package:travel/Styles/colors.dart';
+import 'package:travel/Styles/text_style.dart';
 
 class IntroScreen1 extends StatelessWidget {
   const IntroScreen1({super.key});

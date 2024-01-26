@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Notifications/show_notification.dart';
-import 'package:travel/Screens/UserScreens/edit_trip_screen.dart';
-import 'package:travel/Screens/UserScreens/trip_details_page.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Screens/UserScreens/EditTrip/edit_trip_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/TripDetailsScreens/trip_details_page.dart';
+import 'package:travel/Styles/colors.dart';
 
 class UpcomingTrip extends StatelessWidget {
   const UpcomingTrip({super.key});

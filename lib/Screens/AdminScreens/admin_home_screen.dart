@@ -5,7 +5,7 @@ import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/drawer_wedget.dart';
 import 'package:travel/Widgets/home_page_wedgets.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class AdminHomeScreen extends StatelessWidget {
   const AdminHomeScreen({super.key});

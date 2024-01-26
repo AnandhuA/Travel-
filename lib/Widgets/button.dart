@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 Widget addButton({required onpress, String add = "Add", required Color color}) {
   return SizedBox(

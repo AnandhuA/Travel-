@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:travel/Models/user_model.dart';
+import 'package:travel/Screens/UserScreens/EditTrip/edit_trip_plan.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
-class AddCompanionsScreen extends StatefulWidget {
-  const AddCompanionsScreen({super.key});
+class EditCompanionsScreen extends StatefulWidget {
+  final TripModel editTrip;
+  const EditCompanionsScreen({super.key, required this.editTrip});
 
   @override
-  State<AddCompanionsScreen> createState() => _AddCompanionsScreenState();
+  State<EditCompanionsScreen> createState() => _EditCompanionsScreenState();
 }
 
-String selectedGroup = "";
-int number = 2;
+int? editedNumberOfPeople;
+String? editedTravelType;
+int? editedBudget;
 
-class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
+String _selectedGroup = "Solo";
+int _number = 2;
+
+class _EditCompanionsScreenState extends State<EditCompanionsScreen> {
+  TextEditingController budgetController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _selectedGroup = widget.editTrip.travelType;
+    _number = widget.editTrip.numberOfPeople;
+    budgetController.text = widget.editTrip.budget.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -30,13 +46,13 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
             children: [
               headingWidget(
                 context: context,
-                heading: "Travel Companions",
+                heading: "Edit Travel Companions",
                 icon: Icons.group,
               ),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              const Text("   Select your travel group type"),
+              const Text("  Edit Select your travel group type"),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
@@ -68,7 +84,7 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              selectedGroup == "Family" || selectedGroup == "Friends"
+              _selectedGroup == "Family" || _selectedGroup == "Friends"
                   ? addPeopleWidget(context: context)
                   : const SizedBox(),
               SizedBox(
@@ -84,6 +100,7 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                 child: textField(
+                    controller: budgetController,
                     keyboard: const TextInputType.numberWithOptions(),
                     label: "Budget",
                     icon: const Icon(
@@ -94,7 +111,38 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
               SizedBox(
                 height: screenHeight * 0.05,
               ),
-              addButton(onpress: () {}, color: blue, add: "Next"),
+              addButton(
+                  onpress: () {
+                    if (budgetController.text.isNotEmpty) {
+                      if (_selectedGroup == "Solo") {
+                        editedTravelType = "Solo";
+                        editedNumberOfPeople = 1;
+                      } else if (_selectedGroup == "Couple") {
+                        editedTravelType = "Couple";
+                        editedNumberOfPeople = 2;
+                      } else if (_selectedGroup == "Family") {
+                        editedTravelType = "Family";
+                        editedNumberOfPeople = _number;
+                      } else {
+                        editedTravelType = "Friends";
+                        editedNumberOfPeople = _number;
+                      }
+                      editedBudget = int.parse(budgetController.text);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                EditTripPlan(editTrip: widget.editTrip),
+                          ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("select all feilds"),
+                        backgroundColor: red,
+                      ));
+                    }
+                  },
+                  color: blue,
+                  add: "Next"),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
@@ -125,7 +173,10 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
         ),
         Text(
           heading,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          ),
         )
       ],
     );
@@ -148,18 +199,18 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
           IconButton(
             onPressed: () {
               setState(() {
-                if (number != 0) {
-                  number--;
+                if (_number > 2) {
+                  _number--;
                 }
               });
             },
             icon: Icon(
               Icons.horizontal_rule,
-              color: number == 0 ? grey : black,
+              color: _number == 2 ? grey : black,
             ),
           ),
           Text(
-            "${number.toString()} People",
+            "${_number.toString()} People",
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -169,7 +220,7 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
             tooltip: "Add people",
             onPressed: () {
               setState(() {
-                number++;
+                _number++;
               });
             },
             icon: const Icon(Icons.add),
@@ -189,14 +240,14 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
       borderRadius: BorderRadius.circular(15),
       onTap: () {
         setState(() {
-          selectedGroup = text;
+          _selectedGroup = text;
         });
       },
       child: Container(
-        width: screenWidth * 0.19,
+        width: screenWidth * 0.2,
         height: screenHeight * 0.1,
         decoration: BoxDecoration(
-          color: selectedGroup == text ? blue : grey200,
+          color: _selectedGroup == text ? blue : grey200,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
@@ -213,7 +264,7 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
               text,
               style: TextStyle(
                 overflow: TextOverflow.ellipsis,
-                color: selectedGroup == text ? white : black,
+                color: _selectedGroup == text ? white : black,
               ),
             )
           ],

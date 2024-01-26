@@ -11,7 +11,7 @@ import 'package:travel/Widgets/categories_dropdown.dart';
 import 'package:travel/Widgets/dotted_container.dart';
 import 'package:travel/Widgets/hot_places.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({super.key});

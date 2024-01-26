@@ -5,7 +5,7 @@ import 'package:travel/Functions/admin_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 Widget categories({required int index, required BuildContext context}) {
   final categorie = categorieList.value[index];

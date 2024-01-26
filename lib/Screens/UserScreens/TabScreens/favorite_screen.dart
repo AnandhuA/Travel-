@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});

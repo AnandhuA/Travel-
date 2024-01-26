@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
-import 'package:travel/colors.dart';
+import 'package:travel/Styles/colors.dart';
 
 Widget drawer(context) {
   return Drawer(

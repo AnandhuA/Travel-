@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
-import 'package:travel/animation.dart';
-import 'package:travel/colors.dart';
-import 'package:travel/style.dart';
+import 'package:travel/Styles/animation.dart';
+import 'package:travel/Styles/colors.dart';
+import 'package:travel/Styles/text_style.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
