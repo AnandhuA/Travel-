@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/completed_screen.dart';
-import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/upcoming_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Completed/completed_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/upcoming_screen.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Styles/colors.dart';
 

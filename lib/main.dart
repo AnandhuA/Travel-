@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Functions/user_functions.dart';
-import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Notifications/notification_initialization.dart';
 import 'package:travel/Screens/AdminScreens/add_place_screen.dart';
@@ -22,17 +21,12 @@ late bool admin;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   notificationInitialization();
-   tzdata.initializeTimeZones();
+  tzdata.initializeTimeZones();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
-  if (!Hive.isAdapterRegistered(PlaceModelAdapter().typeId)) {
-    Hive.registerAdapter(PlaceModelAdapter());
-  }
-  if (!Hive.isAdapterRegistered(CategoriesModelAdapter().typeId)) {
-    Hive.registerAdapter(CategoriesModelAdapter());
-  }
+ 
   if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
     Hive.registerAdapter(FavoriteModelAdapter());
   }
@@ -42,8 +36,10 @@ void main() async {
   if (!Hive.isAdapterRegistered(UserDetailsModelAdapter().typeId)) {
     Hive.registerAdapter(UserDetailsModelAdapter());
   }
-  await refresh();
+ 
   await userRefresh();
+  await getFireBaseDetails();
+ 
 
   runApp(const MyApp());
 }
@@ -64,8 +60,8 @@ class MyApp extends StatelessWidget {
         "AddPlace": (context) => const AddPlaceScreen(),
         "HomePage": (context) => const UserHomeScreen(),
         "IntroPage": (context) => const IntroScreen(),
-        "AddCompanions":(context) => const AddCompanionsScreen(),
-          "AddTripPlan":(context) => const AddTripPlan()
+        "AddCompanions": (context) => const AddCompanionsScreen(),
+        "AddTripPlan": (context) => const AddTripPlan()
         //  "Animation": (context) =>  AnimationScreen(),
       },
     );

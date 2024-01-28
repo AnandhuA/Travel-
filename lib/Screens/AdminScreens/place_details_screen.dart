@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/admin_functions.dart';
-import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
 import 'package:travel/Styles/colors.dart';
@@ -17,8 +15,10 @@ class PlaceDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final place =
-        fav ? favoriteList.value[index].favoritePlace : placeList.value[index];
+    final FirestroreService firestroreService = FirestroreService();
+    // final place =
+    //     fav ? favoriteList.value[index].favoritePlace : placeList.value[index];
+    final place = firebasePlaceModelList[index];
 
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -34,8 +34,14 @@ class PlaceDetailsScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
                 child:
                     Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  Text(place.place, style: textStyle2),
-                  Text(", ${place.district}", style: textStyle3),
+                  Text("${place.place},", style: textStyle2),
+                  Expanded(
+                    child: Text(
+                      place.district,
+                      style: textStyle3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ]),
               ),
               Padding(
@@ -43,7 +49,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                   horizontal: screenWidth * 0.03,
                 ),
                 child: Text(
-                  place.categories.categorie,
+                  place.categories,
                   style: const TextStyle(fontSize: 17),
                 ),
               ),
@@ -74,99 +80,99 @@ class PlaceDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.03,
-                ),
-                child: place.hotplace.isEmpty
-                    ? const SizedBox()
-                    : Text("Hot Places", style: textStyle4),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: screenWidth * 0.03,
+              //   ),
+              //   child: place.hotplace.isEmpty
+              //       ? const SizedBox()
+              //       : Text("Hot Places", style: textStyle4),
+              // ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemCount: place.hotplace.length,
-                  itemBuilder: (context, index) {
-                    Map hotplace = place.hotplace[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.03,
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onVerticalDragDown: (_) {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 50,
-                                      width: double.infinity,
-                                      color: purple100,
-                                      child: Center(
-                                        child: Text(hotplace["Place"]),
-                                      ),
-                                    ),
-                                    Image.file(File(hotplace["Image"])),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        child: Column(children: [
-                          SizedBox(
-                            height: 60,
-                            width: double.infinity,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(10),
-                              ),
-                              child: Image.file(
-                                File(hotplace["Image"]),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: lightColor,
-                              borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(10),
-                              ),
-                            ),
-                            height: 30,
-                            width: double.infinity,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth * 0.03,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  hotplace["Place"],
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ),
-                            ),
-                          )
-                        ]),
-                      ),
-                    );
-                  }),
+              // GridView.builder(
+              //     shrinkWrap: true,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //       crossAxisCount: 3,
+              //       crossAxisSpacing: 10,
+              //     ),
+              //     itemCount: place.hotplace.length,
+              //     itemBuilder: (context, index) {
+              //       Map hotplace = place.hotplace[index];
+              //       return Padding(
+              //         padding: EdgeInsets.symmetric(
+              //           horizontal: screenWidth * 0.03,
+              //         ),
+              //         child: InkWell(
+              //           onTap: () {
+              //             showDialog(
+              //               context: context,
+              //               builder: (context) {
+              //                 return GestureDetector(
+              //                   onVerticalDragDown: (_) {
+              //                     Navigator.of(context).pop();
+              //                   },
+              //                   child: Column(
+              //                     mainAxisAlignment: MainAxisAlignment.center,
+              //                     children: [
+              //                       Container(
+              //                         height: 50,
+              //                         width: double.infinity,
+              //                         color: purple100,
+              //                         child: Center(
+              //                           child: Text(hotplace["Place"]),
+              //                         ),
+              //                       ),
+              //                       Image.file(File(hotplace["Image"])),
+              //                     ],
+              //                   ),
+              //                 );
+              //               },
+              //             );
+              //           },
+              //           child: Column(children: [
+              //             SizedBox(
+              //               height: 60,
+              //               width: double.infinity,
+              //               child: ClipRRect(
+              //                 borderRadius: const BorderRadius.vertical(
+              //                   top: Radius.circular(10),
+              //                 ),
+              //                 child: Image.file(
+              //                   File(hotplace["Image"]),
+              //                   fit: BoxFit.cover,
+              //                 ),
+              //               ),
+              //             ),
+              //             Container(
+              //               decoration: const BoxDecoration(
+              //                 color: lightColor,
+              //                 borderRadius: BorderRadius.vertical(
+              //                   bottom: Radius.circular(10),
+              //                 ),
+              //               ),
+              //               height: 30,
+              //               width: double.infinity,
+              //               child: Padding(
+              //                 padding: EdgeInsets.symmetric(
+              //                   horizontal: screenWidth * 0.03,
+              //                 ),
+              //                 child: Center(
+              //                   child: Text(
+              //                     hotplace["Place"],
+              //                     overflow: TextOverflow.ellipsis,
+              //                     maxLines: 1,
+              //                     style: const TextStyle(fontSize: 14),
+              //                   ),
+              //                 ),
+              //               ),
+              //             )
+              //           ]),
+              //         ),
+              //       );
+              //     }),
               SizedBox(
                 height: screenHeight * 0.02,
               ),
@@ -202,7 +208,8 @@ class PlaceDetailsScreen extends StatelessWidget {
                                             ),
                                             TextButton(
                                               onPressed: () {
-                                                deletePlace(place.id);
+                                                firestroreService.deletePlace(
+                                                    id: place.id);
                                                 Navigator.pop(ctx);
                                                 Navigator.pop(context);
                                               },
@@ -230,7 +237,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: ((context) => EditPlaceScreen(
-                                              placeModel: place,
+                                              firebasePlaceModel: place,
                                               index: index,
                                             )),
                                       ));

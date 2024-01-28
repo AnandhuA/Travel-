@@ -1,14 +1,14 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Styles/colors.dart';
 
 Widget categories({required int index, required BuildContext context}) {
-  final categorie = categorieList.value[index];
+  final categorie = categorieList[index];
+  final FirestroreService firestroreService = FirestroreService();
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
     decoration: BoxDecoration(
@@ -66,8 +66,8 @@ Widget categories({required int index, required BuildContext context}) {
                                             id: categorie.id,
                                             categorie: categorieController.text,
                                           );
-                                          editCategories(
-                                              categories: categoriemodel);
+                                          firestroreService.editCategories(
+                                              categoriesModel: categoriemodel);
                                           Navigator.pop(context);
                                         }
                                       })
@@ -100,7 +100,8 @@ Widget categories({required int index, required BuildContext context}) {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  deleteCategorie(categories: categorie);
+                                  firestroreService.deleteCategorie(
+                                      categoriesModel: categorie);
                                   Navigator.pop(ctx);
                                 },
                                 child: const Text("Yes"),
@@ -137,8 +138,10 @@ Widget places(
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(20),
         ),
-        child: Image.file(
-          File(image),
+        child: CachedNetworkImage(
+          imageUrl: image,
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
           fit: BoxFit.cover,
         ),
       ),
@@ -156,11 +159,13 @@ Widget places(
           width: screenWidth * 0.03,
         ),
         const Icon(Icons.location_on_outlined),
-        Text(
-          "$place, $district",
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-        ),
+        Text("$place,"),
+        Expanded(
+          child: Text(
+            district,
+            overflow: TextOverflow.ellipsis,
+          ),
+        )
       ]),
     )
   ]);

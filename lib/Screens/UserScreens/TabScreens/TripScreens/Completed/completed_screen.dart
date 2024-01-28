@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
-import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/TripDetailsScreens/completed_trip_details.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Completed/completed_trip_details.dart';
 import 'package:travel/Styles/colors.dart';
 
 class ComplectedTrip extends StatelessWidget {

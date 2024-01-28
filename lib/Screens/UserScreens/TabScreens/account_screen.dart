@@ -46,7 +46,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   children: [
                     Text(
                       loginuser.name,
-                      style: TextStyle(fontSize: screenWidth * 0.1),
+                      style: TextStyle(fontSize: screenWidth * 0.09),
+                      overflow: TextOverflow.ellipsis,
                     ),
                     // SizedBox(
                     //   width: screenWidth * 0.3,

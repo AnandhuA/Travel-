@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/bottom_sheet.dart';
@@ -36,49 +36,44 @@ class AdminHomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const Text(
-                  "Categories",
-                  style: TextStyle(fontSize: 30),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    getPlaces();
-                    addCategoriesbottomSheet(context);
-                  },
-                  icon: const Icon(
-                    Icons.add,
-                    color: buttonColor,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Categories",
+                    style: TextStyle(fontSize: 30),
                   ),
-                  label: const Text(
-                    "Add categories",
-                    style: TextStyle(color: buttonColor),
-                  ),
-                )
-              ]),
+                  TextButton.icon(
+                    onPressed: () {
+                      addCategoriesbottomSheet(context);
+                    },
+                    icon: const Icon(
+                      Icons.add,
+                      color: buttonColor,
+                    ),
+                    label: const Text(
+                      "Add categories",
+                      style: TextStyle(color: buttonColor),
+                    ),
+                  )
+                ],
+              ),
               Container(
                 margin: const EdgeInsets.only(top: 15),
                 height: screenHeight * 0.05,
-                child: ValueListenableBuilder(
-                    valueListenable: categorieList,
-                    builder: ((
-                      context,
-                      List<CategoriesModel> value,
-                      child,
-                    ) {
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: value.length,
-                          itemBuilder: (
-                            BuildContext context,
-                            int index,
-                          ) {
-                            return categories(
-                              index: index,
-                              context: context,
-                            );
-                          });
-                    })),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categorieList.length,
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
+                    return categories(
+                      index: index,
+                      context: context,
+                    );
+                  },
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,38 +101,67 @@ class AdminHomeScreen extends StatelessWidget {
                 height: screenHeight * 0.02,
               ),
               Expanded(
-                child: ValueListenableBuilder(
-                  valueListenable: placeList,
-                  builder: (context, value, child) {
-                    return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: screenWidth * 0.02,
-                        ),
-                        itemCount: placeList.value.length,
-                        itemBuilder: ((context, index) {
-                          PlaceModel place = placeList.value[index];
-
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) =>
-                                      PlaceDetailsScreen(index: index)),
-                                ),
-                              );
-                            },
-                            child: places(
-                                context: context,
-                                image: place.image[0],
-                                place: place.place,
-                                district: place.district),
-                          );
-                        }));
-                  },
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: screenWidth * 0.02,
+                  ),
+                  itemCount: firebasePlaceModelList.length,
+                  itemBuilder: ((context, index) {
+                   PlaceModel place = firebasePlaceModelList[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) =>
+                                PlaceDetailsScreen(index: index)),
+                          ),
+                        );
+                      },
+                      child: places(
+                          context: context,
+                          image: place.image[0],
+                          place: place.place,
+                          district: place.district),
+                    );
+                  }),
                 ),
               )
+
+              // Expanded(
+              //   child: ValueListenableBuilder(
+              //     valueListenable: placeList,
+              //     builder: (context, value, child) {
+              //       return GridView.builder(
+              //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //             crossAxisCount: 2,
+              //             crossAxisSpacing: screenWidth * 0.02,
+              //           ),
+              //           itemCount: placeList.value.length,
+              //           itemBuilder: ((context, index) {
+              //             PlaceModel place = placeList.value[index];
+
+              //             return InkWell(
+              //               onTap: () {
+              //                 Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                     builder: ((context) =>
+              //                         PlaceDetailsScreen(index: index)),
+              //                   ),
+              //                 );
+              //               },
+              //               child: places(
+              //                   context: context,
+              //                   image: place.image[0],
+              //                   place: place.place,
+              //                   district: place.district),
+              //             );
+              //           }));
+              //     },
+              //   ),
+              // )
             ]),
           ),
         ),

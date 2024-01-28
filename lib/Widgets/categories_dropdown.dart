@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Styles/colors.dart';
 
@@ -35,7 +35,7 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
           value = newValue;
         });
       },
-      items: categorieList.value
+      items: categorieList
           .map<DropdownMenuItem<String>>((CategoriesModel value) {
         return DropdownMenuItem<String>(
           value: value.categorie,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/home_page_wedgets.dart';
@@ -12,7 +12,6 @@ class ExploreScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-    
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
       child: SingleChildScrollView(
         child: Column(
@@ -28,13 +27,13 @@ class ExploreScreen extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: placeList.value.length,
+              itemCount: firebasePlaceModelList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: screenWidth * 0.02,
               ),
               itemBuilder: (context, index) {
-                PlaceModel place = placeList.value[index];
+                PlaceModel place = firebasePlaceModelList[index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(

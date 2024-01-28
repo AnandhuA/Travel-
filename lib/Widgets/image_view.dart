@@ -1,7 +1,5 @@
 // full_screen_image_page.dart
-
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -24,7 +22,7 @@ class ImageView extends StatelessWidget {
         itemCount: image.length,
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider: FileImage(File(image[index])),
+            imageProvider: CachedNetworkImageProvider(image[index]),
             minScale: PhotoViewComputedScale.contained,
             maxScale: PhotoViewComputedScale.covered * 2,
             heroAttributes: PhotoViewHeroAttributes(tag: index),

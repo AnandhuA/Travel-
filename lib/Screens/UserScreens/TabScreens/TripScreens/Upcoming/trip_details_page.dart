@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/add_transaction.dart';
 import 'package:travel/Widgets/time_line_widget.dart';
 import 'package:travel/Widgets/trip_details_screen_widgets.dart';
 import 'package:travel/Styles/colors.dart';
@@ -28,8 +29,15 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         title: Text(trip.destination),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: "Add",
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AddTransactionScreen(),
+            ),
+          );
+        },
+        tooltip: "Add Transaction",
         backgroundColor: blue300,
         child: const Icon(
           Icons.add,
@@ -37,53 +45,17 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(size.aspectRatio),
+        padding: EdgeInsets.symmetric(horizontal: size.height * 0.01),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: size.height * 0.02,
-              ),
-              height: size.height * 0.15,
-              decoration: BoxDecoration(
-                color: blue50,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircularPercentIndicator(
-                    radius: size.height * 0.06,
-                    lineWidth: size.height * 0.015,
-                    backgroundColor: blue100,
-                    progressColor: blue,
-                    percent: 0.6,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Your Budget",
-                        style: TextStyle(fontSize: size.height * 0.02),
-                      ),
-                      Text(
-                        trip.budget.toString(),
-                        style: TextStyle(
-                          fontSize: size.height * 0.04,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
             SizedBox(
               height: size.height * 0.02,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for (int i = 0; i < days.length; i++)
                     tabContainer(
@@ -97,7 +69,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Expanded(
+            SizedBox(
+              height: size.height * 0.2,
               child: ListView.builder(
                 itemCount:
                     activitys[activitys.keys.elementAt(_selectedTab)]?.length,
@@ -121,7 +94,49 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   );
                 },
               ),
-            )
+            ),
+            SizedBox(
+              height: size.height * 0.02,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: size.height * 0.01,
+              ),
+              height: size.height * 0.15,
+              decoration: BoxDecoration(
+                color: blue50,
+                border: Border.all(color: blue400),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CircularPercentIndicator(
+                    radius: size.height * 0.06,
+                    lineWidth: size.height * 0.015,
+                    backgroundColor: blue100,
+                    progressColor: blue,
+                    percent: 0.6,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Your Budget",
+                        style: TextStyle(fontSize: size.height * 0.02),
+                      ),
+                      Text(
+                        "₹ ${trip.budget.toString()}",
+                        style: TextStyle(
+                          fontSize: size.height * 0.04,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

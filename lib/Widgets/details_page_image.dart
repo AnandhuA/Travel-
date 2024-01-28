@@ -1,15 +1,13 @@
-import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/admin_model.dart';
-import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/image_view.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
 
 class DetailsPageImage extends StatefulWidget {
+  // final PlaceModel place;
   final PlaceModel place;
   final BuildContext ctx;
   const DetailsPageImage({super.key, required this.place, required this.ctx});
@@ -23,11 +21,11 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
   @override
   void initState() {
     super.initState();
-    for (final fav in favoriteList.value) {
-      if (fav.id == widget.place.id) {
-        favorite = true;
-      }
-    }
+    // for (final fav in favoriteList.value) {
+    //   if (fav.id == widget.place.id) {
+    //     favorite = true;
+    //   }
+    // }
   }
 
   int photo = 0;
@@ -64,8 +62,12 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                     borderRadius: const BorderRadius.vertical(
                       bottom: Radius.circular(30),
                     ),
-                    child: Image.file(
-                      File(widget.place.image[photo]),
+                    child: CachedNetworkImage(
+                      imageUrl: widget.place.image[photo],
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -91,25 +93,24 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                             width: 20,
                           ),
                           CircleAvatar(
-                            backgroundColor:
-                                transperantcolor,
+                            backgroundColor: transperantcolor,
                             child: IconButton(
                               onPressed: () {
-                                favorite
-                                    ? setState(() {
-                                        favorite = false;
-                                      })
-                                    : setState(() {
-                                        favorite = true;
-                                      });
-                                FavoriteModel fav = FavoriteModel(
-                                    id: widget.place.id,
-                                    favoritePlace: widget.place,
-                                    uid: FirebaseAuth.instance.currentUser!.uid
-                                        .toString());
-                                favorite
-                                    ? addFavorite(favoritePlace: fav)
-                                    : removeFavorite(favoritePlace: fav);
+                                // favorite
+                                //     ? setState(() {
+                                //         favorite = false;
+                                //       })
+                                //     : setState(() {
+                                //         favorite = true;
+                                //       });
+                                // FavoriteModel fav = FavoriteModel(
+                                //     id: widget.place.id,
+                                //     favoritePlace: widget.place,
+                                //     uid: FirebaseAuth.instance.currentUser!.uid
+                                //         .toString());
+                                // favorite
+                                //     ? addFavorite(favoritePlace: fav)
+                                //     : removeFavorite(favoritePlace: fav);
                               },
                               icon: favorite
                                   ? const Icon(
@@ -164,13 +165,13 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                                 border:
                                     Border.all(color: borderColor, width: 3),
                               ),
-                              child: Image.file(
-                                File(widget.place.image[index]),
+                              child: Image.network(
+                                widget.place.image[index],
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Image.file(
-                              File(widget.place.image[index]),
+                          : Image.network(
+                              widget.place.image[index],
                               fit: BoxFit.cover,
                             ),
                     ),

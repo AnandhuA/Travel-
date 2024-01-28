@@ -3,13 +3,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:travel/Functions/admin_functions.dart';
+import 'package:lottie/lottie.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
+import 'package:travel/FireBase/image_upload.dart';
 import 'package:travel/Models/admin_model.dart';
-import 'package:travel/Widgets/bottom_sheet.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/categories_dropdown.dart';
 import 'package:travel/Widgets/dotted_container.dart';
-import 'package:travel/Widgets/hot_places.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Styles/colors.dart';
 
@@ -21,6 +21,7 @@ class AddPlaceScreen extends StatefulWidget {
 }
 
 class _AddPlaceState extends State<AddPlaceScreen> {
+  bool lodaing = false;
   TextEditingController placeController = TextEditingController();
   TextEditingController districtController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -28,6 +29,8 @@ class _AddPlaceState extends State<AddPlaceScreen> {
   List<String> image = [];
   CategoriesModel? categorie;
   List list = [];
+  List<String> urlsOfImage = [];
+  final FirestroreService firestroreService = FirestroreService();
 
   @override
   Widget build(BuildContext context) {
@@ -135,69 +138,85 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                list.isEmpty ? const SizedBox() : const HotPlaceAdd(),
-                InkWell(
-                  onTap: () async {
-                    await addHotPlacebottomSheet(context);
-                    setState(() {
-                      list = hotplacesList.value;
-                    });
-                  },
-                  child: dottedContainer(
-                      text: "Add Hot Places",
-                      height: 100,
-                      width: 100,
-                      icon: Icons.add),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                addButton(
-                    color: buttonColor,
-                    onpress: () async {
-                      if (districtController.text.isEmpty ||
-                          placeController.text.isEmpty ||
-                          descriptionController.text.isEmpty) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Fill all details"),
-                          backgroundColor: red,
-                        ));
-                      } else if (image.isEmpty) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Select image"),
-                          backgroundColor: red,
-                        ));
-                      } else if (dropdownValue() == null) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Select categorey"),
-                          backgroundColor: red,
-                        ));
-                      } else if (dropdownCategorie() == null) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Select categorey"),
-                          backgroundColor: red,
-                        ));
-                      } else {
-                        categorie = dropdownCategorie();
+                // list.isEmpty ? const SizedBox() : const HotPlaceAdd(),
+                // InkWell(
+                //   onTap: () async {
+                //     await addHotPlacebottomSheet(context);
+                //     setState(() {
+                //       list = hotplacesList.value;
+                //     });
+                //   },
+                //   child: dottedContainer(
+                //       text: "Add Hot Places",
+                //       height: 100,
+                //       width: 100,
+                //       icon: Icons.add),
+                // ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                lodaing
+                    ? Lottie.asset(
+                        "Assets/Animations/loading.json",
+                      )
+                    : addButton(
+                        color: buttonColor,
+                        onpress: () async {
+                          if (districtController.text.isEmpty ||
+                              placeController.text.isEmpty ||
+                              descriptionController.text.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Fill all details"),
+                              backgroundColor: red,
+                            ));
+                          } else if (image.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Select image"),
+                              backgroundColor: red,
+                            ));
+                          } else if (dropdownValue() == null) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Select categorey"),
+                              backgroundColor: red,
+                            ));
+                          } else if (dropdownCategorie() == null) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Select categorey"),
+                              backgroundColor: red,
+                            ));
+                          } else {
+                            setState(() {
+                              lodaing = true;
+                            });
 
-                        PlaceModel place = PlaceModel(
-                          id: DateTime.now().microsecondsSinceEpoch.toString(),
-                          hotplace: hotplacesList.value,
-                          place: placeController.text,
-                          image: image,
-                          district: districtController.text,
-                          description: descriptionController.text,
-                          categories: categorie!,
-                        );
-                        await addPlace(place: place);
-                        hotplacesList.value.clear();
-                        Navigator.pop(context);
-                      }
-                    }),
+                            categorie = dropdownCategorie();
+
+                            // PlaceModel place = PlaceModel(
+                            //   id: DateTime.now().microsecondsSinceEpoch.toString(),
+                            //   hotplace: hotplacesList.value,
+                            //   place: placeController.text,
+                            //   image: image,
+                            //   district: districtController.text,
+                            //   description: descriptionController.text,
+                            //   categories: categorie!,
+                            // );
+                            // await addPlace(place: place);
+                            // await uploadImage(images: file);
+                            urlsOfImage = await uploadImage(images: file);
+                            firestroreService.addPlace(
+                              place: placeController.text,
+                              district: districtController.text,
+                              description: descriptionController.text,
+                              categorie: categorie!.categorie,
+                              images: urlsOfImage,
+                            );
+                            Navigator.pop(context);
+                          }
+                        }),
                 const SizedBox(
                   height: 20,
                 ),
