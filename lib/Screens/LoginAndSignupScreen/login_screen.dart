@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: screenHeight * 0.05,
                   ),
-                   Text(
+                  Text(
                     "Login",
                     style: loginstyle1,
                   ),
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: screenHeight * 0.05,
                       child: Center(
                           child: loading
-                              ?  Text(
+                              ? Text(
                                   "Login",
                                   style: textstyle1,
                                 )
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
             email: email, password: password);
         // final sharedpref = await SharedPreferences.getInstance();
         // await sharedpref.setBool("KEY", true);
-        getUser();
+        // getUser();
         userRefresh();
         if (_auth.currentUser != null) {
           if (_auth.currentUser!.email == "anandhu1407@gmail.com") {
@@ -188,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Somethig Worng"),
+            content: Text("Something Worng"),
             backgroundColor: red,
           ));
         }

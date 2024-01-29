@@ -7,7 +7,7 @@ import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Styles/colors.dart';
 
 Widget categories({required int index, required BuildContext context}) {
-  final categorie = categorieList[index];
+  final categorie = categorieListener.value[index];
   final FirestroreService firestroreService = FirestroreService();
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
@@ -140,7 +140,11 @@ Widget places(
         ),
         child: CachedNetworkImage(
           imageUrl: image,
-          placeholder: (context, url) => const CircularProgressIndicator(),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(
+              color: purple100,
+            ),
+          ),
           errorWidget: (context, url, error) => const Icon(Icons.error),
           fit: BoxFit.cover,
         ),

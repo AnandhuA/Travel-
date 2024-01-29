@@ -27,13 +27,13 @@ class ExploreScreen extends StatelessWidget {
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: firebasePlaceModelList.length,
+              itemCount: placeModelListener.value.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: screenWidth * 0.02,
               ),
               itemBuilder: (context, index) {
-                PlaceModel place = firebasePlaceModelList[index];
+                PlaceModel place = placeModelListener.value[index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(

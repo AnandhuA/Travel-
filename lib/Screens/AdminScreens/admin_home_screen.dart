@@ -61,16 +61,21 @@ class AdminHomeScreen extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 15),
                 height: screenHeight * 0.05,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categorieList.length,
-                  itemBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) {
-                    return categories(
-                      index: index,
-                      context: context,
+                child: ValueListenableBuilder(
+                  valueListenable: categorieListener,
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categorieListener.value.length,
+                      itemBuilder: (
+                        BuildContext context,
+                        int index,
+                      ) {
+                        return categories(
+                          index: index,
+                          context: context,
+                        );
+                      },
                     );
                   },
                 ),
@@ -101,31 +106,36 @@ class AdminHomeScreen extends StatelessWidget {
                 height: screenHeight * 0.02,
               ),
               Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: screenWidth * 0.02,
-                  ),
-                  itemCount: firebasePlaceModelList.length,
-                  itemBuilder: ((context, index) {
-                   PlaceModel place = firebasePlaceModelList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) =>
-                                PlaceDetailsScreen(index: index)),
-                          ),
+                child: ValueListenableBuilder(
+                  valueListenable: placeModelListener,
+                  builder: (context, value, child) {
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: screenWidth * 0.02,
+                      ),
+                      itemCount: placeModelListener.value.length,
+                      itemBuilder: ((context, index) {
+                        PlaceModel place = placeModelListener.value[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) =>
+                                    PlaceDetailsScreen(index: index)),
+                              ),
+                            );
+                          },
+                          child: places(
+                              context: context,
+                              image: place.image[0],
+                              place: place.place,
+                              district: place.district),
                         );
-                      },
-                      child: places(
-                          context: context,
-                          image: place.image[0],
-                          place: place.place,
-                          district: place.district),
+                      }),
                     );
-                  }),
+                  },
                 ),
               )
 

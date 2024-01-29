@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/user_functions.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Styles/colors.dart';
 
 Widget drawer(context) {
@@ -16,7 +16,7 @@ Widget drawer(context) {
           ),
         ),
         Center(
-          child: Text(loginuser.name),
+          child: Text(userName),
         ),
         const SizedBox(
           height: 50,

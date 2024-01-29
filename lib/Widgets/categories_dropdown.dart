@@ -35,7 +35,7 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
           value = newValue;
         });
       },
-      items: categorieList
+      items: categorieListener.value
           .map<DropdownMenuItem<String>>((CategoriesModel value) {
         return DropdownMenuItem<String>(
           value: value.categorie,

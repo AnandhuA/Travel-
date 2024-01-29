@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/user_functions.dart';
-import 'package:travel/Models/user_model.dart';
-import 'package:travel/Widgets/text_field_widet.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Styles/colors.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -34,7 +32,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   backgroundColor: orange50,
                   radius: screenWidth * 0.24,
                   child: Text(
-                    loginuser.name[0],
+                    userName[0],
                     style: const TextStyle(
                       fontSize: 100,
                       color: orange,
@@ -45,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 Column(
                   children: [
                     Text(
-                      loginuser.name,
+                      userName,
                       style: TextStyle(fontSize: screenWidth * 0.09),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -71,102 +69,16 @@ class _AccountScreenState extends State<AccountScreen> {
           SizedBox(height: screenHeight * 0.03),
           ListTile(
             leading: const Icon(Icons.email),
-            title: Text(loginuser.email),
-            trailing: IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Edit Email"),
-                      content: textField(
-                          label: "Edit Email",
-                          keyboard: TextInputType.emailAddress,
-                          controller: emailController,
-                          text: loginuser.email),
-                      actions: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (emailController.text.isNotEmpty) {
-                              UserDetailsModel user = UserDetailsModel(
-                                id: loginuser.id,
-                                name: loginuser.name,
-                                email: emailController.text,
-                                phone: loginuser.phone,
-                              );
-                              await editUser(user);
-                              setState(() {
-                                temp = emailController.text;
-                              });
-                              Navigator.pop(context);
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("Enter Email"),
-                                backgroundColor: red,
-                              ));
-                            }
-                          },
-                          child: const Text("Add"),
-                        )
-                      ],
-                    );
-                  },
-                );
-              },
-              icon: const Icon(Icons.edit),
-            ),
+            title: Text(userEmail),
+            
           ),
           SizedBox(
             height: screenHeight * 0.02,
           ),
           ListTile(
             leading: const Icon(Icons.phone_android),
-            title: Text(loginuser.phone),
-            trailing: IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Edit Phone Number"),
-                      content: textField(
-                          label: "Edit ",
-                          keyboard: TextInputType.phone,
-                          controller: phoneController,
-                          text: loginuser.phone),
-                      actions: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (phoneController.text.isNotEmpty) {
-                              UserDetailsModel user = UserDetailsModel(
-                                id: loginuser.id,
-                                name: loginuser.name,
-                                email: loginuser.email,
-                                phone: phoneController.text,
-                              );
-                              await editUser(user);
-                              setState(() {
-                                temp = phoneController.text;
-                              });
-                              Navigator.pop(context);
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("Enter Phone Number"),
-                                backgroundColor: red,
-                              ));
-                            }
-                          },
-                          child: const Text("Add"),
-                        )
-                      ],
-                    );
-                  },
-                );
-              },
-              icon: const Icon(Icons.edit),
-            ),
+            title: Text(userPhone),
+            
           ),
           SizedBox(
             height: screenHeight * 0.02,

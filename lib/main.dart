@@ -26,20 +26,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Hive.initFlutter();
- 
+
   if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
     Hive.registerAdapter(FavoriteModelAdapter());
   }
   if (!Hive.isAdapterRegistered(TripModelAdapter().typeId)) {
     Hive.registerAdapter(TripModelAdapter());
   }
-  if (!Hive.isAdapterRegistered(UserDetailsModelAdapter().typeId)) {
-    Hive.registerAdapter(UserDetailsModelAdapter());
-  }
- 
-  await userRefresh();
   await getFireBaseDetails();
- 
+  await userRefresh();
+
 
   runApp(const MyApp());
 }

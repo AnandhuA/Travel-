@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/FireBase/firebase_functions.dart';
+import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Screens/AdminScreens/edit_place.dart';
 import 'package:travel/Widgets/details_page_image.dart';
 import 'package:travel/Styles/colors.dart';
@@ -16,9 +17,8 @@ class PlaceDetailsScreen extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     final FirestroreService firestroreService = FirestroreService();
-    // final place =
-    //     fav ? favoriteList.value[index].favoritePlace : placeList.value[index];
-    final place = firebasePlaceModelList[index];
+    final place = fav ? favplace.value[index] : placeModelListener.value[index];
+    // final place = placeModelListener.value[index];
 
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -28,21 +28,27 @@ class PlaceDetailsScreen extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            decoration: const BoxDecoration(gradient: backgroundGradient2),
+            decoration: const BoxDecoration(
+              gradient: backgroundGradient2,
+            ),
             child: ListView(children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
-                child:
-                    Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  Text("${place.place},", style: textStyle2),
-                  Expanded(
-                    child: Text(
-                      place.district,
-                      style: textStyle3,
-                      overflow: TextOverflow.ellipsis,
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.03,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text("${place.place},", style: textStyle2),
+                    Expanded(
+                      child: Text(
+                        place.district,
+                        style: textStyle3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -178,74 +184,76 @@ class PlaceDetailsScreen extends StatelessWidget {
               ),
               admin
                   ? Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.03,
+                      ),
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              width: screenWidth * 0.4,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: red),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: buttonbg,
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (ctx) {
-                                        return AlertDialog(
-                                          title: const Text("Delete"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(ctx);
-                                              },
-                                              child: const Text("NO"),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                firestroreService.deletePlace(
-                                                    id: place.id);
-                                                Navigator.pop(ctx);
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Yes"),
-                                            )
-                                          ],
-                                        );
-                                      });
-                                },
-                                child: Text("Delete", style: textStyle5),
-                              ),
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: screenWidth * 0.4,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: red),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            Container(
-                              width: screenWidth * 0.4,
-                              decoration: BoxDecoration(
-                                color: buttonColor,
-                                borderRadius: BorderRadius.circular(20),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: buttonbg,
                               ),
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: buttonColor,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => EditPlaceScreen(
-                                              firebasePlaceModel: place,
-                                              index: index,
-                                            )),
-                                      ));
-                                },
-                                child: Text("Edit", style: textStyle6),
-                              ),
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        title: const Text("Delete"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(ctx);
+                                            },
+                                            child: const Text("NO"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              firestroreService.deletePlace(
+                                                  id: place.id);
+                                              Navigator.pop(ctx);
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Yes"),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: Text("Delete", style: textStyle5),
                             ),
-                          ]),
+                          ),
+                          Container(
+                            width: screenWidth * 0.4,
+                            decoration: BoxDecoration(
+                              color: buttonColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: buttonColor,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) => EditPlaceScreen(
+                                            firebasePlaceModel: place,
+                                            index: index,
+                                          )),
+                                    ));
+                              },
+                              child: Text("Edit", style: textStyle6),
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   : const SizedBox(),
               SizedBox(

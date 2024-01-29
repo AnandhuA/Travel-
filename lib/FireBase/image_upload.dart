@@ -12,8 +12,6 @@ Future<List<String>> uploadImage({required List<XFile> images}) async {
     try {
       await referenceImageToUpload.putFile(File(images[i].path));
       urls.add(await referenceImageToUpload.getDownloadURL());
-
-      print(urls);
     } catch (e) {
       print("============$e");
     }

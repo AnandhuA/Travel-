@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/FireBase/image_upload.dart';
 import 'package:travel/Models/admin_model.dart';
-import 'package:travel/Screens/AdminScreens/place_details_screen.dart';
 import 'package:travel/Widgets/button.dart';
 import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Styles/colors.dart';
@@ -277,10 +276,6 @@ class _EditPlaceState extends State<EditPlaceScreen> {
 
   void navigate() {
     Navigator.pop(context);
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: ((context) => PlaceDetailsScreen(index: widget.index)),
-        ));
+    Navigator.pushReplacementNamed(context, "AdminHomePage");
   }
 }

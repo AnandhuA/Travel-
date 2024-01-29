@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/admin_model.dart';
+import 'package:travel/Models/user_model.dart';
 import 'package:travel/Widgets/image_view.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
@@ -21,11 +24,11 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
   @override
   void initState() {
     super.initState();
-    // for (final fav in favoriteList.value) {
-    //   if (fav.id == widget.place.id) {
-    //     favorite = true;
-    //   }
-    // }
+    for (final fav in favplace.value) {
+      if (fav.id == widget.place.id) {
+        favorite = true;
+      }
+    }
   }
 
   int photo = 0;
@@ -64,8 +67,11 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                     ),
                     child: CachedNetworkImage(
                       imageUrl: widget.place.image[photo],
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(
+                          color: purple100,
+                        ),
+                      ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                       fit: BoxFit.cover,
@@ -96,21 +102,23 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                             backgroundColor: transperantcolor,
                             child: IconButton(
                               onPressed: () {
-                                // favorite
-                                //     ? setState(() {
-                                //         favorite = false;
-                                //       })
-                                //     : setState(() {
-                                //         favorite = true;
-                                //       });
-                                // FavoriteModel fav = FavoriteModel(
-                                //     id: widget.place.id,
-                                //     favoritePlace: widget.place,
-                                //     uid: FirebaseAuth.instance.currentUser!.uid
-                                //         .toString());
-                                // favorite
-                                //     ? addFavorite(favoritePlace: fav)
-                                //     : removeFavorite(favoritePlace: fav);
+                                favorite
+                                    ? setState(() {
+                                        favorite = false;
+                                      })
+                                    : setState(() {
+                                        favorite = true;
+                                      });
+                                FavoriteModel fav = FavoriteModel(
+                                  id: widget.place.id,
+                                  favoritePlace: widget.place.id,
+                                  uid: FirebaseAuth.instance.currentUser!.uid
+                                      .toString(),
+                                );
+                                favorite
+                                    ? addFavorite(favoritePlace: fav)
+                                    : removeFavorite(
+                                        favoritePlace: widget.place.id);
                               },
                               icon: favorite
                                   ? const Icon(
@@ -165,13 +173,27 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
                                 border:
                                     Border.all(color: borderColor, width: 3),
                               ),
-                              child: Image.network(
-                                widget.place.image[index],
+                              child: CachedNetworkImage(
+                                imageUrl: widget.place.image[index],
+                                placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator(
+                                    color: purple100,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                                 fit: BoxFit.cover,
                               ),
                             )
-                          : Image.network(
-                              widget.place.image[index],
+                          : CachedNetworkImage(
+                              imageUrl: widget.place.image[index],
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(
+                                  color: purple100,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                               fit: BoxFit.cover,
                             ),
                     ),

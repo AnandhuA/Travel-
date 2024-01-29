@@ -7,8 +7,6 @@ class CategoriesModel {
   CategoriesModel({required this.id, required this.categorie});
 }
 
-
-
 class PlaceModel {
   final String id;
   final String place;

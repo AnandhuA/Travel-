@@ -1,5 +1,4 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:travel/Models/admin_model.dart';
 part 'user_model.g.dart';
 
 @HiveType(typeId: 3)
@@ -7,7 +6,7 @@ class FavoriteModel {
   @HiveField(0)
   final String id;
   @HiveField(1)
-  final PlaceModel favoritePlace;
+  final String favoritePlace;
   @HiveField(2)
   final String uid;
 
@@ -53,25 +52,4 @@ class TripModel {
     required this.budget,
     required this.activitys,
   });
-}
-
-@HiveType(typeId: 5)
-class UserDetailsModel {
-  @HiveField(0)
-  final String id;
-  @HiveField(1)
-  final String name;
-  @HiveField(2)
-  final String email;
-  @HiveField(3)
-  final String phone;
-  @HiveField(4)
-  final String? photo;
-
-  UserDetailsModel(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.phone,
-      this.photo});
 }

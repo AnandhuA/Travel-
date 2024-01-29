@@ -1,9 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:travel/Functions/user_functions.dart';
-import 'package:travel/Models/user_model.dart';
 import 'package:travel/Styles/animation.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/Styles/text_style.dart';
@@ -53,9 +52,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             margin: const EdgeInsets.only(top: 100),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
-                color: white,
-                gradient: backgroundGradientLogin),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(142),
+              ),
+              color: white,
+              gradient: backgroundGradientLogin,
+            ),
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -64,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(
                       height: screenHeight * 0.04,
                     ),
-                     Text(
+                    Text(
                       "Sign Up",
                       style: signupstyle1,
                     ),
@@ -156,10 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: screenHeight * 0.05,
                         child: Center(
                           child: loading
-                              ?  Text(
-                                  "Sign up",
-                                  style: textstyle1
-                                )
+                              ? Text("Sign up", style: textstyle1)
                               : const CircularProgressIndicator(
                                   color: white,
                                 ),
@@ -196,6 +195,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   signUp() async {
+    final CollectionReference user =
+        FirebaseFirestore.instance.collection("Users");
     if (formKey.currentState!.validate()) {
       String email = emailController.text;
       String password = passwordController.text;
@@ -205,15 +206,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        final user = UserDetailsModel(
-            id: FirebaseAuth.instance.currentUser!.uid.toString(),
-            name: usernameController.text,
-            email: emailController.text,
-            phone: phoneController.text);
-        addUser(user);
-        getUser();
+        // final user = UserDetailsModel(
+        //     id: FirebaseAuth.instance.currentUser!.uid.toString(),
+        //     name: usernameController.text,
+        //     email: emailController.text,
+        //     phone: phoneController.text);
+        // addUser(user);
+        if (_auth.currentUser!.email != null) {
+          user.doc(_auth.currentUser!.email).set(
+            {"Name": usernameController.text, "Phone": phoneController.text},
+          );
+          // getUser();
 
-        animationSignup(context: context);
+          animationSignup(context: context);
+        }
       } on FirebaseAuthException catch (e) {
         setState(() {
           loading = true;

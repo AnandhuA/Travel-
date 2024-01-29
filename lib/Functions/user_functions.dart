@@ -3,28 +3,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
+import 'package:travel/Models/admin_model.dart';
 import 'package:travel/Models/user_model.dart';
 
 const favoriteDbName = "favorite-database";
 const tripDbName = "trip-database";
 const userDbName = "user-database";
-ValueNotifier<List<FavoriteModel>> favoriteList = ValueNotifier([]);
+
+ValueNotifier<List<PlaceModel>> favplace = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripList = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripListCompleted = ValueNotifier([]);
-List<UserDetailsModel> userData = [];
-UserDetailsModel loginuser =
-    UserDetailsModel(id: "", name: "", email: "", phone: "");
+
 
 addFavorite({required FavoriteModel favoritePlace}) async {
   final favoriteBox = await Hive.openBox<FavoriteModel>(favoriteDbName);
   favoriteBox.put(favoritePlace.id, favoritePlace);
   userRefresh();
+  // findFav();
 }
 
-removeFavorite({required FavoriteModel favoritePlace}) async {
+removeFavorite({required String favoritePlace}) async {
   final favoriteBox = await Hive.openBox<FavoriteModel>(favoriteDbName);
-  await favoriteBox.delete(favoritePlace.id);
+  await favoriteBox.delete(favoritePlace);
   await userRefresh();
+  // findFav();
 }
 
 Future<List<FavoriteModel>> getFavorite() async {
@@ -49,33 +52,13 @@ Future<List<TripModel>> getTrip() async {
   return tripBox.values.toList();
 }
 
-addUser(UserDetailsModel user) async {
-  final userbox = await Hive.openBox<UserDetailsModel>(userDbName);
-  await userbox.put(user.id, user);
-}
 
-getUser() async {
-  final userbox = await Hive.openBox<UserDetailsModel>(userDbName);
-  userData.clear();
-  userData = userbox.values.toList();
-  for (final user in userData) {
-    if (user.id == FirebaseAuth.instance.currentUser!.uid.toString()) {
-      loginuser = user;
-    }
-  }
-}
-
-editUser(UserDetailsModel user) async {
-  final userbox = await Hive.openBox<UserDetailsModel>(userDbName);
-  await userbox.put(user.id, user);
-  await getUser();
-}
 
 userRefresh() async {
-  await getUser();
+  // await getUser();
+  favplace.value.clear();
   final favorite = await getFavorite();
   final trip = await getTrip();
-  favoriteList.value.clear();
   tripList.value.clear();
   // userData.clear();
   tripListCompleted.value.clear();
@@ -83,7 +66,11 @@ userRefresh() async {
 
   Future.forEach(favorite, (element) {
     if (element.uid == FirebaseAuth.instance.currentUser!.uid.toString()) {
-      favoriteList.value.add(element);
+      for (PlaceModel place in placeModelListener.value) {
+        if (element.favoritePlace == place.id) {
+          favplace.value.add(place);
+        }
+      }
     }
   });
   // favoriteList.value = List.from(favorite);
@@ -104,6 +91,6 @@ userRefresh() async {
   tripListCompleted.value
       .sort((first, second) => second.rangeStart.compareTo(first.rangeStart));
   tripList.notifyListeners();
-  favoriteList.notifyListeners();
+  favplace.notifyListeners();
   tripListCompleted.notifyListeners();
 }
