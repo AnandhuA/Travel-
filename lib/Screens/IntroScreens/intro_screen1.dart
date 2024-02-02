@@ -8,12 +8,13 @@ class IntroScreen1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
       child: Center(
         child: Column(children: [
-          const SizedBox(
-            height: 200,
+          SizedBox(
+            height: size.height * 0.18,
           ),
           Lottie.asset(
             "Assets/Animations/animation walking.json",
@@ -22,7 +23,7 @@ class IntroScreen1 extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-           Text(
+          Text(
             "Find Your Destination",
             style: introtextstyle2,
           ),

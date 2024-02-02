@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
+import 'package:travel/Notifications/show_notification.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_travel_companions.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_trip_screen.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/trip_details_page.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/Widgets/time_line_widget.dart';
 import 'package:travel/Widgets/trip_details_screen_widgets.dart';
@@ -47,29 +51,8 @@ class _AddTripPlanState extends State<AddTripPlan> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            onPressed: () async {
-              if (destination != null &&
-                  description != null &&
-                  selectedRangeStart != null &&
-                  selectedRangeEnd != null &&
-                  travelType != null &&
-                  numberOfPeople != null &&
-                  budget != null) {
-                TripModel trip = TripModel(
-                  id: DateTime.now().microsecondsSinceEpoch.toString(),
-                  destination: destination!,
-                  description: description!,
-                  time: selectedTime,
-                  rangeStart: selectedRangeStart!,
-                  rangeEnd: selectedRangeEnd!,
-                  uid: FirebaseAuth.instance.currentUser!.uid.toString(),
-                  travelType: travelType!,
-                  numberOfPeople: numberOfPeople!,
-                  budget: budget!,
-                  activitys: _stringMap,
-                );
-                await addTrip(trip: trip);
-              }
+            onPressed: () {
+              _buttonClick(context: context);
             },
             label: const Icon(Icons.navigate_next_outlined),
             icon: const Text(
@@ -180,6 +163,48 @@ class _AddTripPlanState extends State<AddTripPlan> {
         ),
       ),
     );
+  }
+}
+
+_buttonClick({required BuildContext context}) async {
+  if (destination != null &&
+      description != null &&
+      selectedRangeStart != null &&
+      selectedRangeEnd != null &&
+      travelType != null &&
+      numberOfPeople != null &&
+      budget != null) {
+    TripModel trip = TripModel(
+      id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      destination: destination!,
+      description: description!,
+      time: selectedTime,
+      rangeStart: selectedRangeStart!,
+      rangeEnd: selectedRangeEnd!,
+      uid: FirebaseAuth.instance.currentUser!.uid.toString(),
+      travelType: travelType!,
+      numberOfPeople: numberOfPeople!,
+      budget: budget!,
+      activitys: _stringMap,
+      notification: true,
+    );
+    await addTrip(trip: trip);
+    
+    DateTime tripDateTime = convertDateTime(trip: trip);
+    if (tripDateTime.isAfter(DateTime.now())) {
+      showNotification(
+          date: tripDateTime,
+          title: trip.destination,
+          body: trip.description,
+          id: trip.id);
+    }
+
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TripDetailsScreen(trip: trip),
+        ));
   }
 }
 

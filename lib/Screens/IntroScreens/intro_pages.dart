@@ -39,9 +39,9 @@ class _IntroScreenState extends State<IntroScreen> {
               },
               child: lastPage
                   ? const SizedBox()
-                  :  Text(
+                  : Text(
                       "Skip",
-                      style: introtextstyle1 ,
+                      style: introtextstyle1,
                     ),
             ),
           ),
@@ -65,7 +65,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         onTap: () {
                           Navigator.pushReplacementNamed(context, "HomePage");
                         },
-                        child:  Text(
+                        child: Text(
                           "Done",
                           style: introtextstyle1,
                         ))
@@ -75,7 +75,7 @@ class _IntroScreenState extends State<IntroScreen> {
                               duration: const Duration(milliseconds: 500),
                               curve: Curves.decelerate);
                         },
-                        child:  Text(
+                        child: Text(
                           "Next",
                           style: introtextstyle1,
                         ))

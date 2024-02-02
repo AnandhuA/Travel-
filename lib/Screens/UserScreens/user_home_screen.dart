@@ -27,10 +27,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     const AccountScreen()
   ];
   List<String> titles = ["", "My Trips", "Add Trip", "Favorite", "Account"];
-  // List<String> assets = ["", "My Trips", "Add Trip", "Favorite", ""];
 
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[selectedindex]),

@@ -16,12 +16,16 @@ import 'package:travel/Screens/LoginAndSignupScreen/login_screen.dart';
 import 'package:travel/Screens/LoginAndSignupScreen/signup_screen.dart';
 import 'package:travel/FireBase/firebase_options.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
+import 'package:timezone/timezone.dart' as tz;
 
 late bool admin;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  notificationInitialization();
+
+  await notificationInitialization();
   tzdata.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Kolkata'));
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -33,9 +37,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(TripModelAdapter().typeId)) {
     Hive.registerAdapter(TripModelAdapter());
   }
+
   await getFireBaseDetails();
   await userRefresh();
-
 
   runApp(const MyApp());
 }
@@ -51,7 +55,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "Login": (context) => const LoginScreen(),
-        "Signup": (context) => const SignUpScreen(),
+        "SigUp": (context) => const SignUpScreen(),
         "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
         "HomePage": (context) => const UserHomeScreen(),

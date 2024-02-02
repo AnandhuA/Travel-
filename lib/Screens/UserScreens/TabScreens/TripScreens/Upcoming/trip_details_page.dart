@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/add_transaction.dart';
 import 'package:travel/Widgets/time_line_widget.dart';
@@ -8,9 +7,9 @@ import 'package:travel/Widgets/trip_details_screen_widgets.dart';
 import 'package:travel/Styles/colors.dart';
 
 class TripDetailsScreen extends StatefulWidget {
-  final int index;
+  final TripModel trip;
 
-  const TripDetailsScreen({super.key, required this.index});
+  const TripDetailsScreen({super.key, required this.trip});
 
   @override
   State<TripDetailsScreen> createState() => _TripDetailsScreenState();
@@ -21,7 +20,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final TripModel trip = tripList.value[widget.index];
+    final TripModel trip = widget.trip;
     List<DateTime> days = getDaysInRange(trip.rangeStart, trip.rangeEnd);
     Map<String, List<String>> activitys = trip.activitys;
     return Scaffold(

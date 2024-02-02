@@ -34,14 +34,15 @@ class _DetailsPageImageState extends State<DetailsPageImage> {
   int photo = 0;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         Stack(
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                height: 400,
-                viewportFraction: 1.0,
+                height: size.height * 0.35,
+                viewportFraction: 1,
                 onPageChanged: (index, reason) {
                   setState(() {
                     photo = index;

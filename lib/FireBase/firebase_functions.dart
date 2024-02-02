@@ -111,7 +111,6 @@ class FirestroreService {
           userName = doc["Name"];
           userPhone = doc["Phone"];
           userEmail = _auth.currentUser!.email ?? "No";
-          
         }
       }
     } catch (e) {
@@ -147,3 +146,4 @@ getFireBaseDetails() async {
   placeModelListener.notifyListeners();
   categorieListener.notifyListeners();
 }
+

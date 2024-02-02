@@ -30,6 +30,7 @@ class ExploreScreen extends StatelessWidget {
               itemCount: placeModelListener.value.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                childAspectRatio: 1.05,
                 crossAxisSpacing: screenWidth * 0.02,
               ),
               itemBuilder: (context, index) {

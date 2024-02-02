@@ -57,7 +57,7 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TripModel(
-      id: fields[0] as String,
+      id: fields[0] as int,
       destination: fields[1] as String,
       description: fields[2] as String,
       time: fields[3] as String,
@@ -69,13 +69,14 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
       budget: fields[9] as int,
       activitys: (fields[10] as Map).map((dynamic k, dynamic v) =>
           MapEntry(k as String, (v as List).cast<String>())),
+      notification: fields[11] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, TripModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -97,7 +98,9 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
       ..writeByte(9)
       ..write(obj.budget)
       ..writeByte(10)
-      ..write(obj.activitys);
+      ..write(obj.activitys)
+      ..writeByte(11)
+      ..write(obj.notification);
   }
 
   @override

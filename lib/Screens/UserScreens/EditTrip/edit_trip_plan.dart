@@ -67,6 +67,7 @@ class _EditTripPlanState extends State<EditTripPlan> {
                   numberOfPeople: editedNumberOfPeople!,
                   budget: editedBudget!,
                   activitys: _stringMap,
+                  notification: widget.editTrip.notification,
                 );
                 await addTrip(trip: trip);
               }

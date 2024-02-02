@@ -8,13 +8,14 @@ class IntroScreen3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              const SizedBox(
-                height: 200,
+              SizedBox(
+                height: size.height * 0.18,
               ),
               Lottie.asset(
                 "Assets/Animations/explore.json",

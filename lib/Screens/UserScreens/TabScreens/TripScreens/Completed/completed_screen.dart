@@ -26,7 +26,7 @@ class ComplectedTrip extends StatelessWidget {
                     String rangeEnd =
                         DateFormat('dd MMM yyyy').format(trip.rangeEnd);
                     return Slidable(
-                      key: Key(trip.id),
+                      key: Key(trip.id.toString()),
                       endActionPane: ActionPane(
                         extentRatio: 0.2,
                         motion: const StretchMotion(),

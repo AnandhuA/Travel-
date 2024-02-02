@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/FireBase/firebase_functions.dart';
@@ -49,9 +51,30 @@ Widget drawer(context) {
   );
 }
 
-logout(context) async {
-  // final sharedpref = await SharedPreferences.getInstance();
-  FirebaseAuth.instance.signOut();
-  // await sharedpref.clear();
-  Navigator.pushNamedAndRemoveUntil(context, "Login", (route) => false);
+logout(context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Logout"),
+        content: const Text("Are you sure you want to Logout?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("No"),
+          ),
+          TextButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, "Login", (route) => false);
+            },
+            child: const Text("Yes"),
+          )
+        ],
+      );
+    },
+  );
 }

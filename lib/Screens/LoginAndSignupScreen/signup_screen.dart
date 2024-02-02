@@ -206,12 +206,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       try {
         await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        // final user = UserDetailsModel(
-        //     id: FirebaseAuth.instance.currentUser!.uid.toString(),
-        //     name: usernameController.text,
-        //     email: emailController.text,
-        //     phone: phoneController.text);
-        // addUser(user);
         if (_auth.currentUser!.email != null) {
           user.doc(_auth.currentUser!.email).set(
             {"Name": usernameController.text, "Phone": phoneController.text},

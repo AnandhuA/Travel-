@@ -132,7 +132,7 @@ Widget places(
   final double screenWidth = MediaQuery.of(context).size.width;
   return Column(children: [
     SizedBox(
-      height: screenHeight * 0.125,
+      height: screenHeight * 0.13,
       width: double.infinity,
       child: ClipRRect(
         borderRadius: const BorderRadius.vertical(
@@ -151,7 +151,7 @@ Widget places(
       ),
     ),
     Container(
-      height: screenHeight * 0.05,
+      height: screenHeight * 0.06,
       decoration: const BoxDecoration(
         color: lightColor,
         borderRadius: BorderRadius.vertical(

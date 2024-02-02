@@ -17,7 +17,7 @@ class FavoriteModel {
 @HiveType(typeId: 4)
 class TripModel {
   @HiveField(0)
-  final String id;
+  final int id;
   @HiveField(1)
   final String destination;
   @HiveField(2)
@@ -38,6 +38,8 @@ class TripModel {
   final int budget;
   @HiveField(10)
   final Map<String, List<String>> activitys;
+  @HiveField(11)
+  final bool notification;
 
   TripModel({
     required this.id,
@@ -51,5 +53,7 @@ class TripModel {
     required this.numberOfPeople,
     required this.budget,
     required this.activitys,
+    required this.notification,
   });
 }
+

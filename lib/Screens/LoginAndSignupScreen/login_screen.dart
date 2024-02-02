@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel/FireBase/firebase_functions.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/main.dart';
@@ -51,9 +52,10 @@ class _LoginScreenState extends State<LoginScreen> {
             margin: const EdgeInsets.only(top: 200),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
-                color: white,
-                gradient: backgroundGradientLogin),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(142)),
+              color: white,
+              gradient: backgroundGradientLogin,
+            ),
             child: Form(
               key: formKey,
               child: SingleChildScrollView(
@@ -116,14 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: screenWidth * 0.8,
                       height: screenHeight * 0.05,
                       child: Center(
-                          child: loading
-                              ? Text(
-                                  "Login",
-                                  style: textstyle1,
-                                )
-                              : const CircularProgressIndicator(
-                                  color: white,
-                                )),
+                        child: loading
+                            ? Text(
+                                "Login",
+                                style: textstyle1,
+                              )
+                            : const CircularProgressIndicator(
+                                color: white,
+                              ),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -135,10 +138,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(color: grey),
                     ),
                     InkWell(
-                      onTap: () => Navigator.pushNamed(context, "Signup"),
+                      onTap: () => Navigator.pushNamed(context, "SigUp"),
                       child: const Text(
                         "Sign Up",
-                        style: TextStyle(fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ])
@@ -165,6 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // final sharedpref = await SharedPreferences.getInstance();
         // await sharedpref.setBool("KEY", true);
         // getUser();
+        getFireBaseDetails();
         userRefresh();
         if (_auth.currentUser != null) {
           if (_auth.currentUser!.email == "anandhu1407@gmail.com") {
