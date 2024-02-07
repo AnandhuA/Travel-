@@ -26,6 +26,14 @@ class _CalenderViewState extends State<CalenderView> {
       rangeEnd = widget.rangeend;
     }
   }
+
+  @override
+  void dispose() {
+    rangeStart = null;
+    rangeEnd = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.onGoing != null && widget.onGoing == true) {

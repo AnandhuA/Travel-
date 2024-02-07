@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -151,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor),
                       onPressed: () {
-                        signUp();
+                        signUp(context);
                       },
                       child: SizedBox(
                         width: screenWidth * 0.8,
@@ -194,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  signUp() async {
+  signUp(context) async {
     final CollectionReference user =
         FirebaseFirestore.instance.collection("Users");
     if (formKey.currentState!.validate()) {

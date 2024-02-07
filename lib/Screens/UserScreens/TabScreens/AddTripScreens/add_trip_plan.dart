@@ -7,7 +7,7 @@ import 'package:travel/Models/user_model.dart';
 import 'package:travel/Notifications/show_notification.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_travel_companions.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_trip_screen.dart';
-import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/trip_details_page.dart';
+import 'package:travel/Screens/UserScreens/user_home_screen.dart';
 import 'package:travel/Styles/colors.dart';
 import 'package:travel/Widgets/time_line_widget.dart';
 import 'package:travel/Widgets/trip_details_screen_widgets.dart';
@@ -166,14 +166,15 @@ class _AddTripPlanState extends State<AddTripPlan> {
   }
 }
 
-_buttonClick({required BuildContext context}) async {
+_buttonClick({
+  required BuildContext context,
+}) async {
   if (destination != null &&
       description != null &&
       selectedRangeStart != null &&
       selectedRangeEnd != null &&
       travelType != null &&
-      numberOfPeople != null &&
-      budget != null) {
+      numberOfPeople != null) {
     TripModel trip = TripModel(
       id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
       destination: destination!,
@@ -184,12 +185,12 @@ _buttonClick({required BuildContext context}) async {
       uid: FirebaseAuth.instance.currentUser!.uid.toString(),
       travelType: travelType!,
       numberOfPeople: numberOfPeople!,
-      budget: budget!,
+      budget: budget,
       activitys: _stringMap,
       notification: true,
     );
     await addTrip(trip: trip);
-    
+
     DateTime tripDateTime = convertDateTime(trip: trip);
     if (tripDateTime.isAfter(DateTime.now())) {
       showNotification(
@@ -198,13 +199,19 @@ _buttonClick({required BuildContext context}) async {
           body: trip.description,
           id: trip.id);
     }
-
+  selectedRangeStart = null;
+    selectedRangeEnd = null;
+    selectedTime = "";
+    destination = null;
+    description = null;
     Navigator.pop(context);
+
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => TripDetailsScreen(trip: trip),
-        ));
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UserHomeScreen(index: 1,),
+      ),
+    );
   }
 }
 

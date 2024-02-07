@@ -15,19 +15,31 @@ String editedTime = "";
 String? editedDestination;
 String? editedDescription;
 
-class EditTripScreen extends StatelessWidget {
+class EditTripScreen extends StatefulWidget {
   TripModel editTrip;
   bool onGoing;
   EditTripScreen({super.key, required this.editTrip, required this.onGoing});
+
+  @override
+  State<EditTripScreen> createState() => _EditTripScreenState();
+}
+
+class _EditTripScreenState extends State<EditTripScreen> {
   TextEditingController destinationCntroller = TextEditingController();
+
   TextEditingController descriptionCntroller = TextEditingController();
+  @override
+  void initState() {
+    descriptionCntroller.text = widget.editTrip.description;
+    destinationCntroller.text = widget.editTrip.destination;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-    descriptionCntroller.text = editTrip.description;
-    destinationCntroller.text = editTrip.destination;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Trip"),
@@ -37,9 +49,9 @@ class EditTripScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CalenderView(
-              rangestart: editTrip.rangeStart,
-              rangeend: editTrip.rangeEnd,
-              onGoing: onGoing,
+              rangestart: widget.editTrip.rangeStart,
+              rangeend: widget.editTrip.rangeEnd,
+              onGoing: widget.onGoing,
             ),
             SizedBox(
               height: screenHeight * 0.02,
@@ -61,7 +73,7 @@ class EditTripScreen extends StatelessWidget {
                     height: screenHeight * 0.03,
                   ),
                   TimePickerWidegt(
-                    time: editTrip.time,
+                    time: widget.editTrip.time,
                   ),
                   SizedBox(
                     height: screenHeight * 0.03,
@@ -86,8 +98,8 @@ class EditTripScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  EditCompanionsScreen(editTrip: editTrip),
+                              builder: (context) => EditCompanionsScreen(
+                                  editTrip: widget.editTrip),
                             ));
                       } else {
                         ScaffoldMessenger.of(context)

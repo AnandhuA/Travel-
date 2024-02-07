@@ -13,14 +13,29 @@ String selectedTime = "";
 String? destination;
 String? description;
 
-class AddTripScreen extends StatelessWidget {
-  AddTripScreen({
+class AddTripScreen extends StatefulWidget {
+  const AddTripScreen({
     super.key,
   });
-  final TextEditingController _destinationCntroller = TextEditingController();
-  final TextEditingController _descriptionCntroller = TextEditingController();
-  // final CalenderView calenderView = CalenderView();
 
+  @override
+  State<AddTripScreen> createState() => _AddTripScreenState();
+}
+
+class _AddTripScreenState extends State<AddTripScreen> {
+  final TextEditingController _destinationCntroller = TextEditingController();
+
+  final TextEditingController _descriptionCntroller = TextEditingController();
+
+  @override
+  void dispose() {
+    _descriptionCntroller.dispose();
+    _destinationCntroller.dispose();
+
+    super.dispose();
+  }
+
+  // final CalenderView calenderView = CalenderView();
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;

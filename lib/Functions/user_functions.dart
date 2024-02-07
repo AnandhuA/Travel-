@@ -10,10 +10,29 @@ import 'package:travel/Models/user_model.dart';
 const favoriteDbName = "favorite-database";
 const tripDbName = "trip-database";
 const userDbName = "user-database";
+const iteamsDbName = "iteam-database";
 
 ValueNotifier<List<PlaceModel>> favplace = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripList = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripListCompleted = ValueNotifier([]);
+ValueNotifier<List<PackingListModel>> items = ValueNotifier([]);
+
+addPackingItems({required PackingListModel packingModel}) async {
+  final iteamBox = await Hive.openBox<PackingListModel>(iteamsDbName);
+  iteamBox.put(packingModel.id, packingModel);
+  tripIteamsTolist();
+}
+
+Future<List<PackingListModel>> getPackingIteams() async {
+  final iteamBox = await Hive.openBox<PackingListModel>(iteamsDbName);
+  return iteamBox.values.toList();
+}
+
+delectPackingIteam({required PackingListModel packingModel}) async {
+  final iteamBox = await Hive.openBox<PackingListModel>(iteamsDbName);
+  iteamBox.delete(packingModel.id);
+  tripIteamsTolist();
+}
 
 addFavorite({required FavoriteModel favoritePlace}) async {
   final favoriteBox = await Hive.openBox<FavoriteModel>(favoriteDbName);
@@ -49,6 +68,13 @@ deleteTrip({required TripModel trip}) async {
 Future<List<TripModel>> getTrip() async {
   final tripBox = await Hive.openBox<TripModel>(tripDbName);
   return tripBox.values.toList();
+}
+
+tripIteamsTolist() async {
+  items.value.clear();
+  final item = await getPackingIteams();
+  items.value = List.from(item);
+  items.notifyListeners();
 }
 
 userRefresh() async {

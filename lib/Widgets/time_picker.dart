@@ -37,6 +37,14 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
   }
 
   @override
+  void dispose() {
+    hour = 0;
+    min = 0;
+    timeformat = "AM";
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -64,8 +72,7 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
                 haptics: true,
                 infiniteLoop: true,
                 textStyle: const TextStyle(color: black45),
-                selectedTextStyle:
-                    TextStyle(color: blue300, fontSize: 30),
+                selectedTextStyle: TextStyle(color: blue300, fontSize: 30),
                 decoration: const BoxDecoration(
                   border: Border(
                     top: BorderSide(color: black45),
@@ -88,11 +95,10 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
                 haptics: true,
                 infiniteLoop: true,
                 textStyle: const TextStyle(color: black45),
-                selectedTextStyle:
-                    TextStyle(color: blue300, fontSize: 30),
+                selectedTextStyle: TextStyle(color: blue300, fontSize: 30),
                 decoration: const BoxDecoration(
                   border: Border(
-                    top: BorderSide(color:black45),
+                    top: BorderSide(color: black45),
                     bottom: BorderSide(color: black45),
                   ),
                 ),
@@ -144,7 +150,7 @@ class _TimePickerWidegtState extends State<TimePickerWidegt> {
                       decoration: timeformat == "PM"
                           ? BoxDecoration(
                               color: bluetime,
-                              border: Border.all(color:blue),
+                              border: Border.all(color: blue),
                               borderRadius: BorderRadius.circular(10),
                             )
                           : const BoxDecoration(),

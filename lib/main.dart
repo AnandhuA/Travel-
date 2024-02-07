@@ -37,9 +37,13 @@ void main() async {
   if (!Hive.isAdapterRegistered(TripModelAdapter().typeId)) {
     Hive.registerAdapter(TripModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(PackingListModelAdapter().typeId)) {
+    Hive.registerAdapter(PackingListModelAdapter());
+  }
 
   await getFireBaseDetails();
   await userRefresh();
+  tripIteamsTolist();
 
   runApp(const MyApp());
 }
@@ -58,7 +62,7 @@ class MyApp extends StatelessWidget {
         "SigUp": (context) => const SignUpScreen(),
         "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
-        "HomePage": (context) => const UserHomeScreen(),
+        "HomePage": (context) => const UserHomeScreen(index: 0,),
         "IntroPage": (context) => const IntroScreen(),
         "AddCompanions": (context) => const AddCompanionsScreen(),
         "AddTripPlan": (context) => const AddTripPlan()

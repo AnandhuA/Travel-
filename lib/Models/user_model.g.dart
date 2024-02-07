@@ -6,6 +6,52 @@ part of 'user_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+class PackingListModelAdapter extends TypeAdapter<PackingListModel> {
+  @override
+  final int typeId = 2;
+
+  @override
+  PackingListModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PackingListModel(
+      id: fields[0] as String,
+      item: fields[1] as String,
+      tripId: fields[2] as int,
+      check: fields[3] as bool,
+      quantity: fields[4] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PackingListModel obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.item)
+      ..writeByte(2)
+      ..write(obj.tripId)
+      ..writeByte(3)
+      ..write(obj.check)
+      ..writeByte(4)
+      ..write(obj.quantity);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PackingListModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class FavoriteModelAdapter extends TypeAdapter<FavoriteModel> {
   @override
   final int typeId = 3;

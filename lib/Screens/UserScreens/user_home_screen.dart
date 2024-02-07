@@ -9,28 +9,35 @@ import 'package:travel/Widgets/drawer_wedget.dart';
 import 'package:travel/Styles/colors.dart';
 
 class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({super.key});
+  final int index;
+  const UserHomeScreen({super.key, required this.index});
 
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
-  int selectedindex = 0;
-  final PageController _pageController = PageController();
+  late int selectedindex;
+  // final PageController _pageController = PageController();
 
   List<Widget> screen = [
     const ExploreScreen(),
     const MyTripsScreen(),
-    AddTripScreen(),
+    const AddTripScreen(),
     const FavoriteScreen(),
     const AccountScreen()
   ];
   List<String> titles = ["", "My Trips", "Add Trip", "Favorite", "Account"];
 
   @override
+  void initState() {
+    selectedindex = widget.index;
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: AppBar(
         title: Text(titles[selectedindex]),
@@ -55,12 +62,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             onTabChange: (value) {
               setState(() {
                 selectedindex = value;
-                _pageController.animateToPage(
-                  value,
-                  duration: const Duration(milliseconds: 50),
-                  curve: Curves.easeInOutCubicEmphasized,
-                );
+                // _pageController.animateToPage(
+                //   value,
+                //   duration: const Duration(milliseconds: 50),
+                //   curve: Curves.easeInOutCubicEmphasized,
+                // );
               });
+              // _pageController.jumpToPage(value);
               // setState(() {
               //   selectedindex = value;
               //   _pageController.animateToPage(
@@ -122,14 +130,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             ]),
       ),
       // body: screen[selectedindex],
-      body: PageView(
-        controller: _pageController,
-        children: screen,
-        onPageChanged: (index) {
-          setState(() {
-            selectedindex = index;
-          });
-        },
+      body: AnimatedSwitcher(
+        switchInCurve: Curves.easeInOutSine,
+        duration: const Duration(milliseconds: 500),
+        child: screen[selectedindex],
       ),
     );
   }

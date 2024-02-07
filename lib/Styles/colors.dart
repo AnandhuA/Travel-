@@ -42,6 +42,8 @@ final grey200 = Colors.grey.shade200;
 final grey700 = Colors.grey.shade700;
 final grey800 = Colors.grey.shade800;
 
+const transperantGrey = Color.fromARGB(47, 107, 106, 106);
+
 //Blue
 const blue = Colors.blue;
 final blue50 = Colors.blue.shade50;
@@ -92,3 +94,5 @@ final pink100 = Colors.pink.shade100;
 
 const transperantcolor =
     Color.fromARGB(100, 255, 255, 255);//fav button backgrount
+
+

@@ -1,0 +1,131 @@
+[33mcommit 2c81041a5ac10a0e271a45866ba0922a981195f3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Fri Feb 2 09:49:59 2024 +0530
+
+    notification desable and enable added
+
+[33mcommit 1769ed6bd21400bb7b9035ac98c58fe275cec824[m[33m ([m[1;31mtravel/master[m[33m)[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Mon Jan 29 15:10:43 2024 +0530
+
+    favorite list added
+
+[33mcommit 12bf460cf37bc646c536f668302e20c2a84de4ee[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Sun Jan 28 16:10:50 2024 +0530
+
+    admin side curd operation change hive to firebase
+
+[33mcommit 15b2ec526f471e3575db6be7b90d36ce77a275bd[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Fri Jan 26 19:26:35 2024 +0530
+
+    travel plan added
+
+[33mcommit 070eb513ff031ea83a97cf54086f29fd8dd3976a[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Wed Jan 24 16:00:50 2024 +0530
+
+    Notification added
+
+[33mcommit ce2311887df0d6925affd4249f9bd92832c5269a[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Fri Jan 19 22:17:25 2024 +0530
+
+    style file added
+
+[33mcommit 9fb267f2bedbb7bf81524abd7c2a7bf2eef65bd4[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Thu Jan 18 22:55:15 2024 +0530
+
+    account page added
+
+[33mcommit 19d97a277b9fa093addfecfe0ca098ea1cabdc82[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Wed Jan 17 11:46:31 2024 +0530
+
+    trip edit page added
+
+[33mcommit 89de20e5c440601c69023f4ee4eb12c70f01d71c[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Sat Jan 13 21:53:02 2024 +0530
+
+    categorie edit filed added
+
+[33mcommit fee4664519c333404b5080baee615134ef47f8c3[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Sat Jan 13 19:35:33 2024 +0530
+
+    image and hotplace edit added
+
+[33mcommit d03d3546e40d0a8d1d3beb8f80b55555b7fe1804[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Thu Jan 11 09:58:41 2024 +0530
+
+    add trip screen added
+
+[33mcommit 3a19fb27ee206284aa19ddfa3e763c3777e8ace0[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Tue Jan 9 09:33:24 2024 +0530
+
+    user screen added
+
+[33mcommit 5ad0759460712e4ae5d6f418330eedf650aca67a[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Sat Jan 6 10:11:57 2024 +0530
+
+    ui change
+
+[33mcommit 0e56df006076285fb9f00bdbdbfcaf9583acdf0a[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Thu Jan 4 16:35:07 2024 +0530
+
+    edit page add
+
+[33mcommit ced53c0a47bbfd23ec793a4cbf3777748f931e99[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Wed Jan 3 12:35:07 2024 +0530
+
+    multiple image added
+
+[33mcommit 45f8978349da678befd2dc64b0aee911d99b9f7c[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Tue Jan 2 19:51:11 2024 +0530
+
+    ui refresh bug fixed
+
+[33mcommit 4759eb17a425f03971c647ba74fbbf8c65ae3313[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Mon Jan 1 12:12:25 2024 +0530
+
+    categories add
+
+[33mcommit 6367b77edd16abc953f0d5fc774ac322e5efb804[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Mon Jan 1 10:11:15 2024 +0530
+
+    all admin pages added
+
+[33mcommit c352cd190e73e0f5a4b637bb7011f41b91a9d095[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Sat Dec 30 22:11:56 2023 +0530
+
+    add admin pages
+
+[33mcommit cde73c1846b270fd641d9eb4ad7783280d3f522c[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Fri Dec 29 10:22:13 2023 +0530
+
+    firebase added
+
+[33mcommit c06dbda2e3aa7d36f979af5fa11b00905c4243c9[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Tue Dec 26 11:30:59 2023 +0530
+
+    Sharedpreferences added
+
+[33mcommit 27c0e9988e11176f6c6f6548ee5eb03166f5a762[m
+Author: Anandhu <anandhu1407@gmail.com>
+Date:   Fri Dec 22 21:32:45 2023 +0530
+
+    Project start

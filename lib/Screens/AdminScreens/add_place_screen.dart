@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -161,7 +160,7 @@ class _AddPlaceState extends State<AddPlaceScreen> {
                       )
                     : addButton(
                         color: buttonColor,
-                        onpress: () async {
+                        onpress: (context) async {
                           if (districtController.text.isEmpty ||
                               placeController.text.isEmpty ||
                               descriptionController.text.isEmpty) {

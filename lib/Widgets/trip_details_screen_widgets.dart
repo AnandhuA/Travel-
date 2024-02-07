@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:travel/Styles/colors.dart';
 
 Widget animatedContainerWidget({
@@ -48,5 +49,83 @@ Widget animatedContainerWidget({
               ),
             ),
           ),
+  );
+}
+
+Widget durationWedget({
+  required Duration duration,
+  required bool countUp,
+  required TimeUnit time,
+  required String text,
+  required BuildContext context,
+}) {
+  final size = MediaQuery.of(context).size;
+  return Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: blue50,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    width: size.height * 0.1,
+    height: size.height * 0.12,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RawDigitItem(
+              duration: duration,
+              timeUnit: time,
+              digitType: DigitType.first,
+              countUp: countUp,
+              style: TextStyle(fontSize: 38, color: grey700),
+            ),
+            RawDigitItem(
+              duration: duration,
+              timeUnit: time,
+              digitType: DigitType.second,
+              countUp: countUp,
+              style: TextStyle(fontSize: 38, color: grey700),
+            ),
+          ],
+        ),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 11),
+        )
+      ],
+    ),
+  );
+}
+
+Widget listContainer({
+  required Function() ontap,
+  required BuildContext context,
+  required String text,
+  required IconData icon,
+}) {
+  return InkWell(
+    borderRadius: BorderRadius.circular(15),
+    onTap: ontap,
+    child: Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: blue50,
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 35,
+            color: blue,
+          ),
+          Text(text)
+        ],
+      ),
+    ),
   );
 }

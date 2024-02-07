@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel/Widgets/button.dart';
-import 'package:travel/Widgets/text_field_widet.dart';
 import 'package:travel/Styles/colors.dart';
 
 class AddCompanionsScreen extends StatefulWidget {
@@ -12,7 +11,7 @@ class AddCompanionsScreen extends StatefulWidget {
 
 int? numberOfPeople;
 String? travelType;
-int? budget;
+int budget = 100;
 
 String _selectedGroup = "Solo";
 int _number = 2;
@@ -79,51 +78,44 @@ class _AddCompanionsScreenState extends State<AddCompanionsScreen> {
               SizedBox(
                 height: screenHeight * 0.02,
               ),
-              headingWidget(
-                  context: context,
-                  heading: "Your Budget",
-                  icon: Icons.attach_money_outlined),
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
-                child: textField(
-                    controller: budgetController,
-                    keyboard: const TextInputType.numberWithOptions(),
-                    label: "Budget",
-                    icon: const Icon(
-                      Icons.monetization_on_outlined,
-                      color: orange,
-                    )),
-              ),
+              // headingWidget(
+              //     context: context,
+              //     heading: "Your Budget",
+              //     icon: Icons.attach_money_outlined),
+              // SizedBox(
+              //   height: screenHeight * 0.02,
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
+              //   child: textField(
+              //       controller: budgetController,
+              //       keyboard: const TextInputType.numberWithOptions(),
+              //       label: "Budget",
+              //       icon: const Icon(
+              //         Icons.monetization_on_outlined,
+              //         color: orange,
+              //       )),
+              // ),
               SizedBox(
                 height: screenHeight * 0.05,
               ),
               addButton(
                   onpress: () {
-                    if (budgetController.text.isNotEmpty) {
-                      if (_selectedGroup == "Solo") {
-                        travelType = "Solo";
-                        numberOfPeople = 1;
-                      } else if (_selectedGroup == "Couple") {
-                        travelType = "Couple";
-                        numberOfPeople = 2;
-                      } else if (_selectedGroup == "Family") {
-                        travelType = "Family";
-                        numberOfPeople = _number;
-                      } else {
-                        travelType = "Friends";
-                        numberOfPeople = _number;
-                      }
-                      budget = int.parse(budgetController.text);
-                      Navigator.pushNamed(context, "AddTripPlan");
+                    if (_selectedGroup == "Solo") {
+                      travelType = "Solo";
+                      numberOfPeople = 1;
+                    } else if (_selectedGroup == "Couple") {
+                      travelType = "Couple";
+                      numberOfPeople = 2;
+                    } else if (_selectedGroup == "Family") {
+                      travelType = "Family";
+                      numberOfPeople = _number;
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("select all feilds"),
-                        backgroundColor: red,
-                      ));
+                      travelType = "Friends";
+                      numberOfPeople = _number;
                     }
+
+                    Navigator.pushNamed(context, "AddTripPlan");
                   },
                   color: blue,
                   add: "Next"),

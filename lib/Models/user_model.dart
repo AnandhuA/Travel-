@@ -1,6 +1,29 @@
 import 'package:hive_flutter/hive_flutter.dart';
 part 'user_model.g.dart';
 
+@HiveType(typeId: 2)
+class PackingListModel {
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
+  final String item;
+  @HiveField(2)
+  final int tripId;
+  @HiveField(3)
+  final bool check;
+  @HiveField(4)
+  final String quantity;
+
+
+  PackingListModel({
+    required this.id,
+    required this.item,
+    required this.tripId,
+    required this.check,
+    required this.quantity,
+  });
+}
+
 @HiveType(typeId: 3)
 class FavoriteModel {
   @HiveField(0)
@@ -10,8 +33,11 @@ class FavoriteModel {
   @HiveField(2)
   final String uid;
 
-  FavoriteModel(
-      {required this.id, required this.favoritePlace, required this.uid});
+  FavoriteModel({
+    required this.id,
+    required this.favoritePlace,
+    required this.uid,
+  });
 }
 
 @HiveType(typeId: 4)
@@ -56,4 +82,3 @@ class TripModel {
     required this.notification,
   });
 }
-
