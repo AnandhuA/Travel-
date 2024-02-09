@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
-import 'package:travel/Styles/colors.dart';
+import 'package:travel/Widgets/packing_list_tile.dart';
 
-class PackingListScreen extends StatelessWidget {
+class PackingListScreen extends StatefulWidget {
   final int id;
-  PackingListScreen({super.key, required this.id});
+  const PackingListScreen({super.key, required this.id});
 
+  @override
+  State<PackingListScreen> createState() => _PackingListScreenState();
+}
+
+class _PackingListScreenState extends State<PackingListScreen> {
   final TextEditingController itemController = TextEditingController();
 
   final TextEditingController quantityController = TextEditingController();
@@ -37,7 +41,7 @@ class PackingListScreen extends StatelessWidget {
                       TextField(
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
-                          label: Text("Quantity"),
+                          label: Text("Quantity (Optional)"),
                         ),
                         controller: quantityController,
                       ),
@@ -54,8 +58,10 @@ class PackingListScreen extends StatelessWidget {
                                 .microsecondsSinceEpoch
                                 .toString(),
                             item: itemController.text,
-                            quantity: quantityController.text,
-                            tripId: id,
+                            quantity: quantityController.text.isEmpty
+                                ? "1"
+                                : quantityController.text,
+                            tripId: widget.id,
                             check: false,
                           ),
                         );
@@ -81,106 +87,14 @@ class PackingListScreen extends StatelessWidget {
         builder: (context, value, child) {
           List<PackingListModel> newlist = [];
           for (int i = 0; i < items.value.length; i++) {
-            if (items.value[i].tripId == id) {
+            if (items.value[i].tripId == widget.id) {
               newlist.add(items.value[i]);
             }
           }
 
           return ListView.separated(
             itemBuilder: (context, index) {
-              return Slidable(
-                key: Key(newlist[index].id.toString()),
-                startActionPane: ActionPane(
-                  extentRatio: 0.25,
-                  motion: const Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StretchMotion(),
-                  ),
-                  children: [
-                    SlidableAction(
-                      borderRadius: BorderRadius.circular(15),
-                      backgroundColor: red50,
-                      autoClose: true,
-                      onPressed: (context) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          duration: Duration(seconds: 1),
-                          content: Text("Delete successfully"),
-                          backgroundColor: black,
-                        ));
-                        delectPackingIteam(
-                          packingModel: newlist[index],
-                        );
-                      },
-                      foregroundColor: red,
-                      icon: Icons.delete,
-                      label: "Delect",
-                    ),
-                  ],
-                ),
-                endActionPane: ActionPane(
-                  extentRatio: 0.25,
-                  motion: const Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StretchMotion(),
-                  ),
-                  children: [
-                    SlidableAction(
-                      borderRadius: BorderRadius.circular(15),
-                      backgroundColor: red50,
-                      autoClose: true,
-                      onPressed: (context) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          duration: Duration(seconds: 1),
-                          content: Text("Delete successfully"),
-                          backgroundColor: black,
-                        ));
-                        delectPackingIteam(
-                          packingModel: newlist[index],
-                        );
-                      },
-                      foregroundColor: red,
-                      icon: Icons.delete,
-                      label: "Delect",
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: ListTile(
-                    title: Text(
-                      "${newlist[index].item} (${newlist[index].quantity} )",
-                      style: const TextStyle(
-                        color: black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    trailing: Checkbox(
-                      activeColor: green,
-                      onChanged: (value) {
-                        if (value != null) {
-                          addPackingItems(
-                            packingModel: PackingListModel(
-                              id: newlist[index].id,
-                              item: newlist[index].item,
-                              tripId: newlist[index].tripId,
-                              quantity: newlist[index].quantity,
-                              check: value,
-                            ),
-                          );
-                        }
-                      },
-                      value: newlist[index].check,
-                    ),
-                    tileColor: blue50,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              );
+              return PackingListTile(newlist: newlist, index: index);
             },
             separatorBuilder: (context, index) => const SizedBox(
               height: 5,

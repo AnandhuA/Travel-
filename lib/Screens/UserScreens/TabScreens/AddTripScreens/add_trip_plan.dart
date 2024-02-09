@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
-import 'package:travel/Notifications/show_notification.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_travel_companions.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/AddTripScreens/add_trip_screen.dart';
 import 'package:travel/Screens/UserScreens/user_home_screen.dart';
@@ -191,15 +190,15 @@ _buttonClick({
     );
     await addTrip(trip: trip);
 
-    DateTime tripDateTime = convertDateTime(trip: trip);
-    if (tripDateTime.isAfter(DateTime.now())) {
-      showNotification(
-          date: tripDateTime,
-          title: trip.destination,
-          body: trip.description,
-          id: trip.id);
-    }
-  selectedRangeStart = null;
+    // DateTime tripDateTime = convertDateTime(trip: trip);
+    // if (tripDateTime.isAfter(DateTime.now())) {
+    //   showNotification(
+    //       date: tripDateTime,
+    //       title: trip.destination,
+    //       body: trip.description,
+    //       id: trip.id);
+    // }
+    selectedRangeStart = null;
     selectedRangeEnd = null;
     selectedTime = "";
     destination = null;
@@ -209,7 +208,9 @@ _buttonClick({
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const UserHomeScreen(index: 1,),
+        builder: (context) => const UserHomeScreen(
+          index: 1,
+        ),
       ),
     );
   }

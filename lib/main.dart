@@ -40,6 +40,15 @@ void main() async {
   if (!Hive.isAdapterRegistered(PackingListModelAdapter().typeId)) {
     Hive.registerAdapter(PackingListModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(ExpensesModelAdapter().typeId)) {
+    Hive.registerAdapter(ExpensesModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(ColorAdapter().typeId)) {
+    Hive.registerAdapter(ColorAdapter());
+  }
+  if (!Hive.isAdapterRegistered(IconDataAdapter().typeId)) {
+    Hive.registerAdapter(IconDataAdapter());
+  }
 
   await getFireBaseDetails();
   await userRefresh();
@@ -62,7 +71,9 @@ class MyApp extends StatelessWidget {
         "SigUp": (context) => const SignUpScreen(),
         "AdminHomePage": (context) => const AdminHomeScreen(),
         "AddPlace": (context) => const AddPlaceScreen(),
-        "HomePage": (context) => const UserHomeScreen(index: 0,),
+        "HomePage": (context) => const UserHomeScreen(
+              index: 0,
+            ),
         "IntroPage": (context) => const IntroScreen(),
         "AddCompanions": (context) => const AddCompanionsScreen(),
         "AddTripPlan": (context) => const AddTripPlan()

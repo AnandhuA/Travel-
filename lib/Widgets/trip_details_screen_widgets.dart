@@ -67,7 +67,7 @@ Widget durationWedget({
       borderRadius: BorderRadius.circular(20),
     ),
     width: size.height * 0.1,
-    height: size.height * 0.12,
+    height: size.height * 0.13,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

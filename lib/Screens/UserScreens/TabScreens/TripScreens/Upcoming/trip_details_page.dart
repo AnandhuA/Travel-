@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:slide_countdown/slide_countdown.dart';
+import 'package:travel/Functions/user_functions.dart';
 import 'package:travel/Models/user_model.dart';
 import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/packing_list.dart';
+import 'package:travel/Screens/UserScreens/TabScreens/TripScreens/Upcoming/expenses_screen.dart';
 import 'package:travel/Widgets/time_line_widget.dart';
 import 'package:travel/Widgets/trip_details_screen_widgets.dart';
 
@@ -24,6 +26,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   @override
   void initState() {
     super.initState();
+    expensesTolist(trip: widget.trip.id);
     DateTime now = DateTime.now();
     difference = widget.trip.rangeStart.difference(now);
 
@@ -47,7 +50,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     String start = DateFormat('dd MMM yyyy').format(trip.rangeStart);
     return Scaffold(
       appBar: AppBar(
-        
         title: Text(trip.destination),
       ),
       // floatingActionButton: FloatingActionButton(
@@ -143,18 +145,19 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   icon: Icons.shopping_bag_outlined,
                   text: "Packing List",
                 ),
-                // listContainer(
-                //   context: context,
-                //   ontap: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => const ToDoListScreen(),
-                //         ));
-                //   },
-                //   icon: Icons.toc_outlined,
-                //   text: "To Do List",
-                // ),
+                listContainer(
+                  context: context,
+                  ontap: () {
+                    
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  ExpensesScreen(tripId: trip.id,),
+                        ));
+                  },
+                  icon: Icons.wallet_outlined,
+                  text: "Expenses",
+                ),
               ],
             ),
 

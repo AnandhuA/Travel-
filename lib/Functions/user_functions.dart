@@ -11,11 +11,13 @@ const favoriteDbName = "favorite-database";
 const tripDbName = "trip-database";
 const userDbName = "user-database";
 const iteamsDbName = "iteam-database";
+const expensesDbName = "expenses-database";
 
 ValueNotifier<List<PlaceModel>> favplace = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripList = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripListCompleted = ValueNotifier([]);
 ValueNotifier<List<PackingListModel>> items = ValueNotifier([]);
+ValueNotifier<List<ExpensesModel>> expensesList = ValueNotifier([]);
 
 addPackingItems({required PackingListModel packingModel}) async {
   final iteamBox = await Hive.openBox<PackingListModel>(iteamsDbName);
@@ -70,11 +72,40 @@ Future<List<TripModel>> getTrip() async {
   return tripBox.values.toList();
 }
 
+addExpenses({required ExpensesModel expenses}) async {
+  final expensesBox = await Hive.openBox<ExpensesModel>(expensesDbName);
+  await expensesBox.put(expenses.id, expenses);
+  expensesList.notifyListeners();
+}
+
+deleteExpenses({required ExpensesModel expenses}) async {
+  final expensesBox = await Hive.openBox<ExpensesModel>(expensesDbName);
+  await expensesBox.delete(expenses.id);
+  expensesList.notifyListeners();
+}
+
+Future<List<ExpensesModel>> getExpenses() async {
+  final expensesBox = await Hive.openBox<ExpensesModel>(expensesDbName);
+  return expensesBox.values.toList();
+}
+
 tripIteamsTolist() async {
   items.value.clear();
+
   final item = await getPackingIteams();
+
   items.value = List.from(item);
   items.notifyListeners();
+}
+
+expensesTolist({required int trip}) async {
+  expensesList.value.clear();
+  final exp = await getExpenses();
+  Future.forEach(exp, (element) {
+    if (element.tripId == trip) {
+      expensesList.value.add(element);
+    }
+  });
 }
 
 userRefresh() async {
