@@ -12,12 +12,18 @@ const tripDbName = "trip-database";
 const userDbName = "user-database";
 const iteamsDbName = "iteam-database";
 const expensesDbName = "expenses-database";
+const completedTripDbName = "completedTrip-database";
+const completedTripBlogDbName = "completedBlogTrip-database";
 
 ValueNotifier<List<PlaceModel>> favplace = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripList = ValueNotifier([]);
 ValueNotifier<List<TripModel>> tripListCompleted = ValueNotifier([]);
 ValueNotifier<List<PackingListModel>> items = ValueNotifier([]);
 ValueNotifier<List<ExpensesModel>> expensesList = ValueNotifier([]);
+ValueNotifier<List<CompletedTripModelPhotos>> completedTripList =
+    ValueNotifier([]);
+ValueNotifier<List<CompletedTripModelBlog>> completedTripListBlog =
+    ValueNotifier([]);
 
 addPackingItems({required PackingListModel packingModel}) async {
   final iteamBox = await Hive.openBox<PackingListModel>(iteamsDbName);
@@ -91,11 +97,63 @@ Future<List<ExpensesModel>> getExpenses() async {
 
 tripIteamsTolist() async {
   items.value.clear();
-
   final item = await getPackingIteams();
-
   items.value = List.from(item);
   items.notifyListeners();
+}
+
+addMemories({required CompletedTripModelPhotos completedTrip}) async {
+  final completedTripBox =
+      await Hive.openBox<CompletedTripModelPhotos>(completedTripDbName);
+  await completedTripBox.put(completedTrip.id, completedTrip);
+  await completedTripToList();
+}
+
+removeImage({required CompletedTripModelPhotos completedTrip}) async {
+  final completedTripBox =
+      await Hive.openBox<CompletedTripModelPhotos>(completedTripDbName);
+  await completedTripBox.delete(completedTrip.id);
+  await completedTripToList();
+  completedTripList.notifyListeners();
+}
+
+Future<List<CompletedTripModelPhotos>> getcompletedTrip() async {
+  final completedTripBox =
+      await Hive.openBox<CompletedTripModelPhotos>(completedTripDbName);
+  return completedTripBox.values.toList();
+}
+
+addBlog({required CompletedTripModelBlog blog}) async {
+  final completedTripBlogBox =
+      await Hive.openBox<CompletedTripModelBlog>(completedTripBlogDbName);
+  await completedTripBlogBox.put(blog.id, blog);
+  await blogToList();
+    completedTripListBlog.notifyListeners();
+}
+
+removeBLog({required CompletedTripModelBlog blog}) async {
+  final completedTripBlogBox =
+      await Hive.openBox<CompletedTripModelBlog>(completedTripBlogDbName);
+  await completedTripBlogBox.delete(blog.id);
+}
+
+Future<List<CompletedTripModelBlog>> getBlogs() async {
+  final completedTripBlogBox =
+      await Hive.openBox<CompletedTripModelBlog>(completedTripBlogDbName);
+  return completedTripBlogBox.values.toList();
+}
+
+blogToList() async {
+  completedTripListBlog.value.clear();
+  final blog = await getBlogs();
+  completedTripListBlog.value = List.from(blog);
+}
+
+completedTripToList() async {
+  completedTripList.value.clear();
+  final completedTrip = await getcompletedTrip();
+
+  completedTripList.value = List.from(completedTrip);
 }
 
 expensesTolist({required int trip}) async {

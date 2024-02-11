@@ -114,10 +114,9 @@ class TripModel {
   });
 }
 
-
 class ColorAdapter extends TypeAdapter<Color> {
   @override
-  final typeId = 5; 
+  final typeId = 5;
 
   @override
   Color read(BinaryReader reader) {
@@ -130,9 +129,10 @@ class ColorAdapter extends TypeAdapter<Color> {
     writer.writeInt(obj.value);
   }
 }
+
 class IconDataAdapter extends TypeAdapter<IconData> {
   @override
-  final typeId = 6; 
+  final typeId = 6;
   @override
   IconData read(BinaryReader reader) {
     final iconCode = reader.readInt();
@@ -143,4 +143,35 @@ class IconDataAdapter extends TypeAdapter<IconData> {
   void write(BinaryWriter writer, IconData obj) {
     writer.writeInt(obj.codePoint);
   }
+}
+
+@HiveType(typeId: 7)
+class CompletedTripModelPhotos {
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
+  String photos;
+  @HiveField(2)
+  final int tripId;
+  CompletedTripModelPhotos({
+    required this.id,
+    required this.photos,
+    required this.tripId,
+  });
+}
+
+@HiveType(typeId: 8)
+class CompletedTripModelBlog {
+  @HiveField(0)
+  final String id;
+  @HiveField(1)
+  final String blog;
+  @HiveField(2)
+  final int tripId;
+
+  CompletedTripModelBlog({
+    required this.id,
+    required this.blog,
+    required this.tripId,
+  });
 }

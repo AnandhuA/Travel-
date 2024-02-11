@@ -214,3 +214,85 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class CompletedTripModelPhotosAdapter
+    extends TypeAdapter<CompletedTripModelPhotos> {
+  @override
+  final int typeId = 7;
+
+  @override
+  CompletedTripModelPhotos read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CompletedTripModelPhotos(
+      id: fields[0] as String,
+      photos: fields[1] as String,
+      tripId: fields[2] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CompletedTripModelPhotos obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.photos)
+      ..writeByte(2)
+      ..write(obj.tripId);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CompletedTripModelPhotosAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CompletedTripModelBlogAdapter
+    extends TypeAdapter<CompletedTripModelBlog> {
+  @override
+  final int typeId = 8;
+
+  @override
+  CompletedTripModelBlog read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CompletedTripModelBlog(
+      id: fields[0] as String,
+      blog: fields[1] as String,
+      tripId: fields[2] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CompletedTripModelBlog obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.blog)
+      ..writeByte(2)
+      ..write(obj.tripId);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CompletedTripModelBlogAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

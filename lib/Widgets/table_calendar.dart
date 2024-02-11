@@ -53,8 +53,8 @@ class _CalenderViewState extends State<CalenderView> {
           dateTimeNow = focusedDay;
         });
       },
-      firstDay: DateTime.now(),
-      // firstDay: DateTime.utc(2014),
+      // firstDay: DateTime.now(),
+      firstDay: DateTime.utc(2014),
 
       lastDay: DateTime.utc(2030),
       onDaySelected: (selectedDay, focusedDay) {},

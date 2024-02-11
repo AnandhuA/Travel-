@@ -62,8 +62,9 @@ class ComplectedTrip extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    CompletedTripDetails(index: index),
+                                builder: (context) => CompletedTripDetails(
+                                  trip: trip,
+                                ),
                               ));
                         },
                         tileColor: cyan50,
