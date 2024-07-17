@@ -59,8 +59,8 @@ This Flutter-based travel planning app is designed to streamline the process of 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/music-app.git
-   cd music-app
+   git clone https://github.com/AnandhuA/Travel-.git
+   cd Travel
 
 2. Install dependencies:
    ```bash
